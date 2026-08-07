@@ -54,6 +54,21 @@ document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((a) => {
   });
 });
 
+/* ── Knopf-Punkte einsetzen ─────────────────────────────────────
+   Drei Punkte je Knopf, per Skript ergänzt — so bleibt das HTML
+   sauber und jeder neue Knopf bekommt die Füllung automatisch. */
+(function knopfPunkte() {
+  document.querySelectorAll('.knopf').forEach((k) => {
+    if (k.querySelector('.knopf__punkt')) return;
+    for (let i = 0; i < 3; i++) {
+      const s = document.createElement('span');
+      s.className = 'knopf__punkt';
+      s.setAttribute('aria-hidden', 'true');
+      k.insertBefore(s, k.firstChild);
+    }
+  });
+})();
+
 /* ── Einblendung ────────────────────────────────────────────── */
 (function reveals() {
   const rein = (ziele, ausloeser, verzug = 0) => {
