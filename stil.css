@@ -42,13 +42,15 @@
   --t-flaeche:.3s;
   --t-bild:.6s;
   --t-bedien:.46s;
+  --t-oeffnen:.3s;  /* Akkordeon: Redondo braucht 265 ms, nicht 400 */
   /* Menü-Hover: an Shinta gemessen t98 155 ms — also RUND DREIMAL
      schneller als eine Text-Rolle. Das war der spürbare Unterschied. */
   --t-menue:.13s;   /* wie die Knöpfe — ein Tempo für alle Bedienelemente */
   /* Knopf-Hover: Shinta kippt seine Knöpfe um 6°. Bewusst NICHT
      übernommen — schräge Knöpfe wirken unseriös. Stattdessen ein
      klar spürbares Wachsen plus ein kleiner Lift, gleiche Dauer. */
-  --t-knopf:.13s;   /* Bedienelemente: Farbe UND Form gleich schnell.
+  --t-knopf:.13s;
+  --t-fuell:.42s;   /* Punkte-Füllung, an Redondo gemessen (~400 ms) */   /* Bedienelemente: Farbe UND Form gleich schnell.
      Lief die Farbe auf .3s und die Form auf .13s, wirkte der Knopf
      träge, obwohl er sofort wächst — der Versatz fällt auf. */
   --kipp:scale(1.05) translateY(-2px);
@@ -110,11 +112,31 @@ h1 .brush,h2 .brush{font-size:.72em;letter-spacing:-.01em;
   text-underline-offset:4px;text-decoration-thickness:2px}
 
 /* ── Knöpfe: gross und rund ────────────────────────────────── */
-.knopf{display:inline-flex;align-items:center;justify-content:center;
+/* ── Knopf: Punkte-Füllung ──────────────────────────────────────
+   An redondo.design abgelesen: der Knopf wechselt NICHT die Farbe,
+   sondern drei Punkte wachsen auf das 3,3-fache und wandern nach
+   unten, bis sie zur Fläche verschmelzen. Dauert mit ~400 ms länger
+   als ein Farbwechsel, wirkt aber viel weicher — genau das ist der
+   Unterschied, den man als „smoother" liest. */
+.knopf{position:relative;overflow:hidden;isolation:isolate;
+  display:inline-flex;align-items:center;justify-content:center;
   border-radius:var(--r-pille);font-weight:700;font-size:18px;letter-spacing:-.01em;
-  padding:16px 28px;transition:background-color var(--t-knopf) var(--kurve-rein),
-    color var(--t-knopf) var(--kurve-rein),border-color var(--t-knopf) var(--kurve-rein),
+  padding:16px 28px;transition:color var(--t-knopf) var(--kurve-rein),
+    border-color var(--t-knopf) var(--kurve-rein),
     transform var(--t-knopf) var(--kurve-rein)}
+.knopf > *{position:relative;z-index:1}
+.knopf__punkt{position:absolute;z-index:0;bottom:-14%;width:26px;height:26px;
+  border-radius:50%;background:var(--knopf-fuell,var(--violett));
+  transform:translateY(70%) scale(0);
+  transition:transform var(--t-fuell) var(--kurve-rein)}
+.knopf__punkt:nth-child(1){left:8%;transition-delay:0s}
+.knopf__punkt:nth-child(2){left:50%;margin-left:-13px;transition-delay:.035s}
+.knopf__punkt:nth-child(3){right:8%;transition-delay:.07s}
+.knopf:hover .knopf__punkt,.knopf:focus-visible .knopf__punkt{
+  transform:translateY(-14%) scale(3.4)}
+/* Beim Verlassen laufen die Punkte in umgekehrter Reihenfolge zurück */
+.knopf:not(:hover) .knopf__punkt:nth-child(1){transition-delay:.07s}
+.knopf:not(:hover) .knopf__punkt:nth-child(3){transition-delay:0s}
 .knopf:hover,.knopf:focus-visible{transform:var(--kipp)}
 /* Der zweite Textknoten der Rolle stört hier — der Knopf kippt als
    Ganzes, statt den Text durchrollen zu lassen. */
@@ -122,12 +144,10 @@ h1 .brush,h2 .brush{font-size:.72em;letter-spacing:-.01em;
 .knopf:hover .rolle > span{transform:none}
 .knopf.gross{font-size:20px;padding:21px 38px}
 .knopf.voll{width:100%}
-.knopf--dunkel{background:var(--tinte);color:var(--creme)}
-.knopf--dunkel:hover{background:var(--violett)}
-.knopf--akzent{background:var(--violett);color:#fff}
-.knopf--akzent:hover{background:var(--violett-tief)}
-.knopf--rand{border:2px solid var(--linie);color:var(--tinte)}
-.knopf--rand:hover{background:var(--tinte);border-color:var(--tinte);color:var(--creme)}
+.knopf--dunkel{background:var(--tinte);color:var(--creme);--knopf-fuell:var(--violett)}
+.knopf--akzent{background:var(--violett);color:#fff;--knopf-fuell:var(--violett-tief)}
+.knopf--rand{border:2px solid var(--linie);color:var(--tinte);--knopf-fuell:var(--tinte)}
+.knopf--rand:hover{border-color:var(--tinte);color:var(--creme)}
 .knopf:active{transform:scale(.98)}
 
 .kreis{width:62px;height:62px;flex:none;border-radius:50%;background:var(--violett);
@@ -278,8 +298,7 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
   line-height:1.12;margin-top:4px}
 .ndd__karte-text{font-size:15px;line-height:1.5;color:rgb(255 255 255 / .78)}
 .ndd__karte .knopf{margin-top:auto;background:var(--creme);color:var(--tinte);
-  font-size:16px;padding:14px 24px}
-.ndd__karte .knopf:hover{background:#fff}
+  font-size:16px;padding:14px 24px;--knopf-fuell:#fff}
 
 @media (max-width:1240px){ .ndd__panel{display:none} }
 
@@ -377,24 +396,24 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
 .lz.ist .lz__zeichen i:last-child{transform:scaleY(0)}
 
 .lz__huelle{height:0;overflow:hidden;
-  transition:height var(--t-bedien) var(--kurve)}
+  transition:height var(--t-oeffnen) var(--kurve)}
 .lz__leib{display:grid;grid-template-columns:minmax(0,34ch) 1fr 360px;
   gap:clamp(24px,3vw,54px);padding:0 0 clamp(30px,3vw,48px);align-items:start}
 .lz__text{font-size:clamp(17px,1.35vw,21px);font-weight:700;line-height:1.4;
   letter-spacing:-.015em;opacity:0;transform:translateY(10px);
-  transition:opacity var(--t-bedien) var(--kurve),transform var(--t-bedien) var(--kurve)}
+  transition:opacity var(--t-oeffnen) var(--kurve),transform var(--t-oeffnen) var(--kurve)}
 .lz__tags{display:grid;grid-template-columns:repeat(3,1fr);
   gap:clamp(14px,1.6vw,28px);align-items:start;
   opacity:0;transform:translateY(10px);
-  transition:opacity var(--t-bedien) var(--kurve) .05s,
-             transform var(--t-bedien) var(--kurve) .05s}
+  transition:opacity var(--t-oeffnen) var(--kurve) .06s,
+             transform var(--t-oeffnen) var(--kurve) .06s}
 .lz__tags ul{display:grid;gap:8px;align-content:start}
 .lz__tags li{font-size:13px;font-weight:600;letter-spacing:.07em;
   text-transform:uppercase;color:rgb(247 247 245 / .62)}
 .lz__bild{border-radius:var(--r-mittel);overflow:hidden;background:var(--tinte-2);
   opacity:0;transform:translateY(10px) scale(.96);
-  transition:opacity var(--t-bedien) var(--kurve) .1s,
-             transform var(--t-bedien) var(--kurve) .1s}
+  transition:opacity .3s var(--kurve) .13s,
+             transform .3s var(--kurve) .13s}
 .lz__bild img{width:100%;height:230px;object-fit:cover}
 .lz.ist .lz__text,.lz.ist .lz__tags,.lz.ist .lz__bild{opacity:1;transform:none}
 
@@ -561,8 +580,8 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
   transform:rotate(-45deg)}
 .paket--voll .haken li::before{border-color:var(--violett)}
 .paket .knopf{margin-top:auto}
-.paket .knopf--rand{border-color:var(--linie-hell);color:var(--creme)}
-.paket .knopf--rand:hover{background:var(--creme);border-color:var(--creme);color:var(--tinte)}
+.paket .knopf--rand{border-color:var(--linie-hell);color:var(--creme);--knopf-fuell:var(--creme)}
+.paket .knopf--rand:hover{border-color:var(--creme);color:var(--tinte)}
 
 /* ── 10 · Stimmen ──────────────────────────────────────────── */
 .stimmen{padding:var(--sec) var(--pad) 0;max-width:1600px;margin:0 auto}
@@ -631,8 +650,7 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
   display:grid;justify-items:center;gap:10px}
 .ruf__karte .brush{color:rgb(255 255 255 / .72)}
 .ruf__karte h2{margin-bottom:16px}
-.ruf__karte .knopf--akzent{background:var(--creme);color:var(--tinte)}
-.ruf__karte .knopf--akzent:hover{background:#fff}
+.ruf__karte .knopf--akzent{background:var(--creme);color:var(--tinte);--knopf-fuell:#fff}
 .ruf__mail{margin-top:24px;font-size:clamp(20px,2vw,30px);font-weight:700;
   letter-spacing:-.03em;opacity:.85}
 
