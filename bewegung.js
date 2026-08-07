@@ -177,6 +177,45 @@ document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((a) => {
   addEventListener('resize', () => { breite = satz.getBoundingClientRect().width; });
 })();
 
+/* ── Leistungs-Akkordeon ────────────────────────────────────────
+   Höhe wird animiert (natives details springt), Inhalt fährt leicht
+   gestaffelt heraus: Text, dann Schlagworte, dann Bild. Es bleibt
+   immer nur eine Zeile offen. */
+(function leistungen() {
+  const zeilen = [...document.querySelectorAll('#lzliste .lz')];
+  if (!zeilen.length) return;
+
+  const zu = (lz) => {
+    const h = lz.querySelector('.lz__huelle');
+    h.style.height = h.scrollHeight + 'px';
+    requestAnimationFrame(() => { h.style.height = '0px'; });
+    lz.classList.remove('ist');
+    lz.querySelector('.lz__kopf').setAttribute('aria-expanded', 'false');
+  };
+  const auf = (lz) => {
+    const h = lz.querySelector('.lz__huelle');
+    h.style.height = h.querySelector('.lz__leib').offsetHeight + 'px';
+    lz.classList.add('ist');
+    lz.querySelector('.lz__kopf').setAttribute('aria-expanded', 'true');
+    const fertig = (e) => {
+      if (e.propertyName !== 'height') return;
+      if (lz.classList.contains('ist')) h.style.height = 'auto';
+      h.removeEventListener('transitionend', fertig);
+    };
+    h.addEventListener('transitionend', fertig);
+  };
+
+  zeilen.forEach((lz) => {
+    lz.querySelector('.lz__kopf').addEventListener('click', () => {
+      const offen = lz.classList.contains('ist');
+      zeilen.forEach((a) => { if (a.classList.contains('ist')) zu(a); });
+      if (!offen) auf(lz);
+    });
+  });
+  // Erste Zeile offen starten, damit die Sektion nicht leer wirkt
+  auf(zeilen[0]);
+})();
+
 /* ── Video-Referenzen ───────────────────────────────────────────
    Muster aus der ersten KLARTEXT-Seite: Vollbild-Video, Zitat in
    Guillemets, Chip-Leiste zum Umschalten. Das Video startet erst im

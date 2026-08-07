@@ -334,47 +334,69 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
   opacity:.55;transition:opacity var(--t-farbe) var(--kurve)}
 .ref--mark:hover span{opacity:1}
 
-/* ── 4 · Leistungen ────────────────────────────────────────── */
+/* ── 4 · Leistungen ─────────────────────────────────────────────
+   Akkordeon mit Riesentypo auf schwarzem Block: Nummer, Name, ein
+   Kreis mit Plus rechts. Beim Überfahren geht die Zeile auf Violett,
+   beim Öffnen fahren Text, Schlagworte und Bild heraus.
+   Kombination aus der Redondo-Struktur und unserem Bild aus der
+   ersten Fassung. */
 .dienste{padding:var(--sec) var(--pad) 0;max-width:1600px;margin:0 auto}
-.dienste .kopfzeile{max-width:1520px;margin-inline:auto}
-/* Leistungs-Zeilen — vollbreit, Foto blendet beim Überfahren ein.
-   Aus der ersten KLARTEXT-Seite übernommen, hier mit runden Ecken:
-   jede Zeile ist eine eigene Kachel, die beim Hover auf dunkel kippt. */
-.zeilen{max-width:1520px;margin-inline:auto;display:grid;gap:10px}
-.zeilen li a{position:relative;display:block;overflow:hidden;
-  border-radius:var(--r-mittel);background:var(--creme-3);
+.dienste__block{max-width:1520px;margin:0 auto;background:var(--tinte);
+  color:var(--creme);border-radius:var(--r-seite);
+  padding:clamp(40px,4.4vw,80px) clamp(26px,3vw,56px) clamp(40px,4vw,64px)}
+.dienste__kopf{margin-bottom:clamp(30px,3vw,52px)}
+.dienste__kopf .brush{color:var(--violett-hell);margin-bottom:14px}
+.dienste__kopf h2{max-width:16ch}
+
+.lzliste{border-top:1px solid var(--linie-hell)}
+.lz{border-bottom:1px solid var(--linie-hell)}
+
+.lz__kopf{width:100%;display:flex;align-items:center;
+  gap:clamp(14px,1.4vw,26px);text-align:left;
+  padding:clamp(20px,2.2vw,34px) 0;color:var(--creme);
+  transition:color var(--t-farbe) var(--kurve)}
+.lz__kopf:hover,.lz.ist .lz__kopf{color:var(--violett-hell)}
+.lz__nr{font-size:clamp(30px,4.4vw,86px);font-weight:800;letter-spacing:-.05em;
+  line-height:.9;font-variant-numeric:tabular-nums}
+.lz__name{font-size:clamp(30px,4.4vw,86px);font-weight:800;letter-spacing:-.05em;
+  line-height:.9;margin-right:auto}
+
+/* Kreis mit Plus — füllt sich beim Überfahren, klappt beim Öffnen zu */
+.lz__zeichen{position:relative;width:clamp(38px,3.4vw,54px);
+  height:clamp(38px,3.4vw,54px);border-radius:50%;flex:none;
+  display:grid;place-items:center;background:transparent;
   transition:background-color var(--t-flaeche) var(--kurve)}
-.zeile__bild{position:absolute;inset:0;opacity:0;
-  transition:opacity var(--t-bedien) var(--kurve)}
-.zeile__bild img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);
-  transition:transform var(--t-bild) var(--kurve)}
-/* Schleier etwas kräftiger und leicht entsättigt — die fünf Fotos
-   sind unterschiedlich hell, sonst wird eine Zeile milchig. */
-.zeile__bild img{filter:saturate(.72) brightness(.92)}
-.zeile__bild span{position:absolute;inset:0;background:rgb(14 13 11 / .7)}
-.zeilen li a:hover .zeile__bild,.zeilen li a:focus-visible .zeile__bild{opacity:1}
-.zeilen li a:hover .zeile__bild img{transform:scale(1)}
-.zeile__inhalt{position:relative;z-index:1;display:grid;align-items:center;
-  gap:0 34px;padding:clamp(26px,3.4vw,52px) clamp(26px,3vw,46px);
-  grid-template-columns:64px minmax(0,1fr) minmax(0,34ch) 44px;
-  transition:color var(--t-farbe) var(--kurve)}
-.zeilen li a:hover .zeile__inhalt{color:var(--creme)}
-.zeile__nr{display:grid;place-items:center;width:50px;height:50px;
-  border-radius:50%;border:2px solid currentColor;opacity:.4;
-  font-size:14px;font-weight:700}
-.zeile__name{font-size:clamp(32px,4.2vw,72px);font-weight:800;letter-spacing:-.045em;
-  line-height:1.02;text-decoration:underline;text-decoration-color:transparent;
-  text-decoration-thickness:3px;text-underline-offset:.14em;
-  transition:text-decoration-color var(--t-bedien) var(--kurve)}
-.zeilen li a:hover .zeile__name{text-decoration-color:var(--violett-hell)}
-.zeile__text{display:grid;gap:6px;font-size:16px;line-height:1.5}
-.zeile__text b{font-weight:700}
-.zeile__text em{font-style:normal;color:var(--grau);
-  transition:color var(--t-farbe) var(--kurve)}
-.zeilen li a:hover .zeile__text em{color:rgb(247 247 245 / .72)}
-.zeile__pfeil{font-size:28px;opacity:0;transform:translateX(-10px);
-  transition:opacity var(--t-farbe) var(--kurve),transform var(--t-bedien) var(--kurve)}
-.zeilen li a:hover .zeile__pfeil{opacity:1;transform:none}
+.lz__kopf:hover .lz__zeichen,.lz.ist .lz__zeichen{background:var(--violett)}
+.lz__zeichen i{position:absolute;background:var(--violett-hell);border-radius:2px;
+  transition:transform .3s var(--kurve),background-color var(--t-flaeche) var(--kurve)}
+.lz__zeichen i:first-child{width:44%;height:2.5px}
+.lz__zeichen i:last-child{width:2.5px;height:44%}
+.lz__kopf:hover .lz__zeichen i,.lz.ist .lz__zeichen i{background:#fff}
+.lz.ist .lz__zeichen i:last-child{transform:scaleY(0)}
+
+.lz__huelle{height:0;overflow:hidden;
+  transition:height var(--t-bedien) var(--kurve)}
+.lz__leib{display:grid;grid-template-columns:minmax(0,34ch) 1fr 360px;
+  gap:clamp(24px,3vw,54px);padding:0 0 clamp(30px,3vw,48px);align-items:start}
+.lz__text{font-size:clamp(17px,1.35vw,21px);font-weight:700;line-height:1.4;
+  letter-spacing:-.015em;opacity:0;transform:translateY(10px);
+  transition:opacity var(--t-bedien) var(--kurve),transform var(--t-bedien) var(--kurve)}
+.lz__tags{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(14px,1.6vw,28px);align-items:start;
+  opacity:0;transform:translateY(10px);
+  transition:opacity var(--t-bedien) var(--kurve) .05s,
+             transform var(--t-bedien) var(--kurve) .05s}
+.lz__tags ul{display:grid;gap:8px;align-content:start}
+.lz__tags li{font-size:13px;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;color:rgb(247 247 245 / .62)}
+.lz__bild{border-radius:var(--r-mittel);overflow:hidden;background:var(--tinte-2);
+  opacity:0;transform:translateY(10px) scale(.96);
+  transition:opacity var(--t-bedien) var(--kurve) .1s,
+             transform var(--t-bedien) var(--kurve) .1s}
+.lz__bild img{width:100%;height:230px;object-fit:cover}
+.lz.ist .lz__text,.lz.ist .lz__tags,.lz.ist .lz__bild{opacity:1;transform:none}
+
+.dienste__mehr{margin-top:clamp(30px,3vw,48px)}
 
 /* ── Video-Referenzen ─────────────────────────────────────────
    Muster aus der ersten Seite: Vollbild-Video, grosses Zitat in
@@ -684,7 +706,10 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
   .buehne__medien{grid-template-columns:1fr 1fr;gap:12px}
   .med--3{display:none}
   .med--1,.med--2{height:clamp(240px,50vw,380px)}
-  .dienste__raster,.zahlen,.faq,.kleben{grid-template-columns:1fr;gap:36px}
+  .zahlen,.faq,.kleben{grid-template-columns:1fr;gap:36px}
+  .lz__leib{grid-template-columns:1fr;gap:24px}
+  .lz__tags{grid-template-columns:repeat(2,1fr)}
+  .lz__bild img{height:200px}
   .dienste__vorschau{display:none}
   .kleben__halt,.faq__links{position:static}
   .ref__reihe{grid-template-columns:repeat(2,1fr)}

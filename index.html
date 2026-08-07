@@ -127,67 +127,105 @@
 
   <!-- ══ 4 · Leistungen ══ -->
   <section class="dienste" id="leistungen">
-    <div class="kopfzeile">
-      <div>
-        <span class="chip" data-rein>Leistungen</span>
+    <div class="dienste__block">
+      <div class="dienste__kopf">
+        <p class="brush">Unsere Leistungen</p>
         <h2 data-rein-zeilen><span>Was wir für euch</span><span>am besten können.</span></h2>
       </div>
-      <a class="knopf knopf--rand gross" href="#kontakt" data-rein>
-        <span class="rolle"><span>Alle Leistungen</span><span aria-hidden="true">Alle Leistungen</span></span>
-      </a>
+      <ol class="lzliste" id="lzliste">
+      <li class="lz" data-i="0">
+        <button class="lz__kopf" type="button" aria-expanded="false">
+          <span class="lz__nr">01</span>
+          <span class="lz__name">Branding</span>
+          <span class="lz__zeichen" aria-hidden="true"><i></i><i></i></span>
+        </button>
+        <div class="lz__huelle">
+          <div class="lz__leib">
+            <p class="lz__text">Das Fundament für alles, was danach kommt. Wir verstehen den Kontext, schauen auf den Wettbewerb und legen die Position fest — damit die Marke eine klare Richtung hat.</p>
+            <div class="lz__tags">
+              <ul><li>Recherche und Analyse</li><li>Zielgruppe und Kontext</li><li>Positionierung</li></ul>
+              <ul><li>Wortmarke</li><li>Farb- und Schriftsystem</li><li>Bildsprache</li></ul>
+              <ul><li>Markenarchitektur</li><li>Leitfaden</li></ul>
+            </div>
+            <figure class="lz__bild"><img src="bilder/dienst-1.jpg" alt="" loading="lazy"></figure>
+          </div>
+        </div>
+      </li>
+      <li class="lz" data-i="1">
+        <button class="lz__kopf" type="button" aria-expanded="false">
+          <span class="lz__nr">02</span>
+          <span class="lz__name">Social Media</span>
+          <span class="lz__zeichen" aria-hidden="true"><i></i><i></i></span>
+        </button>
+        <div class="lz__huelle">
+          <div class="lz__leib">
+            <p class="lz__text">Regelmässig statt sporadisch. Ein Redaktionsplan, der auf Zahlen fusst, Produktion im festen Rhythmus und eine Community, die tatsächlich betreut wird.</p>
+            <div class="lz__tags">
+              <ul><li>Redaktionsplan</li><li>Produktion</li></ul>
+              <ul><li>Formatentwicklung</li><li>Community</li></ul>
+              <ul><li>Kooperationen</li><li>Reporting</li></ul>
+            </div>
+            <figure class="lz__bild"><img src="bilder/dienst-2.jpg" alt="" loading="lazy"></figure>
+          </div>
+        </div>
+      </li>
+      <li class="lz" data-i="2">
+        <button class="lz__kopf" type="button" aria-expanded="false">
+          <span class="lz__nr">03</span>
+          <span class="lz__name">Websites</span>
+          <span class="lz__zeichen" aria-hidden="true"><i></i><i></i></span>
+        </button>
+        <div class="lz__huelle">
+          <div class="lz__leib">
+            <p class="lz__text">Auftritte, die verkaufen statt nur zu existieren. Konzept, Design und Umsetzung — und danach so gebaut, dass ihr Inhalte selbst pflegen könnt.</p>
+            <div class="lz__tags">
+              <ul><li>Konzept</li><li>Informationsarchitektur</li><li>Design</li></ul>
+              <ul><li>Umsetzung</li><li>Barrierefreiheit</li><li>Messung</li></ul>
+              <ul><li>Pflege</li></ul>
+            </div>
+            <figure class="lz__bild"><img src="bilder/dienst-3.jpg" alt="" loading="lazy"></figure>
+          </div>
+        </div>
+      </li>
+      <li class="lz" data-i="3">
+        <button class="lz__kopf" type="button" aria-expanded="false">
+          <span class="lz__nr">04</span>
+          <span class="lz__name">Performance</span>
+          <span class="lz__zeichen" aria-hidden="true"><i></i><i></i></span>
+        </button>
+        <div class="lz__huelle">
+          <div class="lz__leib">
+            <p class="lz__text">Budget, das arbeitet. Kampagnen mit sauberem Tracking, laufender Optimierung und ehrlichen Zahlen — auch wenn sie mal nicht schmeicheln.</p>
+            <div class="lz__tags">
+              <ul><li>Kampagnen</li><li>Zielgruppen</li></ul>
+              <ul><li>Tracking</li><li>A/B-Tests</li></ul>
+              <ul><li>Budgetsteuerung</li><li>Reporting</li></ul>
+            </div>
+            <figure class="lz__bild"><img src="bilder/dienst-4.jpg" alt="" loading="lazy"></figure>
+          </div>
+        </div>
+      </li>
+      <li class="lz" data-i="4">
+        <button class="lz__kopf" type="button" aria-expanded="false">
+          <span class="lz__nr">05</span>
+          <span class="lz__name">Motion</span>
+          <span class="lz__zeichen" aria-hidden="true"><i></i><i></i></span>
+        </button>
+        <div class="lz__huelle">
+          <div class="lz__leib">
+            <p class="lz__text">Bewegtbild für jeden Kanal. Vom Reel bis zum Imagefilm, aus einer Handschrift und mit einem Schnitt, der zur Marke passt.</p>
+            <div class="lz__tags">
+              <ul><li>Konzept</li><li>Dreh</li></ul>
+              <ul><li>Schnitt</li><li>Animation</li></ul>
+              <ul><li>Sounddesign</li><li>Untertitel</li></ul>
+            </div>
+            <figure class="lz__bild"><img src="bilder/dienst-5.jpg" alt="" loading="lazy"></figure>
+          </div>
+        </div>
+      </li>
+      </ol>
+      <a class="knopf knopf--akzent gross dienste__mehr" href="#kontakt">Gespräch buchen</a>
     </div>
-
-    <!-- Leistungs-Zeilen aus der ersten KLARTEXT-Seite: vollbreite
-         Zeilen, Nummernkreis, Riesenname, Text rechts. Beim Überfahren
-         blendet das Foto als Zeilenhintergrund ein und die Zeile kippt
-         auf dunkel. Hier zusätzlich mit runden Ecken. -->
-    <ol class="zeilen" data-zeilen>
-      <li data-rein><a href="#">
-        <div class="zeile__bild" aria-hidden="true"><img src="bilder/dienst-1.jpg" alt=""><span></span></div>
-        <div class="zeile__inhalt">
-          <span class="zeile__nr">01</span>
-          <span class="zeile__name">Branding</span>
-          <span class="zeile__text"><b>Positionierung, Wortmarke, Farb- und Schriftsystem.</b>
-            <em>Für Marken, die endlich sagen wollen, wofür sie stehen.</em></span>
-          <span class="zeile__pfeil" aria-hidden="true">→</span>
-        </div></a></li>
-      <li data-rein><a href="#">
-        <div class="zeile__bild" aria-hidden="true"><img src="bilder/dienst-2.jpg" alt=""><span></span></div>
-        <div class="zeile__inhalt">
-          <span class="zeile__nr">02</span>
-          <span class="zeile__name">Social Media</span>
-          <span class="zeile__text"><b>Redaktionsplan, Produktion und Community aus einer Hand.</b>
-            <em>Für Teams, die regelmässig liefern wollen statt sporadisch.</em></span>
-          <span class="zeile__pfeil" aria-hidden="true">→</span>
-        </div></a></li>
-      <li data-rein><a href="#">
-        <div class="zeile__bild" aria-hidden="true"><img src="bilder/dienst-3.jpg" alt=""><span></span></div>
-        <div class="zeile__inhalt">
-          <span class="zeile__nr">03</span>
-          <span class="zeile__name">Websites</span>
-          <span class="zeile__text"><b>Konzept, Design und Umsetzung — messbar schnell.</b>
-            <em>Für Auftritte, die verkaufen statt nur zu existieren.</em></span>
-          <span class="zeile__pfeil" aria-hidden="true">→</span>
-        </div></a></li>
-      <li data-rein><a href="#">
-        <div class="zeile__bild" aria-hidden="true"><img src="bilder/dienst-4.jpg" alt=""><span></span></div>
-        <div class="zeile__inhalt">
-          <span class="zeile__nr">04</span>
-          <span class="zeile__name">Performance</span>
-          <span class="zeile__text"><b>Kampagnen, Tracking und laufende Optimierung.</b>
-            <em>Für Budgets, die arbeiten sollen statt zu verbrennen.</em></span>
-          <span class="zeile__pfeil" aria-hidden="true">→</span>
-        </div></a></li>
-      <li data-rein><a href="#">
-        <div class="zeile__bild" aria-hidden="true"><img src="bilder/dienst-5.jpg" alt=""><span></span></div>
-        <div class="zeile__inhalt">
-          <span class="zeile__nr">05</span>
-          <span class="zeile__name">Motion</span>
-          <span class="zeile__text"><b>Video, Animation und Schnitt für alle Kanäle.</b>
-            <em>Für Inhalte, die im Feed nicht übersehen werden.</em></span>
-          <span class="zeile__pfeil" aria-hidden="true">→</span>
-        </div></a></li>
-    </ol>
   </section>
 
   <!-- ══ Video-Referenzen (aus der ersten Seite, jetzt rund) ══ -->
