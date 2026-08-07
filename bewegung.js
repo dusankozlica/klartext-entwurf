@@ -54,6 +54,34 @@ document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((a) => {
   });
 });
 
+/* ── Angeklickte Zeile unter dem Zeiger festhalten ──────────────
+   Im Akkordeon bleibt immer nur eine Zeile offen. Klickt man eine
+   Zeile an, während OBERHALB davon noch eine offen ist, schrumpft
+   der Bereich darüber — die geklickte Zeile rutscht um die volle
+   Panelhöhe nach oben und ihr Inhalt erscheint dort, wo vorher der
+   alte war. Das liest sich, als ginge das Panel nach OBEN auf statt
+   nach unten.
+
+   Chrome hat dafür eine eingebaute Korrektur (Scroll-Anchoring),
+   die hier aber nichts nützt: Lenis schreibt seinen eigenen Scroll-
+   wert in jedem Bild zurück und macht die Korrektur sofort wieder
+   zunichte. Deshalb halten wir die Zeile selbst fest — und zwar
+   ÜBER Lenis, sonst wird auch unsere Korrektur überschrieben. */
+function zeileHalten(el, dauerMs) {
+  const ziel = el.getBoundingClientRect().top;
+  const ende = performance.now() + dauerMs;
+  const halten = (jetzt) => {
+    const versatz = el.getBoundingClientRect().top - ziel;
+    /* Unter einem halben Pixel lohnt die Korrektur nicht — sie würde
+       nur unnötig gegen Lenis' eigene Bewegung arbeiten. */
+    if (Math.abs(versatz) > 0.5) {
+      lenis.scrollTo(lenis.animatedScroll + versatz, { immediate: true });
+    }
+    if (jetzt < ende) requestAnimationFrame(halten);
+  };
+  requestAnimationFrame(halten);
+}
+
 /* ── Knopf-Punkte einsetzen ─────────────────────────────────────
    Drei Punkte je Knopf, per Skript ergänzt — so bleibt das HTML
    sauber und jeder neue Knopf bekommt die Füllung automatisch. */
@@ -223,10 +251,14 @@ document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((a) => {
   };
 
   zeilen.forEach((lz) => {
-    lz.querySelector('.lz__kopf').addEventListener('click', () => {
+    const kopf = lz.querySelector('.lz__kopf');
+    kopf.addEventListener('click', () => {
       const offen = lz.classList.contains('ist');
       zeilen.forEach((a) => { if (a.classList.contains('ist')) zu(a); });
       if (!offen) auf(lz);
+      /* 460 ms: Öffnen und Schliessen laufen 300 ms, das Schliessen
+         startet ein Bild später — mit Reserve für den Ausklang. */
+      zeileHalten(kopf, 460);
     });
   });
   // Erste Zeile offen starten, damit die Sektion nicht leer wirkt
@@ -427,10 +459,12 @@ document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((a) => {
     h.addEventListener('transitionend', fertig);
   };
   zeilen.forEach((fr) => {
-    fr.querySelector('.fr__kopf').addEventListener('click', () => {
+    const kopf = fr.querySelector('.fr__kopf');
+    kopf.addEventListener('click', () => {
       const offen = fr.classList.contains('ist');
       zeilen.forEach((a) => { if (a.classList.contains('ist')) zu(a); });
       if (!offen) auf(fr);
+      zeileHalten(kopf, 460);
     });
   });
 })();
