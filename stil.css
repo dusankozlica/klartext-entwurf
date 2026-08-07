@@ -125,15 +125,18 @@ h1 .brush,h2 .brush{font-size:.72em;letter-spacing:-.01em;
     border-color var(--t-knopf) var(--kurve-rein),
     transform var(--t-knopf) var(--kurve-rein)}
 .knopf > *{position:relative;z-index:1}
-.knopf__punkt{position:absolute;z-index:0;bottom:-14%;width:26px;height:26px;
+/* Punktgrösse RELATIV zum Knopf — feste Pixel decken breite Knöpfe
+   nie ganz ab, die Füllung bliebe als Wellenkante stehen. 40 % Breite
+   bei Skala 2.2 deckt jede Knopfgrösse sicher. */
+.knopf__punkt{position:absolute;z-index:0;bottom:0;width:40%;aspect-ratio:1;
   border-radius:50%;background:var(--knopf-fuell,var(--violett));
-  transform:translateY(70%) scale(0);
+  transform:translateY(58%) scale(0);transform-origin:50% 50%;
   transition:transform var(--t-fuell) var(--kurve-rein)}
-.knopf__punkt:nth-child(1){left:8%;transition-delay:0s}
-.knopf__punkt:nth-child(2){left:50%;margin-left:-13px;transition-delay:.035s}
-.knopf__punkt:nth-child(3){right:8%;transition-delay:.07s}
+.knopf__punkt:nth-child(1){left:-4%;transition-delay:0s}
+.knopf__punkt:nth-child(2){left:30%;transition-delay:.035s}
+.knopf__punkt:nth-child(3){right:-4%;transition-delay:.07s}
 .knopf:hover .knopf__punkt,.knopf:focus-visible .knopf__punkt{
-  transform:translateY(-14%) scale(3.4)}
+  transform:translateY(-8%) scale(2.2)}
 /* Beim Verlassen laufen die Punkte in umgekehrter Reihenfolge zurück */
 .knopf:not(:hover) .knopf__punkt:nth-child(1){transition-delay:.07s}
 .knopf:not(:hover) .knopf__punkt:nth-child(3){transition-delay:0s}
