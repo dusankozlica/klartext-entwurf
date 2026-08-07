@@ -76,8 +76,10 @@ document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((a) => {
 /* ── Leistungs-Dropdown ─────────────────────────────────────────
    Mechanik 1:1 aus der ersten KLARTEXT-Seite. Die drei Punkte, die
    damals das Problem waren und hier bewusst wieder drin sind:
-     1. Öffnen NUR über den Auslöser, und erst nach 130 ms Verweilen —
+     1. Öffnen NUR über den Auslöser, und erst nach 70 ms Verweilen —
         blosses Vorbeistreifen auf dem Weg zum CTA öffnet nichts.
+        Waren 130 ms; zusammen mit der Aufklapp-Dauer fühlte sich das
+        mit 268 ms bis zur Sichtbarkeit deutlich zu träge an.
      2. Schliessen mit 180 ms Nachlauf, damit man in Ruhe ins Panel
         fahren kann.
      3. Das Panel hält ein OFFENES Panel am Leben, löst aber nie
@@ -127,7 +129,7 @@ document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((a) => {
     zuAb();
     if (offen) return;
     aufAb();
-    aufTimer = setTimeout(() => setze(true), 130);   // Verweilzeit
+    aufTimer = setTimeout(() => setze(true), 70);    // Verweilzeit
   });
   ausloeser.addEventListener('pointerleave', () => { aufAb(); baldZu(); });
   function baldZu() { zuAb(); zuTimer = setTimeout(() => setze(false), 180); }
