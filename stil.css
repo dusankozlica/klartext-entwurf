@@ -44,11 +44,13 @@
   --t-bedien:.46s;
   /* Menü-Hover: an Shinta gemessen t98 155 ms — also RUND DREIMAL
      schneller als eine Text-Rolle. Das war der spürbare Unterschied. */
-  --t-menue:.18s;
+  --t-menue:.13s;   /* wie die Knöpfe — ein Tempo für alle Bedienelemente */
   /* Knopf-Hover: Shinta kippt seine Knöpfe um 6°. Bewusst NICHT
      übernommen — schräge Knöpfe wirken unseriös. Stattdessen ein
      klar spürbares Wachsen plus ein kleiner Lift, gleiche Dauer. */
-  --t-knopf:.13s;
+  --t-knopf:.13s;   /* Bedienelemente: Farbe UND Form gleich schnell.
+     Lief die Farbe auf .3s und die Form auf .13s, wirkte der Knopf
+     träge, obwohl er sofort wächst — der Versatz fällt auf. */
   --kipp:scale(1.05) translateY(-2px);
 
   /* ── Form: runder und grösser als die Vorlagen ── */
@@ -110,8 +112,8 @@ h1 .brush,h2 .brush{font-size:.72em;letter-spacing:-.01em;
 /* ── Knöpfe: gross und rund ────────────────────────────────── */
 .knopf{display:inline-flex;align-items:center;justify-content:center;
   border-radius:var(--r-pille);font-weight:700;font-size:18px;letter-spacing:-.01em;
-  padding:16px 28px;transition:background-color var(--t-flaeche) var(--kurve),
-    color var(--t-farbe) var(--kurve),border-color var(--t-flaeche) var(--kurve),
+  padding:16px 28px;transition:background-color var(--t-knopf) var(--kurve-rein),
+    color var(--t-knopf) var(--kurve-rein),border-color var(--t-knopf) var(--kurve-rein),
     transform var(--t-knopf) var(--kurve-rein)}
 .knopf:hover,.knopf:focus-visible{transform:var(--kipp)}
 /* Der zweite Textknoten der Rolle stört hier — der Knopf kippt als
@@ -130,9 +132,9 @@ h1 .brush,h2 .brush{font-size:.72em;letter-spacing:-.01em;
 
 .kreis{width:62px;height:62px;flex:none;border-radius:50%;background:var(--violett);
   color:#fff;display:grid;place-items:center;
-  transition:background-color var(--t-flaeche) var(--kurve),
+  transition:background-color var(--t-knopf) var(--kurve-rein),
     transform var(--t-knopf) var(--kurve-rein)}
-.kreis svg{transition:transform var(--t-bedien) var(--kurve)}
+.kreis svg{transition:transform var(--t-knopf) var(--kurve-rein)}
 .kreis:hover{background:var(--violett-tief);transform:var(--kipp)}
 .kreis:hover svg{transform:translate(3px,-3px)}
 .kreis--hell{background:var(--creme);color:var(--tinte)}
@@ -234,10 +236,10 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
 .ndd__liste a{display:flex;align-items:center;gap:20px;width:100%;
   padding:17px 24px;border-radius:var(--r-mittel);
   font-size:clamp(22px,1.8vw,30px);font-weight:800;letter-spacing:-.03em;
-  transition:background-color var(--t-flaeche) var(--kurve),
-    color var(--t-farbe) var(--kurve),transform var(--t-knopf) var(--kurve-rein)}
+  transition:background-color var(--t-knopf) var(--kurve-rein),
+    color var(--t-knopf) var(--kurve-rein),transform var(--t-knopf) var(--kurve-rein)}
 .ndd__nr{font-size:14px;font-weight:700;color:var(--grau-2);width:26px;flex:none;
-  transition:color var(--t-farbe) var(--kurve)}
+  transition:color var(--t-knopf) var(--kurve-rein)}
 .ndd__name{flex:1}
 .ndd__liste i{font-style:normal;font-size:20px;opacity:0;transform:translateX(-8px);
   transition:opacity var(--t-farbe) var(--kurve),transform var(--t-bedien) var(--kurve)}
@@ -354,7 +356,7 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
 .lz__kopf{width:100%;display:flex;align-items:center;
   gap:clamp(14px,1.4vw,26px);text-align:left;
   padding:clamp(20px,2.2vw,34px) 0;color:var(--creme);
-  transition:color var(--t-farbe) var(--kurve)}
+  transition:color var(--t-knopf) var(--kurve-rein)}
 .lz__kopf:hover,.lz.ist .lz__kopf{color:var(--violett-hell)}
 .lz__nr{font-size:clamp(30px,4.4vw,86px);font-weight:800;letter-spacing:-.05em;
   line-height:.9;font-variant-numeric:tabular-nums}
@@ -365,7 +367,7 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
 .lz__zeichen{position:relative;width:clamp(38px,3.4vw,54px);
   height:clamp(38px,3.4vw,54px);border-radius:50%;flex:none;
   display:grid;place-items:center;background:transparent;
-  transition:background-color var(--t-flaeche) var(--kurve)}
+  transition:background-color var(--t-knopf) var(--kurve-rein)}
 .lz__kopf:hover .lz__zeichen,.lz.ist .lz__zeichen{background:var(--violett)}
 .lz__zeichen i{position:absolute;background:var(--violett-hell);border-radius:2px;
   transition:transform .3s var(--kurve),background-color var(--t-flaeche) var(--kurve)}
@@ -465,7 +467,7 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
 .fall__liste{display:flex;gap:10px;flex-wrap:wrap}
 .fall__liste li{border-radius:var(--r-pille);padding:9px 18px;font-size:15px;
   font-weight:700;background:var(--creme-2);color:var(--grau);cursor:pointer;
-  transition:background-color var(--t-flaeche) var(--kurve),color var(--t-farbe) var(--kurve),
+  transition:background-color var(--t-knopf) var(--kurve-rein),color var(--t-knopf) var(--kurve-rein),
     transform var(--t-knopf) var(--kurve-rein)}
 .fall__liste li:hover{transform:var(--kipp)}
 .fall__liste li.ist{background:var(--violett);color:#fff}
@@ -579,7 +581,7 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
   transition:background-color var(--t-flaeche) var(--kurve),
     border-color var(--t-flaeche) var(--kurve),color var(--t-farbe) var(--kurve)}
 .stimme__pfeile button{transition:background-color var(--t-flaeche) var(--kurve),
-  border-color var(--t-flaeche) var(--kurve),color var(--t-farbe) var(--kurve),
+  border-color var(--t-knopf) var(--kurve-rein),color var(--t-knopf) var(--kurve-rein),
   transform var(--t-knopf) var(--kurve-rein)}
 .stimme__pfeile button:hover{background:var(--tinte);border-color:var(--tinte);
   color:var(--creme);transform:var(--kipp)}
@@ -650,8 +652,8 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
   border:2px solid var(--linie-hell);border-radius:var(--r-pille);
   padding:16px 28px;font-size:clamp(18px,1.7vw,26px);font-weight:700;
   letter-spacing:-.025em;
-  transition:background-color var(--t-flaeche) var(--kurve),
-    border-color var(--t-flaeche) var(--kurve),color var(--t-farbe) var(--kurve),
+  transition:background-color var(--t-knopf) var(--kurve-rein),
+    border-color var(--t-knopf) var(--kurve-rein),color var(--t-knopf) var(--kurve-rein),
     transform var(--t-knopf) var(--kurve-rein)}
 .fuss__gross i{font-style:normal;font-size:.72em;opacity:.5;
   transition:opacity var(--t-farbe) var(--kurve),transform var(--t-bedien) var(--kurve)}
@@ -670,8 +672,8 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
 .fuss__sozial a{display:inline-flex;align-items:center;gap:12px;
   padding:9px 18px 9px 12px;border-radius:var(--r-pille);font-size:18px;
   font-weight:500;
-  transition:background-color var(--t-flaeche) var(--kurve),
-    color var(--t-farbe) var(--kurve),transform var(--t-knopf) var(--kurve-rein)}
+  transition:background-color var(--t-knopf) var(--kurve-rein),
+    color var(--t-knopf) var(--kurve-rein),transform var(--t-knopf) var(--kurve-rein)}
 .fuss__sozial a:hover{background:var(--creme);color:var(--tinte);transform:var(--kipp)}
 
 /* Wortmarke als Grafik — unten angeschnitten, füllt die Breite */
