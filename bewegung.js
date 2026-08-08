@@ -322,8 +322,42 @@ function zeileHalten(el, dauerMs) {
       zeileHalten(kopf, 460);
     });
   });
-  // Erste Zeile offen starten, damit die Sektion nicht leer wirkt
-  auf(zeilen[0]);
+  /* Bewusst NICHTS offen zum Start — wie bei Redondo. Die Liste der
+     fünf Namen ist die Aussage, das Aufklappen die Entscheidung des
+     Lesers. */
+})();
+
+/* ── Leistungen: vollbreit, am Ende rund einlaufen ───────────────
+   Der schwarze Block liegt über die ganze Breite. Beim Wegscrollen
+   zieht er sich auf Containermass zusammen und bekommt runde Ecken.
+   Gemacht mit clip-path statt mit width: eine echte Breitenänderung
+   würde in jedem Bild das ganze Akkordeon neu umbrechen. clip-path
+   verändert kein Layout — der Text bleibt, wo er ist. */
+(function dienstePanel() {
+  const sekt = document.querySelector('.dienste');
+  const block = sekt && sekt.querySelector('.dienste__block');
+  if (!block) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const stand = { t: 0 };
+  const zeichne = () => {
+    const breite = block.getBoundingClientRect().width;
+    const rand = parseFloat(getComputedStyle(document.documentElement)
+      .getPropertyValue('--pad')) || 40;
+    /* Derselbe Weg wie --einzug im Stylesheet — dort steht der Text.
+       Das Zusammenziehen hält 40 px davor an, sonst klebte der Text
+       am Ende an der runden Kante. Mindestens 12 px, damit auf
+       schmalen Bildschirmen überhaupt etwas zu sehen ist. */
+    const einzug = Math.max(24, Math.max(rand, (breite - 1520) / 2) - 40);
+    block.style.clipPath = 'inset(0 ' + (einzug * stand.t).toFixed(1) +
+      'px round ' + (56 * stand.t).toFixed(1) + 'px)';
+  };
+  gsap.to(stand, {
+    t: 1, ease: 'none', onUpdate: zeichne,
+    scrollTrigger: { trigger: sekt, start: 'bottom bottom',
+      end: 'bottom top+=25%', scrub: 0.5 },
+  });
+  addEventListener('resize', zeichne);
 })();
 
 /* ── Video-Referenzen ───────────────────────────────────────────
