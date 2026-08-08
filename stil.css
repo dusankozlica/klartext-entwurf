@@ -338,22 +338,15 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
 @media (max-width:1240px){ .ndd__panel{display:none} }
 
 /* ── 1 · Bühne ─────────────────────────────────────────────── */
-.buehne{padding:clamp(130px,12vw,180px) var(--pad) 0;max-width:1600px;margin:0 auto}
-.buehne__kopf{max-width:1520px;margin:0 auto}
+/* Der Bildstreifen unter der Überschrift ist raus. Die Bühne traegt
+   sich jetzt allein, deshalb eine gesetzte Mindesthoehe mit senkrecht
+   zentriertem Inhalt statt Hoehe aus dem Bildmaterial. */
+.buehne{padding:clamp(140px,12vw,190px) var(--pad) clamp(80px,8vw,130px);
+  max-width:1600px;margin:0 auto;
+  min-height:min(90vh,860px);display:grid;align-content:center}
+.buehne__kopf{max-width:1520px;margin:0 auto;width:100%}
 .buehne__unten{display:flex;align-items:flex-end;justify-content:space-between;
   gap:40px;flex-wrap:wrap;margin-top:36px}
-.buehne__medien{max-width:1520px;margin:clamp(48px,5vw,80px) auto 0;
-  display:grid;grid-template-columns:1.15fr .85fr 1fr;gap:20px;align-items:end}
-.med{position:relative;border-radius:var(--r-gross);overflow:hidden;background:var(--creme-2)}
-.med img{width:100%;height:100%;object-fit:cover;
-  transition:transform var(--t-bild) var(--kurve)}
-.med:hover img{transform:scale(1.06)}
-.med--1{height:clamp(300px,32vw,470px)}
-.med--2{height:clamp(360px,38vw,560px)}
-.med--3{height:clamp(260px,28vw,410px)}
-.marke{position:absolute;left:18px;bottom:18px;background:var(--creme);
-  color:var(--tinte);border-radius:var(--r-pille);padding:10px 20px;
-  font-size:14px;font-weight:700;letter-spacing:-.01em}
 
 /* ── 3 · Referenzen ────────────────────────────────────────── */
 .referenzen{padding:var(--sec) var(--pad) 0;max-width:1600px;margin:0 auto}
@@ -879,9 +872,7 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
   :root{--pad:20px;--r-seite:32px;--r-gross:26px}
   .nav__wege{display:none}
   .nav__pille{padding-left:22px}
-  .buehne__medien{grid-template-columns:1fr 1fr;gap:12px}
-  .med--3{display:none}
-  .med--1,.med--2{height:clamp(240px,50vw,380px)}
+  .buehne{min-height:auto}
   .faq,.kleben{grid-template-columns:1fr;gap:36px}
   .lz__leib{grid-template-columns:1fr;gap:24px}
   .lz__tags{grid-template-columns:repeat(2,1fr)}
