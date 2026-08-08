@@ -7,7 +7,6 @@
                 Farbe .4s · Fläche .3s · Bild .6s · Bedienung .46s
      · REVEAL   ease-out, opacity 0→1 · Skala 0.9→1 · y 20px→0
                 t98 ≈ 610 ms, keine Staffelung innerhalb eines Blocks
-     · Laufband 100 px/s
      · Morph    Karten driften mit eigenem Faktor UND wachsen
    ═══════════════════════════════════════════════════════════════ */
 
@@ -264,24 +263,6 @@ function zeileHalten(el, dauerMs) {
   setze(false);
 })();
 
-/* ── Laufband: 100 px/s ─────────────────────────────────────── */
-(function laufband() {
-  const spur = document.getElementById('bandSpur');
-  if (!spur) return;
-  const satz = spur.querySelector('.band__satz');
-  let breite = satz.getBoundingClientRect().width;
-  let x = 0, letzte = performance.now();
-  const takt = (jetzt) => {
-    const dt = Math.min((jetzt - letzte) / 1000, 0.1);
-    letzte = jetzt;
-    x -= 100 * dt;
-    if (x <= -breite) x += breite;
-    spur.style.transform = `translate3d(${x}px,0,0)`;
-    requestAnimationFrame(takt);
-  };
-  requestAnimationFrame(takt);
-  addEventListener('resize', () => { breite = satz.getBoundingClientRect().width; });
-})();
 
 /* ── Leistungs-Akkordeon ────────────────────────────────────────
    Höhe wird animiert (natives details springt), Inhalt fährt leicht
@@ -566,7 +547,7 @@ function zeileHalten(el, dauerMs) {
 
 /* ── Bild-Hover: scale 1.1 (gemessen) ───────────────────────── */
 (function bildhover() {
-  document.querySelectorAll('.zahlen__bild, .fall__bild').forEach((w) => {
+  document.querySelectorAll('.fall__bild').forEach((w) => {
     const img = w.querySelector('img');
     if (!img) return;
     w.addEventListener('pointerenter', () => gsap.to(img, { scale: 1.06, duration: T_BILD, ease: KURVE }));
