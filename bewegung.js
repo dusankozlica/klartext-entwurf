@@ -140,9 +140,16 @@ function zeileHalten(el, dauerMs) {
   };
 
   const schreiben = (el, verzug = 0) => {
+    /* ZENTRIERTE Zeilen von der Mitte nach aussen freilegen. Ein
+       Wischer von links legt bei zentriertem Text erst die linke
+       Hälfte frei — die Zeile steht dann die ganze Animation lang
+       sichtbar schief neben der Mitte und rutscht erst im letzten
+       Bild hinein. Bei linksbündigen Zeilen ist der Wischer richtig,
+       da wächst der Text aus seiner eigenen Kante. */
+    const mittig = getComputedStyle(el).textAlign === 'center';
     gsap.fromTo(einwickeln(el),
-      { clipPath: 'inset(0 100% 0 0)' },
-      { clipPath: 'inset(0 0% 0 0)', duration: 0.85, ease: KURVE_REIN,
+      { clipPath: mittig ? 'inset(0% 50% 0% 50%)' : 'inset(0% 100% 0% 0%)' },
+      { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.85, ease: KURVE_REIN,
         delay: verzug, clearProps: 'clipPath',
         scrollTrigger: { trigger: el, start: 'top 90%' } });
   };
@@ -473,7 +480,7 @@ function zeileHalten(el, dauerMs) {
   if (!knoepfe.length) return;
   const setze = (takt) => {
     knoepfe.forEach((k) => k.classList.toggle('ist', k.dataset.takt === takt));
-    document.body.classList.toggle('jahrestakt', takt === 'jahr');
+    document.body.classList.toggle('langtakt', takt === 'lang');
   };
   knoepfe.forEach((k) => k.addEventListener('click', () => setze(k.dataset.takt)));
 })();
