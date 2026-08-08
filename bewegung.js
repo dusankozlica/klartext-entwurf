@@ -87,6 +87,15 @@ function zeileHalten(el, dauerMs) {
 (function knopfPunkte() {
   document.querySelectorAll('.knopf').forEach((k) => {
     if (k.querySelector('.knopf__punkt')) return;
+    /* Nackten Text erst einpacken. `.knopf > *` hebt nur ELEMENTE über
+       die Füllung — ein blosser Textknoten bleibt darunter und wird
+       von den Punkten zugedeckt. Genau das hat die Schrift auf zwei
+       Knöpfen unsichtbar gemacht (Dropdown-Karte, Leistungen). */
+    if ([...k.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim())) {
+      const t = document.createElement('span');
+      while (k.firstChild) t.appendChild(k.firstChild);
+      k.appendChild(t);
+    }
     for (let i = 0; i < 3; i++) {
       const s = document.createElement('span');
       s.className = 'knopf__punkt';
@@ -154,6 +163,24 @@ function zeileHalten(el, dauerMs) {
         scrollTrigger: { trigger: el, start: 'top 90%' } });
   };
 
+  /* Dauerbewegung. Auf rama.framer.media — von dort stammt unser Rock
+     Salt — hat die Graffiti-Schrift KEINE eigene Dauerbewegung, sie
+     hängt nur am Scroll. Dusan will sie durchgehend leicht in Bewegung,
+     also bauen wir es: winzige Ausschläge (2–3 px) über mehrere
+     Sekunden, jedes Wort mit eigenem Takt und eigenem Start. Laufen
+     alle gleich, wirkt es wie Wackeln statt wie Leben.
+     Sitzt auf dem INNEREN Träger — die Scroll-Drift sitzt aussen,
+     sonst überschreiben sich die beiden Transformationen. */
+  const leben = (el, i) => {
+    const t = einwickeln(el);
+    gsap.fromTo(t, { y: -2.5 },
+      { y: 2.5, duration: 3.4 + (i % 3) * 0.9, ease: 'sine.inOut',
+        repeat: -1, yoyo: true, delay: i * 0.4 });
+    gsap.fromTo(t, { x: -1.6 },
+      { x: 1.6, duration: 4.7 + (i % 4) * 0.8, ease: 'sine.inOut',
+        repeat: -1, yoyo: true, delay: i * 0.55 });
+  };
+
   const driften = (el, von, bis, wo) => {
     gsap.fromTo(el, { y: von },
       { y: bis, ease: 'none',
@@ -167,6 +194,7 @@ function zeileHalten(el, dauerMs) {
     .filter((el) => !el.closest('.nav'))
     .forEach((el, i) => {
       schreiben(el);
+      leben(el, i);
       const w = i % 2 ? 11 : 17;
       driften(el, w, -w);
     });
@@ -178,6 +206,7 @@ function zeileHalten(el, dauerMs) {
   const heroWort = document.querySelector('h1 .brush');
   if (heroWort) {
     schreiben(heroWort, 0.4);
+    leben(heroWort, 2);
     driften(heroWort, 0, -18,
       { trigger: '.buehne', start: 'top top', end: 'bottom top', scrub: 0.6 });
   }
