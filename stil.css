@@ -445,12 +445,19 @@ body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
 
 .lz__huelle{height:0;overflow:hidden;
   transition:height var(--t-oeffnen) var(--kurve)}
-/* Text UND Schlagworte gehoeren zusammen nach links, das Bild nach
-   rechts. Vorher lag zwischen den Schlagwortspalten die freie Spalte —
-   sie zog die Woerter quer ueber die halbe Seite auseinander. */
+/* An redondo.design abgelesen (1920 px): dort beginnen Beschreibung
+   UND Schlagworte an derselben linken Kante — die Schlagworte stehen
+   UNTER dem Text, nicht daneben. Bei uns standen sie in einer eigenen
+   Spalte und begannen erst bei 660 px, also mitten auf der Seite.
+   Jetzt: links eine Spalte mit Text oben und Schlagworten darunter,
+   rechts das Bild ueber beide Zeilen (unsere Ergaenzung zu Redondo). */
 .lz__leib{display:grid;
-  grid-template-columns:minmax(0,34ch) minmax(0,460px) minmax(0,1fr);
-  gap:clamp(24px,3vw,54px);padding:0 0 clamp(30px,3vw,48px);align-items:start}
+  grid-template-columns:minmax(0,1fr) clamp(280px,25vw,420px);
+  gap:clamp(20px,2vw,34px) clamp(24px,3vw,54px);
+  padding:0 0 clamp(30px,3vw,48px);align-items:start}
+.lz__text{grid-column:1;grid-row:1;max-width:46ch}
+.lz__tags{grid-column:1;grid-row:2;max-width:720px}
+.lz__bild{grid-column:2;grid-row:1 / span 2}
 .lz__text{font-size:clamp(17px,1.35vw,21px);font-weight:700;line-height:1.4;
   letter-spacing:-.015em;opacity:0;transform:translateY(10px);
   transition:opacity var(--t-oeffnen) var(--kurve),transform var(--t-oeffnen) var(--kurve)}
@@ -462,7 +469,7 @@ body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
 .lz__tags ul{display:grid;gap:8px;align-content:start}
 .lz__tags li{font-size:13px;font-weight:600;letter-spacing:.07em;
   text-transform:uppercase;color:rgb(247 247 245 / .62)}
-.lz__bild{justify-self:end;width:min(360px,100%);
+.lz__bild{justify-self:end;width:100%;
   border-radius:var(--r-mittel);overflow:hidden;background:var(--tinte-2);
   opacity:0;transform:translateY(10px) scale(.96);
   transition:opacity .3s var(--kurve) .13s,
@@ -632,8 +639,10 @@ body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
   transform:rotate(-45deg)}
 .paket--voll .haken li::before{border-color:var(--violett)}
 .paket .knopf{margin-top:auto}
-.paket--voll .knopf--akzent:hover,.paket--voll .knopf--akzent:focus-visible{
-  box-shadow:inset 0 0 0 2px var(--violett)}
+/* Auf der hellen Karte war die weisse Fuellung praktisch unsichtbar
+   (Karte #F7F7F5, Fuellung #FFF). Der zarte Markenton traegt dort,
+   bleibt aber in derselben Familie: helle Flaeche, violette Schrift. */
+.paket--voll .knopf--akzent{--knopf-fuell:var(--violett-zart)}
 .paket .knopf--rand{border-color:var(--linie-hell);color:var(--creme);--knopf-fuell:var(--creme)}
 .paket .knopf--rand:hover{border-color:var(--creme);color:var(--tinte)}
 
