@@ -50,7 +50,7 @@
      übernommen — schräge Knöpfe wirken unseriös. Stattdessen ein
      klar spürbares Wachsen plus ein kleiner Lift, gleiche Dauer. */
   --t-knopf:.13s;
-  --t-lamelle:.55s; /* Team-Lamellen: grosse Flaeche, darf traeger sein */
+  --t-lamelle:.42s; /* Team-Lamellen — dasselbe Tempo wie die Punkte-Fuellung */
   --t-fuell:.42s;   /* Punkte-Füllung, an Redondo gemessen (~400 ms) */   /* Bedienelemente: Farbe UND Form gleich schnell.
      Lief die Farbe auf .3s und die Form auf .13s, wirkte der Knopf
      träge, obwohl er sofort wächst — der Versatz fällt auf. */
@@ -592,8 +592,15 @@ body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
   margin-top:clamp(26px,2.6vw,42px);height:clamp(380px,37vw,600px)}
 /* flex-grow ist die einzige Groesse, die sich aendert — Breiten in
    Prozent oder px zu animieren laesst die Nachbarn springen. */
+/* clip-path ZUSAETZLICH zu overflow+border-radius: die beiden
+   Ueberlagerungen arbeiten mit mix-blend-mode und bekommen beim
+   Animieren eine eigene Zeichenebene. Chrome traegt die runde
+   Beschneidung darauf erst nach — fuer die Dauer der Bewegung sah der
+   Streifen eckig aus und wurde erst am Ende rund. clip-path ist eine
+   Maske im Zeichenschritt und liegt in jedem Bild an. */
 .lamelle{position:relative;flex:1 1 0;min-width:0;overflow:hidden;
-  border-radius:var(--r-mittel);isolation:isolate;padding:0;
+  border-radius:var(--r-mittel);clip-path:inset(0 round var(--r-mittel));
+  isolation:isolate;padding:0;
   transition:flex-grow var(--t-lamelle) var(--kurve-rein)}
 /* 1.9 statt 3.4: bei 3.4 wurde der aufgefahrene Streifen fast
    quadratisch. Zusammen mit der groesseren Hoehe steht er jetzt
