@@ -50,7 +50,7 @@
      übernommen — schräge Knöpfe wirken unseriös. Stattdessen ein
      klar spürbares Wachsen plus ein kleiner Lift, gleiche Dauer. */
   --t-knopf:.13s;
-  --t-lamelle:.42s; /* Team-Lamellen — dasselbe Tempo wie die Punkte-Fuellung */
+  --t-lamelle:.28s; /* Team-Lamellen — knapp unter dem Akkordeon (.3s) */
   --t-fuell:.42s;   /* Punkte-Füllung, an Redondo gemessen (~400 ms) */   /* Bedienelemente: Farbe UND Form gleich schnell.
      Lief die Farbe auf .3s und die Form auf .13s, wirkte der Knopf
      träge, obwohl er sofort wächst — der Versatz fällt auf. */
@@ -202,11 +202,6 @@ h1 .brush,h2 .brush{font-size:.88em;letter-spacing:-.01em;
 a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
 
 /* Ziffernrolle */
-.zrolle{display:inline-block;overflow:hidden;vertical-align:bottom;
-  height:1.04em;line-height:1.04}
-.zrolle__spur{display:block;transition:transform var(--t-bedien) var(--kurve)}
-.zrolle__spur > span{display:block;height:1.04em;line-height:1.04}
-body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
 
 /* Korn — sehr fein, nur als Textur auf der hellen Fläche */
 .korn{position:fixed;inset:0;z-index:9;pointer-events:none;
@@ -589,7 +584,7 @@ body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
 .team__block h2{font-size:clamp(34px,3.8vw,64px)}
 
 .lamellen{display:flex;gap:clamp(8px,.8vw,14px);
-  margin-top:clamp(26px,2.6vw,42px);height:clamp(380px,37vw,600px)}
+  margin-top:clamp(26px,2.6vw,42px);height:clamp(400px,38vw,620px)}
 /* flex-grow ist die einzige Groesse, die sich aendert — Breiten in
    Prozent oder px zu animieren laesst die Nachbarn springen. */
 /* clip-path ZUSAETZLICH zu overflow+border-radius: die beiden
@@ -602,15 +597,14 @@ body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
   border-radius:var(--r-mittel);clip-path:inset(0 round var(--r-mittel));
   isolation:isolate;padding:0;
   transition:flex-grow var(--t-lamelle) var(--kurve-rein)}
-/* 1.9 statt 3.4: bei 3.4 wurde der aufgefahrene Streifen fast
-   quadratisch. Zusammen mit der groesseren Hoehe steht er jetzt
-   im Hochformat wie in der Vorlage (Seitenverhaeltnis rund 0.6). */
-.lamelle.ist{flex-grow:1.9}
+/* Mit nur noch fuenf Streifen wird der aufgefahrene bei gleicher
+   Spreizung zu breit — deshalb 1.7 statt 1.9. */
+.lamelle.ist{flex-grow:1.7}
 /* Der aufgefahrene Streifen ist breit — object-fit schneidet dann
    auf die Bildmitte, also auf den Bauch. Der Ausschnitt liegt
    deshalb hoeher, damit Kopf und Oberkoerper stehen bleiben. */
 .lamelle img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:50% 30%;
+  object-position:var(--bildpos,50% 30%);
   filter:grayscale(1) brightness(.68) contrast(1.08);transform:scale(1.07);
   transition:filter var(--t-lamelle) var(--kurve-rein),
              transform var(--t-lamelle) var(--kurve-rein)}
@@ -633,32 +627,35 @@ body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
 
 .lamelle__schild{position:absolute;left:0;right:0;bottom:0;z-index:3;
   display:grid;gap:2px;text-align:center;white-space:nowrap;
-  padding:clamp(16px,1.5vw,26px);opacity:0;transform:translateY(10px);
+  padding:clamp(20px,1.8vw,32px);opacity:0;transform:translateY(10px);
   transition:opacity .34s var(--kurve-rein) .14s,
              transform .34s var(--kurve-rein) .14s}
 .lamelle.ist .lamelle__schild{opacity:1;transform:none}
 /* Der Verlauf traegt die Schrift, ohne das Foto abzudunkeln */
-.lamelle__schild::before{content:"";position:absolute;inset:-70px 0 0;z-index:-1;
-  background:linear-gradient(to top,rgb(14 13 11 / .92),rgb(14 13 11 / 0))}
-.lamelle__schild b{font-size:clamp(17px,1.3vw,22px);font-weight:800;
-  letter-spacing:-.03em}
+.lamelle__schild::before{content:"";position:absolute;inset:-110px 0 0;z-index:-1;
+  background:linear-gradient(to top,rgb(14 13 11 / .94),rgb(14 13 11 / 0))}
+/* Deutlich groesser: die Seite ist durchgehend bold, eine 22-px-Zeile
+   auf einem 600 px hohen Bild war eine Bildunterschrift. */
+.lamelle__schild b{font-size:clamp(26px,2.3vw,42px);font-weight:800;
+  letter-spacing:-.04em;line-height:1.05}
 .lamelle__schild i{font-family:'Rock Salt',cursive;font-style:normal;
-  font-size:14px;color:var(--violett-hell)}
+  font-size:clamp(15px,1.15vw,21px);color:var(--violett-hell);line-height:1.5}
 
 /* ── 9 · Preise ────────────────────────────────────────────── */
 .preise{margin:var(--sec) auto 0;max-width:min(1520px,calc(100% - var(--pad) * 2));
   background:var(--violett);
   color:var(--creme);border-radius:var(--r-seite);
-  padding:clamp(38px,3.4vw,62px) clamp(24px,2.8vw,52px)}
+  padding:clamp(28px,2.4vw,44px) clamp(22px,2.4vw,44px)}
 /* Die Sektion baute 1313 px hoch — auf keinem Bildschirm zu ueberblicken.
    Gekuerzt an vier Stellen: weniger Polsterung, kleinere Ueberschrift,
    BREITERE Karten (sie nutzten nur 1080 von 1520 px, dadurch brach fast
    jede Listenzeile um) und ein kleinerer Preis. */
-.preise__kopf h2{font-size:clamp(34px,3.8vw,64px)}
+.preise__kopf h2{font-size:clamp(28px,2.8vw,46px)}
+.preise__kopf .chip{margin-bottom:14px}
 .preise__kopf{text-align:center;display:grid;justify-items:center}
-.schalter{display:flex;margin-top:26px;border:2px solid var(--linie-hell);
+.schalter{display:flex;margin-top:22px;border:2px solid var(--linie-hell);
   border-radius:var(--r-pille);padding:5px;gap:4px}
-.schalter button{border-radius:var(--r-pille);padding:13px 30px;font-size:17px;
+.schalter button{border-radius:var(--r-pille);padding:11px 26px;font-size:16px;
   font-weight:700;color:rgb(247 247 245 / .62);display:flex;align-items:center;gap:9px;
   transition:background-color var(--t-flaeche) var(--kurve),color var(--t-farbe) var(--kurve)}
 .schalter button.ist{background:var(--creme);color:var(--tinte)}
@@ -667,9 +664,9 @@ body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
 .schalter em{font-style:normal;font-size:13px;font-weight:700;color:var(--violett-zart)}
 .schalter button.ist em{color:var(--violett)}
 .preise__raster{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;
-  max-width:1360px;margin:clamp(26px,2.6vw,44px) auto 0}
+  max-width:1020px;margin:clamp(18px,1.8vw,28px) auto 0}
 .paket{position:relative;background:var(--tinte-2);border-radius:var(--r-gross);
-  padding:clamp(26px,2.4vw,38px);display:flex;flex-direction:column;gap:8px;
+  padding:clamp(22px,1.9vw,28px);display:flex;flex-direction:column;gap:5px;
   transition:transform var(--t-bedien) var(--kurve)}
 .paket:hover{transform:translateY(-6px)}
 /* Der Knopf sitzt unten — sonst haengt er im kuerzeren Paket mitten
@@ -683,23 +680,49 @@ body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
 .paket h3{font-size:clamp(26px,2vw,34px)}
 .paket__unter{color:rgb(247 247 245 / .62);font-size:17px}
 .paket--voll .paket__unter{color:var(--grau)}
-.paket__preis{display:flex;align-items:baseline;gap:8px;margin:16px 0 4px;
+.paket__preis{display:flex;align-items:baseline;gap:8px;margin:12px 0 2px;
   font-weight:800;letter-spacing:-.045em}
 .paket__preis i{font-style:normal;font-size:26px;color:var(--violett-hell)}
 .paket--voll .paket__preis i{color:var(--violett)}
-.paket__preis b{font-size:clamp(44px,4.2vw,66px);line-height:1;font-weight:800}
+/* ── Preiswechsel 6 -> 12 Monate ───────────────────────────────
+   Der bisherige Preis wird DURCHGESTRICHEN und der neue tritt daneben.
+   Der Strich ist von Hand gezogen — dicke, runde Enden, leicht schief,
+   und er wird von links nach rechts aufgezogen, damit man den Wechsel
+   sieht statt ihn nur vorzufinden. */
+.preis{display:flex;align-items:baseline;gap:.22em;
+  font-size:clamp(38px,3.2vw,52px);font-weight:800;letter-spacing:-.04em}
+.preis__alt{position:relative;font-size:1em;line-height:1;
+  transition:font-size var(--t-bedien) var(--kurve),
+             color var(--t-bedien) var(--kurve)}
+.preis__alt::after{content:"";position:absolute;left:-6%;right:-6%;top:52%;
+  height:.085em;min-height:4px;border-radius:99px;background:var(--violett-hell);
+  transform:scaleX(0) rotate(-2.5deg);transform-origin:left center;
+  transition:transform var(--t-bedien) var(--kurve-rein)}
+.paket--voll .preis__alt::after{background:var(--violett)}
+.preis__neu{font-size:0;opacity:0;line-height:1;
+  transition:font-size var(--t-bedien) var(--kurve),
+             opacity var(--t-bedien) var(--kurve)}
+body.langtakt .preis__alt{font-size:.44em;color:var(--grau-2)}
+body.langtakt .preis__alt::after{transform:scaleX(1) rotate(-2.5deg)}
+body.langtakt .preis__neu{font-size:1em;opacity:1}
 .paket__preis .brush{font-size:16px;color:var(--grau-2);align-self:flex-start;
   margin-top:10px}
-.haken{display:grid;gap:10px;margin:16px 0 24px;padding-top:18px;
+.haken{display:grid;gap:7px;margin:12px 0 16px;padding-top:12px;
   border-top:1px solid var(--linie-hell)}
 .paket--voll .haken{border-top-color:var(--linie)}
-.haken li{position:relative;padding-left:32px;font-size:17px;
+.haken li{position:relative;padding-left:27px;font-size:15.5px;line-height:1.45;
   color:rgb(247 247 245 / .74)}
 .paket--voll .haken li{color:var(--grau)}
 .haken li::before{content:"";position:absolute;left:3px;top:7px;width:12px;height:7px;
   border-left:2.5px solid var(--violett-hell);border-bottom:2.5px solid var(--violett-hell);
   transform:rotate(-45deg)}
 .paket--voll .haken li::before{border-color:var(--violett)}
+/* Nicht enthalten: bleibt in der Liste stehen, damit man den
+   Unterschied sieht — aber ausgegraut und mit Strich statt Haken. */
+.haken li.aus{color:rgb(247 247 245 / .3)}
+.paket--voll .haken li.aus{color:rgb(107 101 92 / .45)}
+.haken li.aus::before{border:0;background:currentColor;
+  width:13px;height:2.5px;border-radius:2px;left:2px;top:10px;transform:none}
 .paket .knopf{margin-top:auto}
 /* Auf der hellen Karte war die weisse Fuellung praktisch unsichtbar
    (Karte #F7F7F5, Fuellung #FFF). Der zarte Markenton traegt dort,

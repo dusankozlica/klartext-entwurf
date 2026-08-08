@@ -313,30 +313,30 @@
     <div class="team__block" data-zug>
       <p class="brush mitte">Unser Team</p>
       <h2 class="mitte">Die Mannschaft</h2>
+      <!-- Portraits tauschen: Datei in bilder/ ersetzen (Hochformat,
+           mindestens 800 px breit). Sitzt der Ausschnitt daneben,
+           --bildpos anpassen: erster Wert links/rechts, zweiter
+           oben/unten. 50% 30% heisst mittig und leicht nach oben. -->
       <div class="lamellen" id="lamellen">
-        <button class="lamelle" type="button" aria-pressed="false">
-          <img src="bilder/team-1.jpg" alt="">
+        <button class="lamelle" type="button" aria-pressed="false" style="--bildpos:50% 26%">
+          <img src="bilder/portrait-1.jpg" alt="">
           <span class="lamelle__schild"><b>Lea</b><i>Gründerin</i></span>
         </button>
-        <button class="lamelle" type="button" aria-pressed="false">
-          <img src="bilder/team-2.jpg" alt="">
+        <button class="lamelle" type="button" aria-pressed="false" style="--bildpos:50% 22%">
+          <img src="bilder/portrait-2.jpg" alt="">
           <span class="lamelle__schild"><b>Nora</b><i>Social Media</i></span>
         </button>
-        <button class="lamelle ist" type="button" aria-pressed="true">
-          <img src="bilder/team-3.jpg" alt="">
+        <button class="lamelle ist" type="button" aria-pressed="true" style="--bildpos:50% 30%">
+          <img src="bilder/portrait-3.jpg" alt="">
           <span class="lamelle__schild"><b>Tim</b><i>Creative Director</i></span>
         </button>
-        <button class="lamelle" type="button" aria-pressed="false">
-          <img src="bilder/team-4.jpg" alt="">
+        <button class="lamelle" type="button" aria-pressed="false" style="--bildpos:50% 24%">
+          <img src="bilder/portrait-4.jpg" alt="">
           <span class="lamelle__schild"><b>Sara</b><i>Brand Design</i></span>
         </button>
-        <button class="lamelle" type="button" aria-pressed="false">
-          <img src="bilder/team-5.jpg" alt="">
+        <button class="lamelle" type="button" aria-pressed="false" style="--bildpos:50% 34%">
+          <img src="bilder/portrait-5.jpg" alt="">
           <span class="lamelle__schild"><b>Jonas</b><i>Motion</i></span>
-        </button>
-        <button class="lamelle" type="button" aria-pressed="false">
-          <img src="bilder/team-6.jpg" alt="">
-          <span class="lamelle__schild"><b>Mia</b><i>Performance</i></span>
         </button>
       </div>
     </div>
@@ -358,13 +358,20 @@
         <h3>Start</h3>
         <p class="paket__unter">Für kleine Teams und junge Marken, die Präsenz aufbauen.</p>
         <p class="paket__preis"><i>CHF</i>
-          <b class="zrolle"><span class="zrolle__spur"><span>1499</span><span>1&rsquo;274</span></span></b>
+          <span class="preis">
+            <span class="preis__alt">1499</span>
+            <span class="preis__neu">1&rsquo;274</span>
+          </span>
           <span class="brush">/Monat</span></p>
         <ul class="haken">
-          <li>Social Media — Redaktionsplan und laufende Betreuung</li>
+          <li>Social Media &amp; Redaktionsplan</li>
           <li>Content-Produktion — Foto, Grafik, Reels</li>
-          <li>Website-Pflege und laufende Optimierung</li>
-          <li>Feste Ansprechperson, wöchentliche Updates</li>
+          <li>Website-Pflege &amp; Optimierung</li>
+          <li>Feste Ansprechperson</li>
+          <li class="aus">Branding-Vorlagen fürs Team</li>
+          <li class="aus">Performance — Kampagnen &amp; Tracking</li>
+          <li class="aus">Motion — Videoschnitt &amp; Animation</li>
+          <li class="aus">Monatlicher Report</li>
         </ul>
         <a class="knopf knopf--rand gross voll" href="#kontakt">
           <span class="rolle"><span>Start wählen</span><span aria-hidden="true">Start wählen</span></span>
@@ -376,17 +383,20 @@
         <h3>Wachstum</h3>
         <p class="paket__unter">Für Marken, die den nächsten Schritt machen wollen.</p>
         <p class="paket__preis"><i>CHF</i>
-          <b class="zrolle"><span class="zrolle__spur"><span>2999</span><span>2&rsquo;549</span></span></b>
+          <span class="preis">
+            <span class="preis__alt">2999</span>
+            <span class="preis__neu">2&rsquo;549</span>
+          </span>
           <span class="brush">/Monat</span></p>
         <ul class="haken">
-          <li>Social Media — Redaktionsplan und laufende Betreuung</li>
+          <li>Social Media &amp; Redaktionsplan</li>
           <li>Content-Produktion — Foto, Grafik, Reels</li>
-          <li>Website-Pflege und laufende Optimierung</li>
-          <li>Feste Ansprechperson, wöchentliche Updates</li>
-          <li>Branding — Vorlagen und Design-Bausteine fürs Team</li>
-          <li>Performance — Kampagnen, Tracking, Budget-Steuerung</li>
-          <li>Motion — Videoschnitt und Animation</li>
-          <li>Monatlicher Report mit Auswertung und Empfehlung</li>
+          <li>Website-Pflege &amp; Optimierung</li>
+          <li>Feste Ansprechperson</li>
+          <li>Branding-Vorlagen fürs Team</li>
+          <li>Performance — Kampagnen &amp; Tracking</li>
+          <li>Motion — Videoschnitt &amp; Animation</li>
+          <li>Monatlicher Report</li>
         </ul>
         <a class="knopf knopf--akzent gross voll" href="#kontakt">
           <span class="rolle"><span>Wachstum wählen</span><span aria-hidden="true">Wachstum wählen</span></span>
