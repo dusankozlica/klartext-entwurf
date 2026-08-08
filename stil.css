@@ -391,10 +391,18 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
    beim Öffnen fahren Text, Schlagworte und Bild heraus.
    Kombination aus der Redondo-Struktur und unserem Bild aus der
    ersten Fassung. */
-.dienste{padding:var(--sec) var(--pad) 0;max-width:1600px;margin:0 auto}
-.dienste__block{max-width:1520px;margin:0 auto;background:var(--tinte);
-  color:var(--creme);border-radius:var(--r-seite);
-  padding:clamp(40px,4.4vw,80px) clamp(26px,3vw,56px) clamp(40px,4vw,64px)}
+/* Die Sektion laeuft ueber die GANZE Breite und zieht sich erst am
+   Ende beim Wegscrollen auf Containermass zusammen — mit runden Ecken.
+   Der Text steht auf `--einzug` — also auf derselben Linie wie die
+   Buehne und alles andere auf der Seite, nicht zusaetzlich eingerueckt.
+   Das Zusammenziehen am Ende haelt deshalb 40 px vor dem Text an
+   (siehe bewegung.js), sonst klebte der Text an der runden Kante. */
+.dienste{padding:var(--sec) 0 0;max-width:none;margin:0}
+.dienste__block{--einzug:max(var(--pad),calc((100% - 1520px) / 2));
+  --innen:clamp(26px,3vw,56px);
+  max-width:none;margin:0;background:var(--tinte);
+  color:var(--creme);border-radius:0;
+  padding:clamp(40px,4.4vw,80px) var(--einzug) clamp(40px,4vw,64px)}
 .dienste__kopf{margin-bottom:clamp(30px,3vw,52px)}
 .dienste__kopf .brush{color:var(--violett-hell);margin-bottom:14px}
 .dienste__kopf h2{max-width:16ch}
@@ -427,7 +435,11 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
 
 .lz__huelle{height:0;overflow:hidden;
   transition:height var(--t-oeffnen) var(--kurve)}
-.lz__leib{display:grid;grid-template-columns:minmax(0,34ch) 1fr 360px;
+/* Text UND Schlagworte gehoeren zusammen nach links, das Bild nach
+   rechts. Vorher lag zwischen den Schlagwortspalten die freie Spalte —
+   sie zog die Woerter quer ueber die halbe Seite auseinander. */
+.lz__leib{display:grid;
+  grid-template-columns:minmax(0,34ch) minmax(0,460px) minmax(0,1fr);
   gap:clamp(24px,3vw,54px);padding:0 0 clamp(30px,3vw,48px);align-items:start}
 .lz__text{font-size:clamp(17px,1.35vw,21px);font-weight:700;line-height:1.4;
   letter-spacing:-.015em;opacity:0;transform:translateY(10px);
@@ -440,7 +452,8 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
 .lz__tags ul{display:grid;gap:8px;align-content:start}
 .lz__tags li{font-size:13px;font-weight:600;letter-spacing:.07em;
   text-transform:uppercase;color:rgb(247 247 245 / .62)}
-.lz__bild{border-radius:var(--r-mittel);overflow:hidden;background:var(--tinte-2);
+.lz__bild{justify-self:end;width:min(360px,100%);
+  border-radius:var(--r-mittel);overflow:hidden;background:var(--tinte-2);
   opacity:0;transform:translateY(10px) scale(.96);
   transition:opacity .3s var(--kurve) .13s,
              transform .3s var(--kurve) .13s}
@@ -572,7 +585,7 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
 .karte span{font-family:'Rock Salt',cursive;font-size:15px;color:var(--violett)}
 
 /* ── 9 · Preise ────────────────────────────────────────────── */
-.preise{margin:var(--sec) auto 0;max-width:1520px;background:var(--tinte);
+.preise{margin:var(--sec) auto 0;max-width:1520px;background:var(--violett);
   color:var(--creme);border-radius:var(--r-seite);
   padding:clamp(50px,5vw,90px) clamp(30px,4vw,70px)}
 .preise__kopf{text-align:center;display:grid;justify-items:center}
@@ -582,7 +595,9 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
   font-weight:700;color:rgb(247 247 245 / .62);display:flex;align-items:center;gap:9px;
   transition:background-color var(--t-flaeche) var(--kurve),color var(--t-farbe) var(--kurve)}
 .schalter button.ist{background:var(--creme);color:var(--tinte)}
-.schalter em{font-style:normal;font-size:13px;font-weight:700;color:var(--violett-hell)}
+/* Auf der violetten Fläche verschwand --violett-hell fast — der zarte
+   Ton steht klar, ohne lauter zu sein als der Preis selbst. */
+.schalter em{font-style:normal;font-size:13px;font-weight:700;color:var(--violett-zart)}
 .schalter button.ist em{color:var(--violett)}
 .preise__raster{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;
   max-width:1080px;margin:clamp(40px,4vw,64px) auto 0}
