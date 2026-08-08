@@ -523,7 +523,11 @@ body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
   color:rgb(247 247 245 / .6)}
 
 /* ── 5 · Klebe-Sektion ─────────────────────────────────────── */
-.kleben{margin:var(--sec) auto 0;max-width:1520px;background:var(--tinte);
+/* Ohne die untere Grenze klebt der Block unter 1600 px an den
+   Bildschirmraendern — die Sektion haengt direkt in main und hat
+   keinen eigenen Seitenabstand. */
+.kleben{margin:var(--sec) auto 0;max-width:min(1520px,calc(100% - var(--pad) * 2));
+  background:var(--tinte);
   color:var(--creme);border-radius:var(--r-seite);padding:clamp(40px,4vw,70px);
   display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
 .kleben__halt{position:sticky;top:130px}
@@ -590,11 +594,17 @@ body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
 .karte span{font-family:'Rock Salt',cursive;font-size:15px;color:var(--violett)}
 
 /* ── 9 · Preise ────────────────────────────────────────────── */
-.preise{margin:var(--sec) auto 0;max-width:1520px;background:var(--violett);
+.preise{margin:var(--sec) auto 0;max-width:min(1520px,calc(100% - var(--pad) * 2));
+  background:var(--violett);
   color:var(--creme);border-radius:var(--r-seite);
-  padding:clamp(50px,5vw,90px) clamp(30px,4vw,70px)}
+  padding:clamp(38px,3.4vw,62px) clamp(24px,2.8vw,52px)}
+/* Die Sektion baute 1313 px hoch — auf keinem Bildschirm zu ueberblicken.
+   Gekuerzt an vier Stellen: weniger Polsterung, kleinere Ueberschrift,
+   BREITERE Karten (sie nutzten nur 1080 von 1520 px, dadurch brach fast
+   jede Listenzeile um) und ein kleinerer Preis. */
+.preise__kopf h2{font-size:clamp(34px,3.8vw,64px)}
 .preise__kopf{text-align:center;display:grid;justify-items:center}
-.schalter{display:flex;margin-top:34px;border:2px solid var(--linie-hell);
+.schalter{display:flex;margin-top:26px;border:2px solid var(--linie-hell);
   border-radius:var(--r-pille);padding:5px;gap:4px}
 .schalter button{border-radius:var(--r-pille);padding:13px 30px;font-size:17px;
   font-weight:700;color:rgb(247 247 245 / .62);display:flex;align-items:center;gap:9px;
@@ -605,9 +615,9 @@ body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
 .schalter em{font-style:normal;font-size:13px;font-weight:700;color:var(--violett-zart)}
 .schalter button.ist em{color:var(--violett)}
 .preise__raster{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;
-  max-width:1080px;margin:clamp(40px,4vw,64px) auto 0}
+  max-width:1360px;margin:clamp(26px,2.6vw,44px) auto 0}
 .paket{position:relative;background:var(--tinte-2);border-radius:var(--r-gross);
-  padding:clamp(30px,3vw,44px);display:flex;flex-direction:column;gap:10px;
+  padding:clamp(26px,2.4vw,38px);display:flex;flex-direction:column;gap:8px;
   transition:transform var(--t-bedien) var(--kurve)}
 .paket:hover{transform:translateY(-6px)}
 /* Der Knopf sitzt unten — sonst haengt er im kuerzeren Paket mitten
@@ -621,14 +631,14 @@ body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
 .paket h3{font-size:clamp(26px,2vw,34px)}
 .paket__unter{color:rgb(247 247 245 / .62);font-size:17px}
 .paket--voll .paket__unter{color:var(--grau)}
-.paket__preis{display:flex;align-items:baseline;gap:8px;margin:22px 0 4px;
+.paket__preis{display:flex;align-items:baseline;gap:8px;margin:16px 0 4px;
   font-weight:800;letter-spacing:-.045em}
 .paket__preis i{font-style:normal;font-size:26px;color:var(--violett-hell)}
 .paket--voll .paket__preis i{color:var(--violett)}
-.paket__preis b{font-size:clamp(52px,5vw,80px);line-height:1;font-weight:800}
+.paket__preis b{font-size:clamp(44px,4.2vw,66px);line-height:1;font-weight:800}
 .paket__preis .brush{font-size:16px;color:var(--grau-2);align-self:flex-start;
   margin-top:10px}
-.haken{display:grid;gap:12px;margin:22px 0 30px;padding-top:22px;
+.haken{display:grid;gap:10px;margin:16px 0 24px;padding-top:18px;
   border-top:1px solid var(--linie-hell)}
 .paket--voll .haken{border-top-color:var(--linie)}
 .haken li{position:relative;padding-left:32px;font-size:17px;
