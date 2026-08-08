@@ -605,10 +605,12 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
    deshalb hoeher, damit Kopf und Oberkoerper stehen bleiben. */
 .lamelle img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   object-position:var(--bildpos,50% 30%);
-  filter:grayscale(1) brightness(.68) contrast(1.08);transform:scale(1.07);
+  filter:grayscale(1) brightness(calc(.68 * var(--ton,1))) contrast(1.08);
+  transform:scale(1.07);
   transition:filter var(--t-lamelle) var(--kurve-rein),
              transform var(--t-lamelle) var(--kurve-rein)}
-.lamelle.ist img{filter:grayscale(1) brightness(1) contrast(1.06);transform:none}
+.lamelle.ist img{filter:grayscale(1) brightness(var(--ton,1)) contrast(1.06);
+  transform:none}
 /* Violettes LICHT statt violetter Flaeche. Vorher lag eine volle
    Farbschicht (mix-blend-mode:color) ueber dem Foto — damit wurde
    auch der Hintergrund violett. In der Vorlage bleibt der Hintergrund
@@ -900,7 +902,8 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
     height:auto;gap:12px}
   .lamelle{aspect-ratio:3 / 4}
   .lamelle,.lamelle.ist{flex:none}
-  .lamelle img,.lamelle.ist img{filter:grayscale(1) contrast(1.06);transform:none}
+  .lamelle img,.lamelle.ist img{filter:grayscale(1) brightness(var(--ton,1)) contrast(1.06);
+    transform:none}
   .lamelle::after,.lamelle.ist::after{opacity:.8}
   .lamelle__schild,.lamelle.ist .lamelle__schild{opacity:1;transform:none}
   .stimme__pfeile{position:static;margin-top:30px}

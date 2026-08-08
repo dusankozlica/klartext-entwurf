@@ -313,20 +313,24 @@
     <div class="team__block" data-zug>
       <p class="brush mitte">Unser Team</p>
       <h2 class="mitte">Die Mannschaft</h2>
-      <!-- Portraits tauschen: Datei in bilder/ ersetzen (Hochformat,
-           mindestens 800 px breit). Sitzt der Ausschnitt daneben,
-           --bildpos anpassen: erster Wert links/rechts, zweiter
-           oben/unten. 50% 30% heisst mittig und leicht nach oben. -->
+      <!-- Portraits tauschen: Datei in bilder/ ersetzen (Hochformat 2:3,
+           mindestens 800 px breit, Brustbild — Ganzkoerper wirkt in der
+           schmalen Lamelle weit weg). Zwei Stellschrauben am Streifen:
+           --bildpos = Ausschnitt (erster Wert links/rechts, zweiter
+           oben/unten; 50% 30% heisst mittig und leicht nach oben),
+           --ton = Helligkeit (1 = Original, kleiner = dunkler). Damit
+           laesst sich ein zu helles oder zu dunkles Foto an die
+           anderen angleichen, ohne die Datei zu bearbeiten. -->
       <div class="lamellen" id="lamellen">
-        <button class="lamelle" type="button" aria-pressed="false" style="--bildpos:50% 26%">
+        <button class="lamelle ist" type="button" aria-pressed="true" style="--bildpos:0% 30%;--ton:.85">
           <img src="bilder/portrait-1.jpg" alt="">
-          <span class="lamelle__schild"><b>Lea</b><i>Gründerin</i></span>
+          <span class="lamelle__schild"><b>Dušan</b><i>Gründer</i></span>
         </button>
         <button class="lamelle" type="button" aria-pressed="false" style="--bildpos:50% 22%">
           <img src="bilder/portrait-2.jpg" alt="">
           <span class="lamelle__schild"><b>Nora</b><i>Social Media</i></span>
         </button>
-        <button class="lamelle ist" type="button" aria-pressed="true" style="--bildpos:50% 30%">
+        <button class="lamelle" type="button" aria-pressed="false" style="--bildpos:50% 30%">
           <img src="bilder/portrait-3.jpg" alt="">
           <span class="lamelle__schild"><b>Tim</b><i>Creative Director</i></span>
         </button>
