@@ -754,14 +754,33 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
   align-items:start}
 .faq__links{position:sticky;top:130px}
 .faq__links .fuehrung{margin-top:22px}
+/* Die GANZE Box reagiert, nicht nur die Zeile. Die Kachel ist schon
+   reines Weiss, heller geht nicht — also derselbe Griff wie bei den
+   Referenzkacheln: zarter violetter Ring. Dazu ein kleiner Lift mit
+   weichem Schatten statt Wachsen; eine breite Reihe zu skalieren
+   sieht neben den unbewegten Nachbarn schief aus.
+   EIN Tempo fuer alles (--t-knopf), sonst wirkt die Reihe traege —
+   dieselbe Lehre wie bei den Knoepfen. */
 .fr{background:var(--creme-3);border-radius:var(--r-mittel);margin-bottom:12px;
-  transition:background-color var(--t-flaeche) var(--kurve)}
+  box-shadow:inset 0 0 0 0 var(--violett-zart),0 0 0 rgb(14 13 11 / 0);
+  transition:background-color var(--t-flaeche) var(--kurve),
+             box-shadow var(--t-knopf) var(--kurve-rein),
+             transform var(--t-knopf) var(--kurve-rein)}
+.fr:hover,.fr:focus-within{box-shadow:inset 0 0 0 2px var(--violett-zart),
+  0 14px 34px rgb(14 13 11 / .085)}
+/* Der Lift gilt auch fuer die offene Reihe. Haenge ich ihn an
+   :not(.ist), verschwindet er im Moment des Klicks — und der Halter,
+   der beim Aufklappen die Zeile an ihrem Platz haelt, rechnet die
+   3 px als Sprung ein und schiebt die ganze Seite nach. */
+.fr:hover,.fr:focus-within{transform:translateY(-3px)}
 .fr.ist{background:#fff}
 .fr__kopf{width:100%;text-align:left;padding:28px 32px;font-size:21px;font-weight:700;
   letter-spacing:-.02em;display:flex;align-items:center;justify-content:space-between;
-  gap:24px;transition:color var(--t-farbe) var(--kurve)}
-.fr__kopf:hover{color:var(--violett)}
-.fr__kopf i{position:relative;width:20px;height:20px;flex:none}
+  gap:24px;transition:color var(--t-knopf) var(--kurve-rein)}
+.fr:hover .fr__kopf,.fr:focus-within .fr__kopf{color:var(--violett)}
+.fr__kopf i{position:relative;width:20px;height:20px;flex:none;
+  transition:transform var(--t-knopf) var(--kurve-rein)}
+.fr:hover .fr__kopf i,.fr:focus-within .fr__kopf i{transform:scale(1.16)}
 .fr__kopf i::before,.fr__kopf i::after{content:"";position:absolute;
   background:var(--violett);border-radius:2px;transition:transform .24s var(--kurve)}
 .fr__kopf i::before{left:0;top:9px;width:20px;height:2.5px}
