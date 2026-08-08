@@ -482,25 +482,32 @@ function zeileHalten(el, dauerMs) {
   setze(0);
 })();
 
-/* ── Team-Morph: driften UND wachsen ────────────────────────── */
-(function team() {
-  const karten = [...document.querySelectorAll('.karte')];
-  const feld = document.querySelector('.team');
-  if (!karten.length || !feld || innerWidth < 1100) return;
-  const SKALA_JE_PX = 0.111 / 1000;     // gemessen
-  const FAKTOR = [-0.074, -0.148];      // gemessen, wechselt je Spalte
-  karten.forEach((k, i) => {
-    const faktor = FAKTOR[i % 2];
-    gsap.fromTo(k, { y: 0, scale: 0.8 }, {
-      y: () => faktor * (feld.offsetHeight + innerHeight),
-      scale: () => 0.8 + SKALA_JE_PX * (feld.offsetHeight + innerHeight),
-      ease: 'none',
-      scrollTrigger: { trigger: feld, start: 'top bottom', end: 'bottom top',
-        scrub: 0.4, invalidateOnRefresh: true },
+/* ── Team-Lamellen ──────────────────────────────────────────────
+   Vorlage: dribbble.com/shots/25478160. Der angesteuerte Streifen
+   fährt auf, die anderen weichen. Drei Auslöser, alle nötig:
+     · pointerenter — der eigentliche Hover
+     · focus        — sonst ist die Sektion mit der Tastatur tot
+     · click        — auf dem Handy gibt es keinen Hover
+   Beim Verlassen bleibt der zuletzt gewählte Streifen offen. Ein
+   Zurückspringen auf einen Standard liest sich wie ein Fehler, nicht
+   wie eine Entscheidung — und flackert, wenn man quer drüberfährt. */
+(function lamellen() {
+  const feld = document.getElementById('lamellen');
+  if (!feld) return;
+  const streifen = [...feld.querySelectorAll('.lamelle')];
+  const waehle = (s) => {
+    if (s.classList.contains('ist')) return;
+    streifen.forEach((x) => {
+      const ist = x === s;
+      x.classList.toggle('ist', ist);
+      x.setAttribute('aria-pressed', ist ? 'true' : 'false');
     });
+  };
+  streifen.forEach((s) => {
+    s.addEventListener('pointerenter', () => waehle(s));
+    s.addEventListener('focus', () => waehle(s));
+    s.addEventListener('click', () => waehle(s));
   });
-  gsap.to('.team__halt', { opacity: 0.4, ease: 'none',
-    scrollTrigger: { trigger: feld, start: 'center center', end: 'bottom top', scrub: true } });
 })();
 
 /* ── Preise: Ziffernrolle (kein Hochzählen) ─────────────────── */
