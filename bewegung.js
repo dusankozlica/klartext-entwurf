@@ -116,6 +116,67 @@ function zeileHalten(el, dauerMs) {
   });
 })();
 
+/* ── Handschrift: Schreib-Reveal und Drift ──────────────────────
+   Die Brush-Akzente sind die zweite Stimme der Seite und standen
+   bisher stumm da. Zwei Bewegungen, bewusst auf ZWEI Knoten verteilt,
+   damit sich die Transformationen nicht gegenseitig überschreiben:
+     · innen  Schreib-Reveal — das Wort wird von links nach rechts
+              freigelegt, als würde es geschrieben (clip-path, .85 s)
+     · aussen Drift mit dem Scroll, jede Zeile mit eigenem Ausschlag —
+              dasselbe Muster wie beim Team-Morph. Driften alle gleich
+              weit, wirkt es wie eine Tabelle, nicht wie Handschrift.
+   Am Ende räumt GSAP den clip-path wieder weg: im Ruhezustand darf
+   nichts beschnitten sein, sonst rasiert die Maske Unterlängen ab. */
+(function handschrift() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const einwickeln = (el) => {
+    const da = el.querySelector('.brush__t');
+    if (da) return da;
+    const t = document.createElement('span');
+    t.className = 'brush__t';
+    while (el.firstChild) t.appendChild(el.firstChild);
+    el.appendChild(t);
+    return t;
+  };
+
+  const schreiben = (el, verzug = 0) => {
+    gsap.fromTo(einwickeln(el),
+      { clipPath: 'inset(0 100% 0 0)' },
+      { clipPath: 'inset(0 0% 0 0)', duration: 0.85, ease: KURVE_REIN,
+        delay: verzug, clearProps: 'clipPath',
+        scrollTrigger: { trigger: el, start: 'top 90%' } });
+  };
+
+  const driften = (el, von, bis, wo) => {
+    gsap.fromTo(el, { y: von },
+      { y: bis, ease: 'none',
+        scrollTrigger: wo || { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 0.6 } });
+  };
+
+  /* Die Zeile im Dropdown bleibt aussen vor: sie sitzt in der festen
+     Kopfleiste, scrollt also nie — eine Scroll-Bindung würde dort auf
+     einem willkürlichen Zwischenwert hängen bleiben. */
+  [...document.querySelectorAll('p.brush')]
+    .filter((el) => !el.closest('.nav'))
+    .forEach((el, i) => {
+      schreiben(el);
+      const w = i % 2 ? 11 : 17;
+      driften(el, w, -w);
+    });
+
+  /* Das Wort in der Bühnenüberschrift steht schon beim Laden da — es
+     wird erst geschrieben, wenn seine Zeile eingeblendet ist. Seine
+     Drift hängt an der Bühne und startet bei null, sonst sässe es
+     beim Laden schon verschoben in der Überschrift. */
+  const heroWort = document.querySelector('h1 .brush');
+  if (heroWort) {
+    schreiben(heroWort, 0.4);
+    driften(heroWort, 0, -18,
+      { trigger: '.buehne', start: 'top top', end: 'bottom top', scrub: 0.6 });
+  }
+})();
+
 /* ── Leistungs-Dropdown ─────────────────────────────────────────
    Mechanik 1:1 aus der ersten KLARTEXT-Seite. Die drei Punkte, die
    damals das Problem waren und hier bewusst wieder drin sind:
