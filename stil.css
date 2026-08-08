@@ -409,10 +409,14 @@ body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
    Das Zusammenziehen am Ende haelt deshalb 40 px vor dem Text an
    (siehe bewegung.js), sonst klebte der Text an der runden Kante. */
 .dienste{padding:var(--sec) 0 0;max-width:none;margin:0}
-.dienste__block{--einzug:max(var(--pad),calc((100% - 1520px) / 2));
+/* Gemeinsamer Bauplan fuer die vollbreiten Bloecke (Leistungen, Team).
+   Die Ecken sind IMMER rund — vorher liefen sie von eckig auf rund,
+   das sah aus wie ein Fehler statt wie eine Bewegung. Beim Wegscrollen
+   aendert sich nur noch die BREITE. */
+.dienste__block,.team__block{--einzug:max(var(--pad),calc((100% - 1520px) / 2));
   --innen:clamp(26px,3vw,56px);
   max-width:none;margin:0;background:var(--tinte);
-  color:var(--creme);border-radius:0;
+  color:var(--creme);border-radius:var(--r-seite);
   padding:clamp(40px,4.4vw,80px) var(--einzug) clamp(40px,4vw,64px)}
 .dienste__kopf{margin-bottom:clamp(30px,3vw,52px)}
 .dienste__kopf .brush{color:var(--violett-hell);margin-bottom:14px}
@@ -580,10 +584,7 @@ body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
    gelten. Umschalten waere ein Wert.
    Der dunkle Block nimmt den Rhythmus der Leistungen und Preise auf:
    helle Seite, dunkle Bloecke. */
-.team{padding:var(--sec) var(--pad) 0;max-width:1600px;margin:0 auto}
-.team__block{max-width:1520px;margin:0 auto;background:var(--tinte);
-  color:var(--creme);border-radius:var(--r-seite);
-  padding:clamp(38px,3.4vw,62px) clamp(24px,2.8vw,52px)}
+.team{padding:var(--sec) 0 0;max-width:none;margin:0}
 .team__block .brush{color:var(--violett-hell)}
 .team__block h2{font-size:clamp(34px,3.8vw,64px)}
 

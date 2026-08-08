@@ -543,5 +543,44 @@
 <script src="js/gsap.min.js"></script>
 <script src="js/ScrollTrigger.min.js"></script>
 <script src="bewegung.js"></script>
+<script>
+(function(){
+  const melde = (o) => fetch('/ergebnis?d=' + encodeURIComponent(JSON.stringify(o)));
+  document.addEventListener('DOMContentLoaded', () => setTimeout(async () => {
+    const faq = location.hash === '#pruefFaq';
+    const lz = [...document.querySelectorAll(faq ? '#faq .fr' : '#lzliste .lz')];
+    if (lz.length < 3) { melde({fehler:'keine Zeilen', anzahl: lz.length}); return; }
+    /* Beim FAQ ist zu Beginn nichts offen — erst eine Zeile öffnen,
+       sonst gibt es gar keine schrumpfende Fläche darüber. */
+    if (faq) { lz[0].querySelector('.fr__kopf').click(); await new Promise(r=>setTimeout(r,700)); }
+    const kopf = lz[2].querySelector(faq ? '.fr__kopf' : '.lz__kopf');
+    window.scrollTo(0, window.scrollY + kopf.getBoundingClientRect().top - innerHeight*0.45);
+    setTimeout(() => {
+      const start = kopf.getBoundingClientRect().top;
+      const scrollBeimKlick = Math.round(window.scrollY);
+      const proben = [];
+      kopf.click();
+      const t0 = performance.now();
+      const takt = () => {
+        proben.push(Math.round(kopf.getBoundingClientRect().top - start));
+        if (performance.now() - t0 < 900) requestAnimationFrame(takt);
+        else melde({
+          scrollBeimKlick,
+          startTop: Math.round(start),
+          bilder: proben.length,
+          zeile0zu: !lz[0].classList.contains('ist'),
+          zeile2offen: lz[2].classList.contains('ist'),
+          hoeheZeile0: Math.round(lz[0].querySelector(faq ? '.fr__huelle' : '.lz__huelle').getBoundingClientRect().height),
+          maxVersatz: Math.max.apply(null, proben.map(v=>Math.abs(v))),
+          endVersatz: proben[proben.length-1],
+          verlauf: proben.filter((_,i)=>i%5===0)
+        });
+      };
+      requestAnimationFrame(takt);
+    }, 1200);
+  }, 1200));
+})();
+</script>
+
 </body>
 </html>

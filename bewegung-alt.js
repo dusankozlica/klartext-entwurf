@@ -344,42 +344,37 @@ function zeileHalten(el, dauerMs) {
      Lesers. */
 })();
 
-/* ── Vollbreite Bloecke: am Ende einlaufen ──────────────────────
-   Leistungen und Team laufen ueber die ganze Breite und ziehen sich
-   beim Wegscrollen auf Containermass zusammen. Nur die BREITE aendert
-   sich — die Ecken sind durchgehend rund (vorher liefen sie von eckig
-   auf rund, das las sich wie ein Fehler).
-   Gemacht mit clip-path statt mit width: eine echte Breitenaenderung
-   wuerde in jedem Bild den ganzen Inhalt neu umbrechen. clip-path
-   veraendert kein Layout — der Text bleibt, wo er ist. */
-(function vollbreiteBloecke() {
+/* ── Leistungen: vollbreit, am Ende rund einlaufen ───────────────
+   Der schwarze Block liegt über die ganze Breite. Beim Wegscrollen
+   zieht er sich auf Containermass zusammen und bekommt runde Ecken.
+   Gemacht mit clip-path statt mit width: eine echte Breitenänderung
+   würde in jedem Bild das ganze Akkordeon neu umbrechen. clip-path
+   verändert kein Layout — der Text bleibt, wo er ist. */
+(function dienstePanel() {
+  const sekt = document.querySelector('.dienste');
+  const block = sekt && sekt.querySelector('.dienste__block');
+  if (!block) return;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const ecke = parseFloat(getComputedStyle(document.documentElement)
-    .getPropertyValue('--r-seite')) || 56;
 
-  document.querySelectorAll('[data-zug]').forEach((block) => {
-    const sekt = block.parentElement;
-    const stand = { t: 0 };
-    const zeichne = () => {
-      const breite = block.getBoundingClientRect().width;
-      const rand = parseFloat(getComputedStyle(document.documentElement)
-        .getPropertyValue('--pad')) || 40;
-      /* Derselbe Weg wie --einzug im Stylesheet — dort steht der Text.
-         Das Zusammenziehen haelt 40 px davor an, sonst klebte der Text
-         am Ende an der runden Kante. Mindestens 24 px, damit auf
-         schmalen Bildschirmen ueberhaupt etwas zu sehen ist. */
-      const einzug = Math.max(24, Math.max(rand, (breite - 1520) / 2) - 40);
-      block.style.clipPath = 'inset(0 ' + (einzug * stand.t).toFixed(1) +
-        'px round ' + ecke + 'px)';
-    };
-    zeichne();
-    gsap.to(stand, {
-      t: 1, ease: 'none', onUpdate: zeichne,
-      scrollTrigger: { trigger: sekt, start: 'bottom bottom',
-        end: 'bottom top+=25%', scrub: 0.5 },
-    });
-    addEventListener('resize', zeichne);
+  const stand = { t: 0 };
+  const zeichne = () => {
+    const breite = block.getBoundingClientRect().width;
+    const rand = parseFloat(getComputedStyle(document.documentElement)
+      .getPropertyValue('--pad')) || 40;
+    /* Derselbe Weg wie --einzug im Stylesheet — dort steht der Text.
+       Das Zusammenziehen hält 40 px davor an, sonst klebte der Text
+       am Ende an der runden Kante. Mindestens 12 px, damit auf
+       schmalen Bildschirmen überhaupt etwas zu sehen ist. */
+    const einzug = Math.max(24, Math.max(rand, (breite - 1520) / 2) - 40);
+    block.style.clipPath = 'inset(0 ' + (einzug * stand.t).toFixed(1) +
+      'px round ' + (56 * stand.t).toFixed(1) + 'px)';
+  };
+  gsap.to(stand, {
+    t: 1, ease: 'none', onUpdate: zeichne,
+    scrollTrigger: { trigger: sekt, start: 'bottom bottom',
+      end: 'bottom top+=25%', scrub: 0.5 },
   });
+  addEventListener('resize', zeichne);
 })();
 
 /* ── Video-Referenzen ───────────────────────────────────────────
