@@ -165,10 +165,17 @@ h1 .brush,h2 .brush{font-size:.88em;letter-spacing:-.01em;
 .knopf:hover .rolle > span{transform:none}
 .knopf.gross{font-size:20px;padding:21px 38px}
 .knopf.voll{width:100%}
+/* HOVER = UMKEHR. Der Knopf tauscht Flaeche und Schrift, statt nur
+   einen Ton dunkler zu werden. Vorher liefen zwei Faelle praktisch ins
+   Leere: Violett fuellte sich mit dunklerem Violett (Gespraech buchen),
+   Creme fuellte sich mit Weiss. Man sah fast nichts.
+   Regel: violetter Knopf -> weisse Flaeche, violette Schrift. */
 .knopf--dunkel{background:var(--tinte);color:var(--creme);--knopf-fuell:var(--violett)}
-.knopf--akzent{background:var(--violett);color:#fff;--knopf-fuell:var(--violett-tief)}
+.knopf--dunkel:hover,.knopf--dunkel:focus-visible{color:#fff}
+.knopf--akzent{background:var(--violett);color:#fff;--knopf-fuell:#fff}
+.knopf--akzent:hover,.knopf--akzent:focus-visible{color:var(--violett)}
 .knopf--rand{border:2px solid var(--linie);color:var(--tinte);--knopf-fuell:var(--tinte)}
-.knopf--rand:hover{border-color:var(--tinte);color:var(--creme)}
+.knopf--rand:hover,.knopf--rand:focus-visible{border-color:var(--tinte);color:var(--creme)}
 .knopf:active{transform:scale(.98)}
 
 .kreis{width:62px;height:62px;flex:none;border-radius:50%;background:var(--violett);
@@ -176,10 +183,15 @@ h1 .brush,h2 .brush{font-size:.88em;letter-spacing:-.01em;
   transition:background-color var(--t-knopf) var(--kurve-rein),
     transform var(--t-knopf) var(--kurve-rein)}
 .kreis svg{transition:transform var(--t-knopf) var(--kurve-rein)}
-.kreis:hover{background:var(--violett-tief);transform:var(--kipp)}
+/* Gleiche Umkehr wie bei den Knoepfen. Violett auf dunkleres Violett
+   und Creme auf Weiss waren beide praktisch unsichtbar. */
+.kreis{transition:background-color var(--t-knopf) var(--kurve-rein),
+  color var(--t-knopf) var(--kurve-rein),
+  transform var(--t-knopf) var(--kurve-rein)}
+.kreis:hover{background:#fff;color:var(--violett);transform:var(--kipp)}
 .kreis:hover svg{transform:translate(3px,-3px)}
 .kreis--hell{background:var(--creme);color:var(--tinte)}
-.kreis--hell:hover{background:#fff}
+.kreis--hell:hover{background:var(--tinte);color:var(--creme)}
 .knopfpaar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 
 /* Text-Rolle — Text doppelt, rollt beim Hover durch */
@@ -193,7 +205,7 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
   height:1.04em;line-height:1.04}
 .zrolle__spur{display:block;transition:transform var(--t-bedien) var(--kurve)}
 .zrolle__spur > span{display:block;height:1.04em;line-height:1.04}
-body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
+body.langtakt .zrolle__spur{transform:translateY(-1.04em)}
 
 /* Korn — sehr fein, nur als Textur auf der hellen Fläche */
 .korn{position:fixed;inset:0;z-index:9;pointer-events:none;
@@ -321,8 +333,11 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
 .ndd__karte-titel{font-size:24px;font-weight:800;letter-spacing:-.03em;
   line-height:1.12;margin-top:4px}
 .ndd__karte-text{font-size:15px;line-height:1.5;color:rgb(255 255 255 / .78)}
+/* Cremefarbener Knopf auf violetter Karte: Fuellung Tinte. Weiss auf
+   Creme war unsichtbar. */
 .ndd__karte .knopf{margin-top:auto;background:var(--creme);color:var(--tinte);
-  font-size:16px;padding:14px 24px;--knopf-fuell:#fff}
+  font-size:16px;padding:14px 24px;--knopf-fuell:var(--tinte)}
+.ndd__karte .knopf:hover,.ndd__karte .knopf:focus-visible{color:var(--creme)}
 
 @media (max-width:1240px){ .ndd__panel{display:none} }
 
@@ -355,7 +370,12 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
     transform var(--t-bedien) var(--kurve)}
 /* Logos wachsen nur — fremde Marken dreht man nicht schief. */
 .ref{transition:background-color var(--t-flaeche) var(--kurve),transform var(--t-knopf) var(--kurve-rein)}
-.ref:hover{background:#fff;transform:scale(1.044)}
+/* Die Kachel ist bereits reines Weiss — heller geht nicht, der alte
+   Hover war wirkungslos. Stattdessen ein zarter violetter Rahmen. */
+.ref{box-shadow:inset 0 0 0 0 var(--violett-zart);
+  transition:box-shadow var(--t-flaeche) var(--kurve),
+    transform var(--t-knopf) var(--kurve-rein)}
+.ref:hover{box-shadow:inset 0 0 0 2px var(--violett-zart);transform:scale(1.044)}
 .ref img{max-width:100%;width:auto;height:auto;
   filter:brightness(0) saturate(0);opacity:.55;
   transition:opacity var(--t-farbe) var(--kurve)}
@@ -583,6 +603,9 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
   padding:clamp(30px,3vw,44px);display:flex;flex-direction:column;gap:10px;
   transition:transform var(--t-bedien) var(--kurve)}
 .paket:hover{transform:translateY(-6px)}
+/* Der Knopf sitzt unten — sonst haengt er im kuerzeren Paket mitten
+   in der Karte, seit die Listen unterschiedlich lang sind (4 vs 8). */
+.paket > .knopf{margin-top:auto}
 .paket--voll{background:var(--creme);color:var(--tinte)}
 /* Der Hinweis liest sich als handgeschriebener Aufkleber —
    auf 15 px war er ein Kritzel. */
@@ -609,6 +632,8 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
   transform:rotate(-45deg)}
 .paket--voll .haken li::before{border-color:var(--violett)}
 .paket .knopf{margin-top:auto}
+.paket--voll .knopf--akzent:hover,.paket--voll .knopf--akzent:focus-visible{
+  box-shadow:inset 0 0 0 2px var(--violett)}
 .paket .knopf--rand{border-color:var(--linie-hell);color:var(--creme);--knopf-fuell:var(--creme)}
 .paket .knopf--rand:hover{border-color:var(--creme);color:var(--tinte)}
 
@@ -682,7 +707,10 @@ body.jahrestakt .zrolle__spur{transform:translateY(-1.04em)}
    Der helle Markenton steht klar und bleibt trotzdem zweite Stimme. */
 .ruf__karte .brush{color:var(--violett-zart)}
 .ruf__karte h2{margin-bottom:16px}
-.ruf__karte .knopf--akzent{background:var(--creme);color:var(--tinte);--knopf-fuell:#fff}
+.ruf__karte .knopf--akzent{background:var(--creme);color:var(--tinte);
+  --knopf-fuell:var(--tinte)}
+.ruf__karte .knopf--akzent:hover,.ruf__karte .knopf--akzent:focus-visible{
+  color:var(--creme)}
 .ruf__mail{margin-top:24px;font-size:clamp(20px,2vw,30px);font-weight:700;
   letter-spacing:-.03em;opacity:.85}
 
