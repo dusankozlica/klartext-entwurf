@@ -532,39 +532,6 @@ function zeileHalten(el, dauerMs) {
   knoepfe.forEach((k) => k.addEventListener('click', () => setze(k.dataset.takt)));
 })();
 
-/* ── Stimmen ────────────────────────────────────────────────── */
-(function stimmen() {
-  const DATEN = [
-    { text: 'Sie haben verstanden, was wir wollten, und aus groben Ideen eine Marke gemacht, die klar und selbstbewusst wirkt.',
-      name: 'Marc Baumann', rolle: 'CTO bei Nordlicht', bild: 'bilder/stimme-1.jpg' },
-    { text: 'Zum ersten Mal erklärt uns jemand nicht nur, was gemacht wird, sondern warum. Nach drei Monaten sehen wir das in den Zahlen.',
-      name: 'Anna Vogt', rolle: 'Marketing bei Volta', bild: 'bilder/stimme-2.jpg' },
-    { text: 'Schnell, direkt, ohne Agentur-Nebel. Wir haben eine Website bekommen, die unser Team selbst pflegen kann.',
-      name: 'David Lehmann', rolle: 'Gründer von Meridian', bild: 'bilder/stimme-3.jpg' },
-  ];
-  const text = document.getElementById('stimmeText');
-  const name = document.getElementById('stimmeName');
-  const rolle = document.getElementById('stimmeRolle');
-  const bild = document.getElementById('stimmeBild');
-  if (!text) return;
-  let ist = 0;
-
-  const zeige = (i) => {
-    ist = (i + DATEN.length) % DATEN.length;
-    const d = DATEN[ist];
-    gsap.to([text, '.stimme__wer'], {
-      opacity: 0, y: 12, duration: T_FLAECHE, ease: KURVE,
-      onComplete: () => {
-        text.textContent = d.text; name.textContent = d.name;
-        rolle.textContent = d.rolle; bild.src = d.bild;
-        gsap.to([text, '.stimme__wer'], { opacity: 1, y: 0, duration: T_FARBE, ease: KURVE });
-      },
-    });
-  };
-  document.getElementById('vor').addEventListener('click', () => zeige(ist + 1));
-  document.getElementById('zurueck').addEventListener('click', () => zeige(ist - 1));
-})();
-
 /* ── FAQ-Akkordeon mit Höhen-Animation ──────────────────────── */
 (function akkordeon() {
   const zeilen = [...document.querySelectorAll('#faq .fr')];

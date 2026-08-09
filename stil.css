@@ -746,28 +746,6 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .paket .knopf--rand{border-color:var(--linie-hell);color:var(--creme);--knopf-fuell:var(--creme)}
 .paket .knopf--rand:hover{border-color:var(--creme);color:var(--tinte)}
 
-/* ── 10 · Stimmen ──────────────────────────────────────────── */
-.stimmen{padding:var(--sec) var(--pad) 0;max-width:1600px;margin:0 auto}
-.stimme{position:relative;max-width:1520px;margin:0 auto;background:var(--creme-3);
-  border-radius:var(--r-seite);padding:clamp(40px,5vw,80px)}
-.stimme blockquote{font-size:clamp(26px,3.1vw,52px);font-weight:800;
-  letter-spacing:-.04em;line-height:1.12;max-width:20ch;margin:18px 0 40px}
-.stimme__wer{display:flex;align-items:center;gap:16px}
-.stimme__wer img{width:64px;height:64px;border-radius:50%;object-fit:cover}
-.stimme__wer b{font-size:19px;font-weight:800;display:block}
-.stimme__wer span{color:var(--grau);font-size:16px}
-.stimme__pfeile{position:absolute;right:clamp(40px,5vw,80px);
-  bottom:clamp(40px,5vw,80px);display:flex;gap:10px}
-.stimme__pfeile button{width:58px;height:58px;border-radius:50%;
-  border:2px solid var(--linie);display:grid;place-items:center;
-  transition:background-color var(--t-flaeche) var(--kurve),
-    border-color var(--t-flaeche) var(--kurve),color var(--t-farbe) var(--kurve)}
-.stimme__pfeile button{transition:background-color var(--t-flaeche) var(--kurve),
-  border-color var(--t-knopf) var(--kurve-rein),color var(--t-knopf) var(--kurve-rein),
-  transform var(--t-knopf) var(--kurve-rein)}
-.stimme__pfeile button:hover{background:var(--tinte);border-color:var(--tinte);
-  color:var(--creme);transform:var(--kipp)}
-
 /* ── 11 · FAQ ──────────────────────────────────────────────── */
 .faq{padding:var(--sec) var(--pad) 0;max-width:1600px;margin:0 auto;
   display:grid;grid-template-columns:.8fr 1fr;gap:clamp(40px,5vw,100px);
@@ -867,10 +845,16 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .fm{color:var(--tinte);display:grid;
   grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);
   gap:clamp(12px,1.2vw,20px);align-items:stretch}
+/* Formular und Kalender teilen sich Zeile eins und sind damit
+   gleich hoch — das Textfeld schliesst genau mit dem Kalender ab.
+   Die Uhrzeit haengt darunter, nur in der rechten Spalte. */
+.fm__links{grid-column:1;grid-row:1}
+.kal{grid-column:2;grid-row:1}
+.kal__slots{grid-column:2;grid-row:2}
+.fm__fuss{grid-column:1;grid-row:2}
 /* Die linke Spalte ist kuerzer als der Kalender — das Textfeld
    nimmt den Rest, statt eine Luecke stehen zu lassen. */
 /* Rechte Spalte: Kalender oben, Uhrzeit als eigene Karte darunter. */
-.fm__rechts{display:grid;gap:clamp(10px,1vw,16px);align-content:start}
 .fm__links{background:var(--creme-3);border-radius:var(--r-gross);
   padding:clamp(13px,1.15vw,17px);display:grid;gap:8px;
   grid-template-rows:auto auto minmax(0,1fr)}
@@ -882,7 +866,7 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
   text-transform:uppercase;color:var(--grau)}
 .feld input,.feld textarea{width:100%;font:inherit;font-size:15.5px;color:var(--tinte);
   background:var(--creme);border:2px solid transparent;border-radius:12px;
-  padding:11px 14px;resize:vertical;
+  padding:11px 14px;resize:none;
   transition:border-color var(--t-knopf) var(--kurve-rein),
     background-color var(--t-knopf) var(--kurve-rein)}
 .feld input::placeholder,.feld textarea::placeholder{color:var(--grau-2)}
@@ -893,7 +877,7 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 
 /* ── Terminwahl ── */
 .kal{background:var(--creme-3);border-radius:var(--r-gross);
-  padding:clamp(14px,1.3vw,20px);align-self:start}
+  padding:clamp(14px,1.3vw,20px)}
 .kal__kopf{display:flex;align-items:center;justify-content:space-between;
   gap:14px;margin-bottom:10px}
 .kal__blaettern{display:flex;align-items:center;gap:8px}
@@ -959,10 +943,10 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .slots button.ist{background:var(--violett);color:#fff;
   box-shadow:inset 0 0 0 2px var(--violett)}
 
-.fm__fuss{grid-column:1 / -1;display:flex;align-items:center;
-  justify-content:space-between;gap:20px;flex-wrap:wrap;color:#fff;
-  margin-top:2px;padding:12px clamp(6px,.8vw,14px) 0;
-  border-top:1px solid rgb(255 255 255 / .22)}
+/* Die Abschlusszeile sitzt jetzt links unter dem Formular, neben
+   der Uhrzeit — sonst stuende dort eine leere violette Flaeche. */
+.fm__fuss{display:flex;align-items:center;justify-content:space-between;
+  gap:18px;flex-wrap:wrap;color:#fff;padding:4px clamp(6px,.8vw,14px) 0}
 .fm__fuss .knopf--akzent{background:var(--creme);color:var(--tinte);
   --knopf-fuell:var(--tinte)}
 .fm__fuss .knopf--akzent:hover,.fm__fuss .knopf--akzent:focus-visible{
@@ -1214,7 +1198,6 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
     transform:none}
   .lamelle::after,.lamelle.ist::after{opacity:.8}
   .lamelle__schild,.lamelle.ist .lamelle__schild{opacity:1;transform:none}
-  .stimme__pfeile{position:static;margin-top:30px}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important;transition-duration:.01ms !important}
