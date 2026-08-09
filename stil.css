@@ -831,14 +831,15 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
    die ohnehin da ist, und der Kalender darf gross sein. */
 .ruf{padding:var(--sec) var(--pad)}
 .ruf__karte{max-width:1520px;margin:0 auto;background:var(--violett);color:#fff;
-  border-radius:var(--r-seite);padding:clamp(18px,1.7vw,28px)}
+  border-radius:var(--r-seite);padding:clamp(14px,1.3vw,20px)}
 .ruf__karte .brush{color:var(--violett-zart)}
 .ruf__kopf{display:flex;align-items:flex-end;justify-content:space-between;
-  gap:26px;flex-wrap:wrap;margin-bottom:clamp(14px,1.2vw,20px);
-  padding:clamp(4px,.8vw,14px) clamp(6px,1vw,18px) 0}
-.ruf__wort h2{font-size:clamp(28px,2.7vw,46px);line-height:1.03;margin:2px 0 8px}
-.ruf__text{font-size:clamp(15px,1vw,17px);line-height:1.5;
-  color:rgb(255 255 255 / .82);max-width:64ch}
+  gap:26px;flex-wrap:wrap;margin-bottom:clamp(10px,1vw,16px);
+  padding:clamp(6px,.9vw,14px) clamp(8px,1vw,18px) 0}
+.ruf__wort .brush{font-size:clamp(19px,1.6vw,28px);margin-bottom:.1em}
+.ruf__wort h2{font-size:clamp(24px,2.1vw,36px);line-height:1.05;margin:0}
+.ruf__text{font-size:15px;line-height:1.45;margin-top:5px;
+  color:rgb(255 255 255 / .78);max-width:64ch}
 .ruf__wege{display:flex;gap:10px;flex-wrap:wrap}
 .ruf__weg{display:inline-flex;align-items:center;gap:12px;
   border:2px solid rgb(255 255 255 / .3);border-radius:var(--r-pille);
@@ -857,13 +858,16 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 
 /* ── Formular ── */
 .fm{background:var(--creme-3);color:var(--tinte);border-radius:var(--r-gross);
-  padding:clamp(16px,1.5vw,24px);
+  padding:clamp(14px,1.3vw,20px);
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);
-  gap:clamp(16px,1.7vw,30px);align-items:start}
-.fm__links{display:grid;gap:12px;align-content:start}
+  gap:clamp(16px,1.7vw,30px);align-items:stretch}
+/* Die linke Spalte ist kuerzer als der Kalender — das Textfeld
+   nimmt den Rest, statt eine Luecke stehen zu lassen. */
+.fm__links{display:grid;gap:10px;grid-template-rows:auto auto minmax(0,1fr) auto}
 .fm__zeile{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .feld{display:grid;gap:6px}
-.feld--voll textarea{min-height:clamp(80px,6vw,112px)}
+.feld--voll{min-height:0}
+.feld--voll textarea{min-height:clamp(80px,6vw,112px);height:100%}
 .feld > span,.feld__titel{font-size:13px;font-weight:700;letter-spacing:.02em;
   text-transform:uppercase;color:var(--grau)}
 .feld input,.feld textarea{width:100%;font:inherit;font-size:16px;color:var(--tinte);
@@ -878,7 +882,8 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .feld input:user-invalid,.feld textarea:user-invalid{border-color:#C4231E}
 
 /* ── Terminwahl ── */
-.kal{background:var(--creme);border-radius:18px;padding:14px 16px 16px}
+.kal{background:var(--creme);border-radius:18px;padding:14px 16px 16px;
+  align-self:start}
 .kal__kopf{display:flex;align-items:center;justify-content:space-between;
   gap:14px;margin-bottom:10px}
 .kal__blaettern{display:flex;align-items:center;gap:8px}
