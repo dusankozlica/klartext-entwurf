@@ -1128,21 +1128,15 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .luecke{background:var(--violett-zart);color:var(--violett);border-radius:7px;
   padding:2px 9px;font-weight:700;font-size:.92em}
 
-/* Mehr-Knopf in der aufgeklappten Leistungszeile */
-.lz__mehr{grid-column:1;justify-self:start;display:inline-flex;align-items:center;
-  gap:10px;margin-top:4px;border:2px solid var(--linie-hell);
-  border-radius:var(--r-pille);padding:11px 22px;font-size:15px;font-weight:700;
-  color:var(--creme);
-  transition:background-color var(--t-knopf) var(--kurve-rein),
-    border-color var(--t-knopf) var(--kurve-rein),
-    color var(--t-knopf) var(--kurve-rein),
-    transform var(--t-knopf) var(--kurve-rein)}
-.lz__mehr i{font-style:normal;font-size:.85em;opacity:.6;
-  transition:opacity var(--t-knopf) var(--kurve-rein),
-    transform var(--t-knopf) var(--kurve-rein)}
-.lz__mehr:hover{background:var(--creme);border-color:var(--creme);
-  color:var(--tinte);transform:var(--kipp)}
-.lz__mehr:hover i{opacity:1;transform:translate(3px,-3px)}
+/* Mehr-Knopf in der aufgeklappten Leistungszeile.
+   Kein eigenes Bedienelement, sondern der Seitenknopf — mit
+   Punktfuellung und Textrolle wie ueberall. Nur die Fassung ist
+   fuer dunklen Grund: heller Rand, Fuellung in Creme. */
+.lz__mehr{grid-column:1;justify-self:start;margin-top:6px;
+  border:2px solid var(--linie-hell);color:var(--creme);
+  --knopf-fuell:var(--creme)}
+.lz__mehr:hover,.lz__mehr:focus-visible{border-color:var(--creme);
+  color:var(--tinte)}
 
 /* ── Schmale Schirme ───────────────────────────────────────── */
 @media (max-width:1100px){
