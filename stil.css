@@ -857,13 +857,17 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .ruf__weg:hover i{opacity:1;transform:translate(3px,-3px)}
 
 /* ── Formular ── */
-.fm{background:var(--creme-3);color:var(--tinte);border-radius:var(--r-gross);
-  padding:clamp(14px,1.3vw,20px);
-  display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);
-  gap:clamp(16px,1.7vw,30px);align-items:stretch}
+/* Zwei getrennte Karten auf der violetten Flaeche: links die
+   Eingaben, rechts der Kalender. Vorher steckten beide in einer
+   weissen Karte und der Kalender war nur ein grauer Kasten darin. */
+.fm{color:var(--tinte);display:grid;
+  grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);
+  gap:clamp(12px,1.2vw,20px);align-items:stretch}
 /* Die linke Spalte ist kuerzer als der Kalender — das Textfeld
    nimmt den Rest, statt eine Luecke stehen zu lassen. */
-.fm__links{display:grid;gap:10px;grid-template-rows:auto auto minmax(0,1fr) auto}
+.fm__links{background:var(--creme-3);border-radius:var(--r-gross);
+  padding:clamp(14px,1.3vw,20px);display:grid;gap:10px;
+  grid-template-rows:auto auto minmax(0,1fr) auto}
 .fm__zeile{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .feld{display:grid;gap:6px}
 .feld--voll{min-height:0}
@@ -882,8 +886,8 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .feld input:user-invalid,.feld textarea:user-invalid{border-color:#C4231E}
 
 /* ── Terminwahl ── */
-.kal{background:var(--creme);border-radius:18px;padding:14px 16px 16px;
-  align-self:start}
+.kal{background:var(--creme-3);border-radius:var(--r-gross);
+  padding:clamp(14px,1.3vw,20px);align-self:start}
 .kal__kopf{display:flex;align-items:center;justify-content:space-between;
   gap:14px;margin-bottom:10px}
 .kal__blaettern{display:flex;align-items:center;gap:8px}
@@ -949,13 +953,18 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
   box-shadow:inset 0 0 0 2px var(--violett)}
 
 .fm__fuss{grid-column:1 / -1;display:flex;align-items:center;
-  justify-content:space-between;gap:20px;flex-wrap:wrap;
-  padding-top:12px;border-top:1px solid var(--linie)}
-.fm__gewaehlt{font-size:17px;font-weight:700;color:var(--grau-2);
+  justify-content:space-between;gap:20px;flex-wrap:wrap;color:#fff;
+  margin-top:2px;padding:12px clamp(6px,.8vw,14px) 0;
+  border-top:1px solid rgb(255 255 255 / .22)}
+.fm__fuss .knopf--akzent{background:var(--creme);color:var(--tinte);
+  --knopf-fuell:var(--tinte)}
+.fm__fuss .knopf--akzent:hover,.fm__fuss .knopf--akzent:focus-visible{
+  color:var(--creme)}
+.fm__gewaehlt{font-size:17px;font-weight:700;color:rgb(255 255 255 / .6);
   transition:color var(--t-farbe) var(--kurve)}
-.fm__gewaehlt.ist{color:var(--violett)}
-.fm__hinweis{font-size:13px;line-height:1.5;color:var(--grau-2);margin-top:4px;
-  max-width:58ch}
+.fm__gewaehlt.ist{color:#fff}
+.fm__hinweis{font-size:13px;line-height:1.5;color:rgb(255 255 255 / .55);
+  margin-top:4px;max-width:58ch}
 
 /* ── Fuss ──────────────────────────────────────────────────────
    Bold und grafisch: links das Gespräch mit Mail und Telefon als
