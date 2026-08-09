@@ -824,23 +824,25 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .beitrag:hover h3{color:var(--violett)}
 
 /* ── 13 · Kontakt ──────────────────────────────────────────────
-   Violette Fläche wie bei den Preisen, darauf das Formular als
-   weisse Karte. Links das Wort, rechts die Eingabe — der Blick geht
-   von der Ansage in die Handlung. */
+   Ein breiter violetter Block: oben die Ansage, darunter das
+   Formular als weisse Karte in ZWEI Spalten — Felder links,
+   Kalender rechts. Untereinander wurde der Block 1270 px hoch und
+   passte auf keinen Bildschirm; nebeneinander nutzt er die Breite,
+   die ohnehin da ist, und der Kalender darf gross sein. */
 .ruf{padding:var(--sec) var(--pad)}
 .ruf__karte{max-width:1520px;margin:0 auto;background:var(--violett);color:#fff;
-  border-radius:var(--r-seite);padding:clamp(26px,3vw,54px);
-  display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1fr);
-  gap:clamp(26px,3.4vw,64px);align-items:center}
+  border-radius:var(--r-seite);padding:clamp(18px,1.7vw,28px)}
 .ruf__karte .brush{color:var(--violett-zart)}
-.ruf__wort{padding:clamp(6px,1.4vw,26px) 0 clamp(6px,1.4vw,26px) clamp(6px,1.4vw,28px)}
-.ruf__wort h2{font-size:clamp(34px,3.9vw,62px);line-height:1.02;margin:6px 0 18px}
-.ruf__text{font-size:clamp(16px,1.15vw,19px);line-height:1.6;
-  color:rgb(255 255 255 / .82);max-width:38ch}
-.ruf__wege{display:grid;gap:9px;justify-items:start;margin:26px 0 18px}
-.ruf__weg{display:inline-flex;align-items:center;gap:13px;
+.ruf__kopf{display:flex;align-items:flex-end;justify-content:space-between;
+  gap:26px;flex-wrap:wrap;margin-bottom:clamp(14px,1.2vw,20px);
+  padding:clamp(4px,.8vw,14px) clamp(6px,1vw,18px) 0}
+.ruf__wort h2{font-size:clamp(28px,2.7vw,46px);line-height:1.03;margin:2px 0 8px}
+.ruf__text{font-size:clamp(15px,1vw,17px);line-height:1.5;
+  color:rgb(255 255 255 / .82);max-width:64ch}
+.ruf__wege{display:flex;gap:10px;flex-wrap:wrap}
+.ruf__weg{display:inline-flex;align-items:center;gap:12px;
   border:2px solid rgb(255 255 255 / .3);border-radius:var(--r-pille);
-  padding:12px 22px;font-size:clamp(15px,1.15vw,19px);font-weight:700;
+  padding:11px 20px;font-size:clamp(14px,1.05vw,17px);font-weight:700;
   letter-spacing:-.02em;
   transition:background-color var(--t-knopf) var(--kurve-rein),
     border-color var(--t-knopf) var(--kurve-rein),
@@ -852,18 +854,21 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .ruf__weg:hover{background:var(--creme);border-color:var(--creme);
   color:var(--violett);transform:var(--kipp)}
 .ruf__weg:hover i{opacity:1;transform:translate(3px,-3px)}
-.ruf__zeit{font-size:15px;color:rgb(255 255 255 / .6)}
 
 /* ── Formular ── */
 .fm{background:var(--creme-3);color:var(--tinte);border-radius:var(--r-gross);
-  padding:clamp(20px,2vw,32px);display:grid;gap:13px}
-.fm__zeile{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  padding:clamp(16px,1.5vw,24px);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);
+  gap:clamp(16px,1.7vw,30px);align-items:start}
+.fm__links{display:grid;gap:12px;align-content:start}
+.fm__zeile{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .feld{display:grid;gap:6px}
+.feld--voll textarea{min-height:clamp(80px,6vw,112px)}
 .feld > span,.feld__titel{font-size:13px;font-weight:700;letter-spacing:.02em;
   text-transform:uppercase;color:var(--grau)}
 .feld input,.feld textarea{width:100%;font:inherit;font-size:16px;color:var(--tinte);
   background:var(--creme);border:2px solid transparent;border-radius:14px;
-  padding:13px 16px;resize:vertical;
+  padding:14px 16px;resize:vertical;
   transition:border-color var(--t-knopf) var(--kurve-rein),
     background-color var(--t-knopf) var(--kurve-rein)}
 .feld input::placeholder,.feld textarea::placeholder{color:var(--grau-2)}
@@ -873,20 +878,13 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .feld input:user-invalid,.feld textarea:user-invalid{border-color:#C4231E}
 
 /* ── Terminwahl ── */
-/* Kalender links, Uhrzeiten rechts daneben — gestapelt blieb rechts
-   vom Raster eine tote Fläche, und die Karte wurde unnötig hoch. */
-.kal{background:var(--creme);border-radius:18px;padding:15px 16px 16px;
-  margin-top:3px;display:grid;align-items:start;
-  grid-template-columns:minmax(0,440px) minmax(0,1fr);
-  column-gap:clamp(16px,1.7vw,28px)}
-.kal__kopf{grid-column:1 / -1;display:flex;align-items:center;
-  justify-content:space-between;gap:14px;margin-bottom:10px;max-width:440px}
-.kal__tage,.kal__raster{grid-column:1}
-.kal__slots{grid-column:2;grid-row:2 / span 2}
-.kal__blaettern{display:flex;align-items:center;gap:6px}
-.kal__blaettern b{min-width:11ch;text-align:center;font-size:15px;
+.kal{background:var(--creme);border-radius:18px;padding:14px 16px 16px}
+.kal__kopf{display:flex;align-items:center;justify-content:space-between;
+  gap:14px;margin-bottom:10px}
+.kal__blaettern{display:flex;align-items:center;gap:8px}
+.kal__blaettern b{min-width:11ch;text-align:center;font-size:16px;
   letter-spacing:-.02em}
-.kal__pfeil{width:30px;height:30px;display:grid;place-items:center;
+.kal__pfeil{width:34px;height:34px;display:grid;place-items:center;
   border-radius:50%;color:var(--tinte);
   transition:background-color var(--t-knopf) var(--kurve-rein),
     color var(--t-knopf) var(--kurve-rein),
@@ -894,15 +892,13 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .kal__pfeil:hover:not(:disabled){background:var(--violett);color:#fff;
   transform:scale(1.1)}
 .kal__pfeil:disabled{opacity:.28}
-/* Quadratische Felder ergaben in der breiten Spalte 80 px hohe Kacheln
-   und einen 590 px hohen Kalender — die Sektion passte auf keinen
-   Laptop. Feste Zeilenhoehe, Breite gedeckelt. */
-.kal__tage,.kal__raster{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;
-  max-width:440px}
-.kal__tage span{text-align:center;font-size:12px;font-weight:700;
-  color:var(--grau-2);padding-bottom:5px}
-.kal__tag{height:38px;display:grid;place-items:center;border-radius:11px;
-  font-size:15px;font-weight:600;color:var(--tinte);
+.kal__tage,.kal__raster{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.kal__tage span{text-align:center;font-size:12.5px;font-weight:700;
+  color:var(--grau-2);padding-bottom:4px}
+/* Gross genug, dass man gern hinklickt — aber mit fester Zeilenhoehe,
+   sonst waechst der Kalender mit der Spaltenbreite ins Uferlose. */
+.kal__tag{height:clamp(42px,3.2vw,56px);display:grid;place-items:center;
+  border-radius:14px;font-size:18px;font-weight:600;color:var(--tinte);
   transition:background-color var(--t-knopf) var(--kurve-rein),
     color var(--t-knopf) var(--kurve-rein),
     transform var(--t-knopf) var(--kurve-rein)}
@@ -910,11 +906,13 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .kal__tag:disabled{color:var(--grau-2);opacity:.4}
 .kal__tag.ist{background:var(--violett);color:#fff}
 .kal__tag.heute:not(.ist){box-shadow:inset 0 0 0 2px var(--violett-zart)}
-.kal__leer{height:38px}
-.kal__slots{padding-left:clamp(16px,1.7vw,28px);border-left:1px solid var(--linie)}
+.kal__leer{height:clamp(42px,3.2vw,56px)}
+.kal__slots{padding-top:2px}
+.slots button:disabled{opacity:.42;box-shadow:inset 0 0 0 1.5px var(--linie)}
+.slots button:disabled:hover{transform:none;box-shadow:inset 0 0 0 1.5px var(--linie)}
 .slots{display:grid;gap:7px;margin-top:8px;
-  grid-template-columns:repeat(auto-fill,minmax(78px,1fr))}
-.slots button{border-radius:var(--r-pille);padding:9px 15px;font-size:14px;
+  grid-template-columns:repeat(auto-fit,minmax(84px,1fr))}
+.slots button{border-radius:var(--r-pille);padding:12px 14px;font-size:15px;
   font-weight:700;background:var(--creme-3);color:var(--tinte);
   box-shadow:inset 0 0 0 1.5px var(--linie);
   transition:background-color var(--t-knopf) var(--kurve-rein),
@@ -925,12 +923,14 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .slots button.ist{background:var(--violett);color:#fff;
   box-shadow:inset 0 0 0 2px var(--violett)}
 
-.fm__fuss{display:flex;align-items:center;justify-content:space-between;
-  gap:16px;flex-wrap:wrap;margin-top:4px}
-.fm__gewaehlt{font-size:15px;font-weight:700;color:var(--grau-2);
+.fm__fuss{grid-column:1 / -1;display:flex;align-items:center;
+  justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding-top:12px;border-top:1px solid var(--linie)}
+.fm__gewaehlt{font-size:17px;font-weight:700;color:var(--grau-2);
   transition:color var(--t-farbe) var(--kurve)}
 .fm__gewaehlt.ist{color:var(--violett)}
-.fm__hinweis{font-size:13px;line-height:1.5;color:var(--grau-2)}
+.fm__hinweis{font-size:13px;line-height:1.5;color:var(--grau-2);margin-top:4px;
+  max-width:58ch}
 
 /* ── Fuss ──────────────────────────────────────────────────────
    Bold und grafisch: links das Gespräch mit Mail und Telefon als
@@ -1155,13 +1155,9 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
   .fall__bild{display:none}
   .fall__ausloeser{height:520px}
   .preise__raster,.blog__raster{grid-template-columns:1fr}
-  .ruf__karte{grid-template-columns:1fr;gap:30px}
-  .ruf__wort{padding:8px 4px 0}
+  .ruf__kopf{flex-direction:column;align-items:flex-start;gap:18px}
+  .fm{grid-template-columns:1fr}
   .fm__zeile{grid-template-columns:1fr}
-  .kal{grid-template-columns:1fr}
-  .kal__kopf,.kal__tage,.kal__raster{max-width:none}
-  .kal__slots{grid-column:1;grid-row:auto;margin-top:14px;padding:13px 0 0;
-    border-left:0;border-top:1px solid var(--linie)}
   .unter__leib{grid-template-columns:1fr;gap:26px}
   .artikel__bild img{height:clamp(200px,46vw,320px)}
   .fuss__oben{grid-template-columns:1fr;gap:44px}

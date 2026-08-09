@@ -481,35 +481,42 @@
   <!-- ══ 13 · Kontakt: Formular mit Terminwahl ══ -->
   <section class="ruf" id="kontakt">
     <div class="ruf__karte" data-rein>
-      <div class="ruf__wort">
-        <p class="brush">Auf ein Wort</p>
-        <h2>Reden wir über<br>euer Projekt.</h2>
-        <p class="ruf__text">Sag kurz, worum es geht, und such dir einen Termin,
-          der dir passt. Das erste Gespräch dauert 30&nbsp;Minuten und kostet nichts.</p>
+      <div class="ruf__kopf">
+        <div class="ruf__wort">
+          <p class="brush">Auf ein Wort</p>
+          <h2>Reden wir über euer Projekt.</h2>
+          <p class="ruf__text">Zwei Felder, ein Termin — das erste Gespräch dauert
+            30&nbsp;Minuten und kostet nichts.</p>
+        </div>
         <div class="ruf__wege">
           <a class="ruf__weg" href="mailto:hallo@klartext.example">
             <span>hallo@klartext.example</span><i aria-hidden="true">↗</i></a>
           <a class="ruf__weg" href="tel:+41000000000">
             <span>+41 00 000 00 00</span><i aria-hidden="true">↗</i></a>
         </div>
-        <p class="ruf__zeit">Mo – Fr, 08:30 – 18:00 · Zürich</p>
       </div>
 
       <form class="fm" id="fm" novalidate>
-        <div class="fm__zeile">
-          <label class="feld"><span>Name</span>
-            <input type="text" name="name" autocomplete="name" placeholder="Vor- und Nachname" required></label>
-          <label class="feld"><span>Unternehmen</span>
-            <input type="text" name="firma" autocomplete="organization" placeholder="optional"></label>
+        <div class="fm__links">
+          <div class="fm__zeile">
+            <label class="feld"><span>Name</span>
+              <input type="text" name="name" autocomplete="name" placeholder="Vor- und Nachname" required></label>
+            <label class="feld"><span>Unternehmen</span>
+              <input type="text" name="firma" autocomplete="organization" placeholder="optional"></label>
+          </div>
+          <div class="fm__zeile">
+            <label class="feld"><span>E-Mail</span>
+              <input type="email" name="mail" autocomplete="email" placeholder="name@firma.ch" required></label>
+            <label class="feld"><span>Telefon</span>
+              <input type="tel" name="tel" autocomplete="tel" placeholder="optional"></label>
+          </div>
+          <label class="feld feld--voll"><span>Worum geht’s?</span>
+            <textarea name="text" placeholder="Zwei, drei Sätze genügen."></textarea></label>
+          <div class="kal__slots" id="kalSlots">
+            <span class="feld__titel">Uhrzeit</span>
+            <div class="slots" id="slots"></div>
+          </div>
         </div>
-        <div class="fm__zeile">
-          <label class="feld"><span>E-Mail</span>
-            <input type="email" name="mail" autocomplete="email" placeholder="name@firma.ch" required></label>
-          <label class="feld"><span>Telefon</span>
-            <input type="tel" name="tel" autocomplete="tel" placeholder="optional"></label>
-        </div>
-        <label class="feld"><span>Worum geht’s?</span>
-          <textarea name="text" rows="3" placeholder="Zwei, drei Sätze genügen."></textarea></label>
 
         <div class="kal" id="kal">
           <div class="kal__kopf">
@@ -528,20 +535,17 @@
             <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
           </div>
           <div class="kal__raster" id="kalRaster"></div>
-          <div class="kal__slots" id="kalSlots" hidden>
-            <span class="feld__titel">Uhrzeit</span>
-            <div class="slots" id="slots"></div>
-          </div>
         </div>
 
         <div class="fm__fuss">
-          <p class="fm__gewaehlt" id="fmGewaehlt">Noch kein Termin gewählt</p>
+          <div>
+            <p class="fm__gewaehlt" id="fmGewaehlt">Noch kein Termin gewählt</p>
+            <p class="fm__hinweis">Entwurf: öffnet dein Mailprogramm, speichert nichts.</p>
+          </div>
           <button class="knopf knopf--akzent gross" type="submit">
             <span class="rolle"><span>Anfrage senden</span><span aria-hidden="true">Anfrage senden</span></span>
           </button>
         </div>
-        <p class="fm__hinweis">Entwurf: Der Knopf öffnet dein Mailprogramm mit allen
-          Angaben. Es wird nichts gespeichert und nichts automatisch verschickt.</p>
       </form>
     </div>
   </section>

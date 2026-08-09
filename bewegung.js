@@ -655,6 +655,10 @@ function zeileHalten(el, dauerMs) {
       const b = document.createElement('button');
       b.type = 'button'; b.textContent = z;
       b.classList.toggle('ist', z === zeit);
+      /* Die Zeiten stehen von Anfang an da, nur noch nicht waehlbar.
+         Blendete ich sie erst nach der Tagwahl ein, wuchs die Karte
+         mitten in der Eingabe um 90 px. */
+      b.disabled = !tag;
       b.addEventListener('click', () => {
         zeit = z;
         [...slots.children].forEach((x) => x.classList.toggle('ist', x === b));
@@ -662,7 +666,6 @@ function zeileHalten(el, dauerMs) {
       });
       slots.appendChild(b);
     });
-    slotFeld.hidden = !tag;
   };
 
   const zeichne = () => {
