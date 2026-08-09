@@ -859,7 +859,7 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 /* ── Formular ── */
 .fm{background:var(--creme-3);color:var(--tinte);border-radius:var(--r-gross);
   padding:clamp(14px,1.3vw,20px);
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);
+  display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);
   gap:clamp(16px,1.7vw,30px);align-items:stretch}
 /* Die linke Spalte ist kuerzer als der Kalender — das Textfeld
    nimmt den Rest, statt eine Luecke stehen zu lassen. */
@@ -902,16 +902,36 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
   color:var(--grau-2);padding-bottom:4px}
 /* Gross genug, dass man gern hinklickt — aber mit fester Zeilenhoehe,
    sonst waechst der Kalender mit der Spaltenbreite ins Uferlose. */
-.kal__tag{height:clamp(42px,3.2vw,56px);display:grid;place-items:center;
-  border-radius:14px;font-size:18px;font-weight:600;color:var(--tinte);
-  transition:background-color var(--t-knopf) var(--kurve-rein),
-    color var(--t-knopf) var(--kurve-rein),
-    transform var(--t-knopf) var(--kurve-rein)}
-.kal__tag:hover:not(:disabled){background:var(--violett-zart);transform:scale(1.08)}
+/* Tagesfeld = Menuepunkt. Gleiche Mechanik wie oben in der Leiste:
+   eine Flaeche faehrt aus der Mitte auf, die Zahl waechst weg und
+   eine zweite rollt herein — gleiche Dauer, gleiche Kurve. */
+.kal__tag{position:relative;isolation:isolate;
+  height:clamp(44px,3.2vw,58px);display:inline-grid;place-items:center;
+  border-radius:14px;font-size:20px;font-weight:700;color:var(--tinte);
+  letter-spacing:-.02em}
+.kal__bg{position:absolute;inset:0;z-index:-1;border-radius:14px;
+  background:var(--violett);transform:scale(.25);opacity:0;
+  transition:transform var(--t-menue) var(--kurve-rein),
+             opacity var(--t-menue) var(--kurve-rein)}
+.kal__t{grid-area:1/1;
+  transition:transform var(--t-menue) var(--kurve-rein),
+             opacity var(--t-menue) var(--kurve-rein)}
+.kal__t--neu{opacity:0;transform:scale(.88);color:#fff}
+.kal__tag:hover:not(:disabled) .kal__bg,
+.kal__tag:focus-visible:not(:disabled) .kal__bg{transform:scale(1);opacity:1}
+.kal__tag:hover:not(:disabled) .kal__t,
+.kal__tag:focus-visible:not(:disabled) .kal__t{opacity:0;transform:scale(1.14)}
+.kal__tag:hover:not(:disabled) .kal__t--neu,
+.kal__tag:focus-visible:not(:disabled) .kal__t--neu{opacity:1;transform:none}
 .kal__tag:disabled{color:var(--grau-2);opacity:.4}
-.kal__tag.ist{background:var(--violett);color:#fff}
+/* Gewaehlt sieht sonst genauso aus wie ueberfahren — ein zarter
+   Ring aussenrum haelt die beiden auseinander. */
+.kal__tag.ist{box-shadow:0 0 0 3px var(--violett-zart)}
+.kal__tag.ist .kal__bg{transform:scale(1);opacity:1}
+.kal__tag.ist .kal__t{opacity:0}
+.kal__tag.ist .kal__t--neu{opacity:1;transform:none}
 .kal__tag.heute:not(.ist){box-shadow:inset 0 0 0 2px var(--violett-zart)}
-.kal__leer{height:clamp(42px,3.2vw,56px)}
+.kal__leer{height:clamp(44px,3.2vw,58px)}
 .kal__slots{padding-top:2px}
 .slots button:disabled{opacity:.42;box-shadow:inset 0 0 0 1.5px var(--linie)}
 .slots button:disabled:hover{transform:none;box-shadow:inset 0 0 0 1.5px var(--linie)}

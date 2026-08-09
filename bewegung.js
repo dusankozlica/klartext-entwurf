@@ -682,7 +682,12 @@ function zeileHalten(el, dauerMs) {
       const datum = new Date(monat.getFullYear(), monat.getMonth(), d);
       const wochenende = datum.getDay() === 0 || datum.getDay() === 6;
       const b = document.createElement('button');
-      b.type = 'button'; b.className = 'kal__tag'; b.textContent = d;
+      b.type = 'button'; b.className = 'kal__tag';
+      /* Gleicher Aufbau wie die Menuepunkte oben: Flaeche, Zahl und
+         eine zweite Zahl, die beim Hover hereinrollt. */
+      b.innerHTML = '<span class="kal__bg" aria-hidden="true"></span>'
+        + '<span class="kal__t">' + d + '</span>'
+        + '<span class="kal__t kal__t--neu" aria-hidden="true">' + d + '</span>';
       b.disabled = wochenende || datum < frueh || datum > spaet;
       if (gleich(datum, heute)) b.classList.add('heute');
       if (gleich(datum, tag)) b.classList.add('ist');
