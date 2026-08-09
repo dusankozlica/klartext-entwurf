@@ -709,13 +709,13 @@ function zeileHalten(el, dauerMs) {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const w = (n) => (form.elements[n].value || '').trim();
-    const fehlt = ['name', 'mail'].find((n) => !w(n));
+    const fehlt = ['name', 'firma', 'mail', 'tel'].find((n) => !w(n));
     if (fehlt) { form.elements[fehlt].focus(); return; }
     const zeilen = [
       'Name: ' + w('name'),
-      'Unternehmen: ' + (w('firma') || '—'),
+      'Unternehmen: ' + w('firma'),
       'E-Mail: ' + w('mail'),
-      'Telefon: ' + (w('tel') || '—'),
+      'Telefon: ' + w('tel'),
       'Wunschtermin: ' + (tag && zeit ? lesbar(tag) + ', ' + zeit + ' Uhr' : 'offen'),
       '', w('text') || '',
     ];

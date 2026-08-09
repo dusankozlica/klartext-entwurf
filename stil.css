@@ -866,17 +866,17 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 /* Die linke Spalte ist kuerzer als der Kalender — das Textfeld
    nimmt den Rest, statt eine Luecke stehen zu lassen. */
 .fm__links{background:var(--creme-3);border-radius:var(--r-gross);
-  padding:clamp(14px,1.3vw,20px);display:grid;gap:10px;
+  padding:clamp(13px,1.15vw,17px);display:grid;gap:8px;
   grid-template-rows:auto auto minmax(0,1fr) auto}
-.fm__zeile{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.feld{display:grid;gap:6px}
+.fm__zeile{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.feld{display:grid;gap:4px}
 .feld--voll{min-height:0}
-.feld--voll textarea{min-height:clamp(80px,6vw,112px);height:100%}
-.feld > span,.feld__titel{font-size:13px;font-weight:700;letter-spacing:.02em;
+.feld--voll textarea{min-height:clamp(72px,5vw,96px);height:100%}
+.feld > span,.feld__titel{font-size:12px;font-weight:700;letter-spacing:.03em;
   text-transform:uppercase;color:var(--grau)}
-.feld input,.feld textarea{width:100%;font:inherit;font-size:16px;color:var(--tinte);
-  background:var(--creme);border:2px solid transparent;border-radius:14px;
-  padding:14px 16px;resize:vertical;
+.feld input,.feld textarea{width:100%;font:inherit;font-size:15.5px;color:var(--tinte);
+  background:var(--creme);border:2px solid transparent;border-radius:12px;
+  padding:11px 14px;resize:vertical;
   transition:border-color var(--t-knopf) var(--kurve-rein),
     background-color var(--t-knopf) var(--kurve-rein)}
 .feld input::placeholder,.feld textarea::placeholder{color:var(--grau-2)}
@@ -910,7 +910,7 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
    eine Flaeche faehrt aus der Mitte auf, die Zahl waechst weg und
    eine zweite rollt herein — gleiche Dauer, gleiche Kurve. */
 .kal__tag{position:relative;isolation:isolate;
-  height:clamp(44px,3.2vw,58px);display:inline-grid;place-items:center;
+  height:clamp(40px,2.9vw,50px);display:inline-grid;place-items:center;
   border-radius:14px;font-size:20px;font-weight:700;color:var(--tinte);
   letter-spacing:-.02em}
 .kal__bg{position:absolute;inset:0;z-index:-1;border-radius:14px;
@@ -935,13 +935,13 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .kal__tag.ist .kal__t{opacity:0}
 .kal__tag.ist .kal__t--neu{opacity:1;transform:none}
 .kal__tag.heute:not(.ist){box-shadow:inset 0 0 0 2px var(--violett-zart)}
-.kal__leer{height:clamp(44px,3.2vw,58px)}
+.kal__leer{height:clamp(40px,2.9vw,50px)}
 .kal__slots{padding-top:2px}
 .slots button:disabled{opacity:.42;box-shadow:inset 0 0 0 1.5px var(--linie)}
 .slots button:disabled:hover{transform:none;box-shadow:inset 0 0 0 1.5px var(--linie)}
-.slots{display:grid;gap:7px;margin-top:8px;
+.slots{display:grid;gap:6px;margin-top:6px;
   grid-template-columns:repeat(auto-fit,minmax(84px,1fr))}
-.slots button{border-radius:var(--r-pille);padding:12px 14px;font-size:15px;
+.slots button{border-radius:var(--r-pille);padding:10px 13px;font-size:14.5px;
   font-weight:700;background:var(--creme-3);color:var(--tinte);
   box-shadow:inset 0 0 0 1.5px var(--linie);
   transition:background-color var(--t-knopf) var(--kurve-rein),
