@@ -1100,6 +1100,34 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .ruf__karte--knapp .knopf--akzent:hover,
 .ruf__karte--knapp .knopf--akzent:focus-visible{color:var(--creme)}
 
+/* Uebersichtsraster: gleiche Spalte wie die Ueberschrift daruber.
+   Mit .blog lag es 40 px weiter aussen als der Titel. */
+.uebersicht{max-width:1520px;margin:0 auto;padding:0 var(--pad)}
+.uebersicht .blog__raster{max-width:none}
+.artikel--recht{margin-top:clamp(16px,1.8vw,30px)}
+
+/* Fallstudie: Text links, Eckdaten als Karte rechts */
+.fall__gross{max-width:1520px}
+.fall__frage{font-size:clamp(21px,1.8vw,29px);letter-spacing:-.03em;margin:0 0 9px}
+.unter__text .fall__frage:not(:first-child){margin-top:1.5em}
+.fall__fakten{background:var(--creme-3);border-radius:var(--r-mittel);
+  padding:clamp(20px,1.8vw,30px);display:grid;gap:17px;align-content:start}
+.fall__fakten > div{display:grid;gap:6px}
+.fall__fakten dt{font-size:13px;font-weight:700;letter-spacing:.02em;
+  text-transform:uppercase;color:var(--grau-2)}
+.fall__fakten dd{font-size:18px;font-weight:700;letter-spacing:-.02em}
+
+/* Rechtstexte: enge Spalte, ruhige Zwischentitel */
+.artikel--recht h2{font-size:clamp(20px,1.6vw,26px);letter-spacing:-.03em;
+  margin:1.7em 0 .45em}
+.artikel--recht h2:first-child{margin-top:0}
+.artikel--recht p{font-size:17px;line-height:1.66;color:var(--grau);
+  margin-bottom:.9em}
+/* Was nur Dusan liefern kann, bleibt sichtbar offen — erfundene
+   Firmendaten waeren hier ein Rechtsrisiko, kein Platzhalter. */
+.luecke{background:var(--violett-zart);color:var(--violett);border-radius:7px;
+  padding:2px 9px;font-weight:700;font-size:.92em}
+
 /* Mehr-Knopf in der aufgeklappten Leistungszeile */
 .lz__mehr{grid-column:1;justify-self:start;display:inline-flex;align-items:center;
   gap:10px;margin-top:4px;border:2px solid var(--linie-hell);

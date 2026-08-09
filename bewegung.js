@@ -442,11 +442,14 @@ function zeileHalten(el, dauerMs) {
 (function faelle() {
   const FAELLE = [
     { titel: 'Eine klare Markenidentität für eine junge Energieplattform',
-      jahr: '2025', dauer: '6 Wochen', pillen: ['Branding', 'Website', '3D'], bild: 'bilder/fall-1.jpg' },
+      jahr: '2025', dauer: '6 Wochen', pillen: ['Branding', 'Website', '3D'],
+      bild: 'bilder/fall-1.jpg', link: 'arbeiten/nordlicht.html' },
     { titel: 'Ein Auftritt, der komplexe Technik verständlich macht',
-      jahr: '2024', dauer: '9 Wochen', pillen: ['Branding', 'Motion', 'Content'], bild: 'bilder/fall-2.jpg' },
+      jahr: '2024', dauer: '9 Wochen', pillen: ['Branding', 'Motion', 'Content'],
+      bild: 'bilder/fall-2.jpg', link: 'arbeiten/volta.html' },
     { titel: 'Vom Nischenprodukt zur Marke mit Haltung',
-      jahr: '2024', dauer: '12 Wochen', pillen: ['Strategie', 'Website', 'Performance'], bild: 'bilder/fall-3.jpg' },
+      jahr: '2024', dauer: '12 Wochen', pillen: ['Strategie', 'Website', 'Performance'],
+      bild: 'bilder/fall-3.jpg', link: 'arbeiten/meridian.html' },
   ];
   const inhalt = document.getElementById('fallInhalt');
   const bild = document.getElementById('fallBild');
@@ -467,6 +470,9 @@ function zeileHalten(el, dauerMs) {
         inhalt.querySelector('[data-feld="dauer"]').textContent = f.dauer;
         inhalt.querySelector('[data-feld="pillen"]').innerHTML =
           f.pillen.map((p) => `<span>${p}</span>`).join('');
+        /* Der Knopf muss mitwandern — sonst zeigt er beim zweiten Fall
+           noch auf die Fallstudie des ersten. */
+        inhalt.querySelector('[data-feld="link"]').href = f.link;
         gsap.to(inhalt, { opacity: 1, y: 0, duration: T_FARBE, ease: KURVE });
       },
     });
