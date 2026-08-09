@@ -445,7 +445,7 @@ function zeileHalten(el, dauerMs) {
       jahr: '2025', dauer: '6 Wochen', pillen: ['Branding', 'Website', '3D'],
       bild: 'bilder/fall-1.jpg', link: 'arbeiten/nordlicht.html' },
     { titel: 'Ein Auftritt, der komplexe Technik verständlich macht',
-      jahr: '2024', dauer: '9 Wochen', pillen: ['Branding', 'Motion', 'Content'],
+      jahr: '2024', dauer: '9 Wochen', pillen: ['Branding', 'Content', 'Social Media'],
       bild: 'bilder/fall-2.jpg', link: 'arbeiten/volta.html' },
     { titel: 'Vom Nischenprodukt zur Marke mit Haltung',
       jahr: '2024', dauer: '12 Wochen', pillen: ['Strategie', 'Website', 'Performance'],

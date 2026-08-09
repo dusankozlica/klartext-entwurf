@@ -652,6 +652,8 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
 .preise__kopf h2{font-size:clamp(28px,2.8vw,46px)}
 .preise__kopf .chip{margin-bottom:14px}
 .preise__kopf{text-align:center;display:grid;justify-items:center}
+.preise__lead{max-width:52ch;margin-top:10px;font-size:clamp(15px,1.05vw,18px);
+  line-height:1.55;color:rgb(255 255 255 / .8)}
 .schalter{display:flex;margin-top:22px;border:2px solid var(--linie-hell);
   border-radius:var(--r-pille);padding:5px;gap:4px}
 .schalter button{border-radius:var(--r-pille);padding:11px 26px;font-size:16px;
