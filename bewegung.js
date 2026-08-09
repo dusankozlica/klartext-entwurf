@@ -588,7 +588,7 @@ function zeileHalten(el, dauerMs) {
       const offen = fr.classList.contains('ist');
       zeilen.forEach((a) => { if (a.classList.contains('ist')) zu(a); });
       if (!offen) auf(fr);
-      zeileHalten(kopf, 460);
+      zeileHalten(kopf, 340);   /* Aufklappen dauert jetzt .3s, nicht .46s */
     });
   });
 })();
@@ -601,6 +601,116 @@ function zeileHalten(el, dauerMs) {
     w.addEventListener('pointerenter', () => gsap.to(img, { scale: 1.06, duration: T_BILD, ease: KURVE }));
     w.addEventListener('pointerleave', () => gsap.to(img, { scale: 1, duration: T_BILD, ease: KURVE }));
   });
+})();
+
+/* ── Kontakt: Terminwahl und Versand ─────────────────────────
+   Eigener Kalender statt <input type="date">, weil der System-Dialog
+   in jedem Browser anders aussieht und die Seite dort verlässt.
+   Wählbar sind nur Werktage ab morgen, drei Monate weit. Ohne
+   Serverteil kann das Formular nichts verschicken — der Knopf öffnet
+   deshalb das Mailprogramm mit allem Ausgefüllten. */
+(function termin() {
+  const kal = document.getElementById('kal');
+  const form = document.getElementById('fm');
+  if (!kal || !form) return;
+
+  const MONATE = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli',
+    'August', 'September', 'Oktober', 'November', 'Dezember'];
+  const ZEITEN = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'];
+
+  const raster = document.getElementById('kalRaster');
+  const monatFeld = document.getElementById('kalMonat');
+  const slotFeld = document.getElementById('kalSlots');
+  const slots = document.getElementById('slots');
+  const zusammen = document.getElementById('fmGewaehlt');
+  const pfeile = [...kal.querySelectorAll('.kal__pfeil')];
+
+  const heute = new Date(); heute.setHours(0, 0, 0, 0);
+  const frueh = new Date(heute); frueh.setDate(frueh.getDate() + 1);
+  const spaet = new Date(heute); spaet.setMonth(spaet.getMonth() + 3);
+  let monat = new Date(heute.getFullYear(), heute.getMonth(), 1);
+  let tag = null, zeit = null;
+
+  const gleich = (a, b) => a && b && a.getTime() === b.getTime();
+  const lesbar = (d) => d.getDate() + '. ' + MONATE[d.getMonth()] + ' ' + d.getFullYear();
+
+  const melden = () => {
+    const fertig = tag && zeit;
+    zusammen.textContent = fertig
+      ? lesbar(tag) + ' um ' + zeit + ' Uhr'
+      : tag ? lesbar(tag) + ' — noch eine Uhrzeit wählen'
+            : 'Noch kein Termin gewählt';
+    zusammen.classList.toggle('ist', !!fertig);
+  };
+
+  const zeichneSlots = () => {
+    slots.innerHTML = '';
+    ZEITEN.forEach((z) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.textContent = z;
+      b.classList.toggle('ist', z === zeit);
+      b.addEventListener('click', () => {
+        zeit = z;
+        [...slots.children].forEach((x) => x.classList.toggle('ist', x === b));
+        melden();
+      });
+      slots.appendChild(b);
+    });
+    slotFeld.hidden = !tag;
+  };
+
+  const zeichne = () => {
+    monatFeld.textContent = MONATE[monat.getMonth()] + ' ' + monat.getFullYear();
+    /* getDay() zählt ab Sonntag — wir starten die Woche am Montag. */
+    const versatz = (new Date(monat.getFullYear(), monat.getMonth(), 1).getDay() + 6) % 7;
+    const letzter = new Date(monat.getFullYear(), monat.getMonth() + 1, 0).getDate();
+    raster.innerHTML = '';
+    for (let i = 0; i < versatz; i++) {
+      const l = document.createElement('span'); l.className = 'kal__leer';
+      raster.appendChild(l);
+    }
+    for (let d = 1; d <= letzter; d++) {
+      const datum = new Date(monat.getFullYear(), monat.getMonth(), d);
+      const wochenende = datum.getDay() === 0 || datum.getDay() === 6;
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'kal__tag'; b.textContent = d;
+      b.disabled = wochenende || datum < frueh || datum > spaet;
+      if (gleich(datum, heute)) b.classList.add('heute');
+      if (gleich(datum, tag)) b.classList.add('ist');
+      b.addEventListener('click', () => {
+        tag = datum; zeit = null;
+        zeichne(); zeichneSlots(); melden();
+      });
+      raster.appendChild(b);
+    }
+    pfeile[0].disabled = monat <= new Date(heute.getFullYear(), heute.getMonth(), 1);
+    pfeile[1].disabled = monat >= new Date(spaet.getFullYear(), spaet.getMonth(), 1);
+  };
+
+  pfeile.forEach((p) => p.addEventListener('click', () => {
+    monat = new Date(monat.getFullYear(), monat.getMonth() + (+p.dataset.schritt), 1);
+    zeichne();
+  }));
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const w = (n) => (form.elements[n].value || '').trim();
+    const fehlt = ['name', 'mail'].find((n) => !w(n));
+    if (fehlt) { form.elements[fehlt].focus(); return; }
+    const zeilen = [
+      'Name: ' + w('name'),
+      'Unternehmen: ' + (w('firma') || '—'),
+      'E-Mail: ' + w('mail'),
+      'Telefon: ' + (w('tel') || '—'),
+      'Wunschtermin: ' + (tag && zeit ? lesbar(tag) + ', ' + zeit + ' Uhr' : 'offen'),
+      '', w('text') || '',
+    ];
+    location.href = 'mailto:hallo@klartext.example'
+      + '?subject=' + encodeURIComponent('Anfrage über die Website — ' + w('name'))
+      + '&body=' + encodeURIComponent(zeilen.join('\n'));
+  });
+
+  zeichne(); zeichneSlots(); melden();
 })();
 
 addEventListener('load', () => ScrollTrigger.refresh());
