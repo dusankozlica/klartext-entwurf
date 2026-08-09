@@ -834,7 +834,7 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
    passte auf keinen Bildschirm; nebeneinander nutzt er die Breite,
    die ohnehin da ist, und der Kalender darf gross sein. */
 .ruf{padding:var(--sec) var(--pad)}
-.ruf__karte{max-width:1520px;margin:0 auto;background:var(--violett);color:#fff;
+.ruf__karte{max-width:1240px;margin:0 auto;background:var(--violett);color:#fff;
   border-radius:var(--r-seite);padding:clamp(14px,1.3vw,20px)}
 .ruf__karte .brush{color:var(--violett-zart)}
 .ruf__kopf{display:flex;align-items:flex-end;justify-content:space-between;
@@ -865,16 +865,18 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
    Eingaben, rechts der Kalender. Vorher steckten beide in einer
    weissen Karte und der Kalender war nur ein grauer Kasten darin. */
 .fm{color:var(--tinte);display:grid;
-  grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);
+  grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);
   gap:clamp(12px,1.2vw,20px);align-items:stretch}
 /* Die linke Spalte ist kuerzer als der Kalender — das Textfeld
    nimmt den Rest, statt eine Luecke stehen zu lassen. */
+/* Rechte Spalte: Kalender oben, Uhrzeit als eigene Karte darunter. */
+.fm__rechts{display:grid;gap:clamp(10px,1vw,16px);align-content:start}
 .fm__links{background:var(--creme-3);border-radius:var(--r-gross);
   padding:clamp(13px,1.15vw,17px);display:grid;gap:8px;
-  grid-template-rows:auto auto minmax(0,1fr) auto}
+  grid-template-rows:auto auto minmax(0,1fr)}
 .fm__zeile{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .feld{display:grid;gap:4px}
-.feld--voll{min-height:0}
+.feld--voll{min-height:0;grid-template-rows:auto minmax(0,1fr)}
 .feld--voll textarea{min-height:clamp(72px,5vw,96px);height:100%}
 .feld > span,.feld__titel{font-size:12px;font-weight:700;letter-spacing:.03em;
   text-transform:uppercase;color:var(--grau)}
@@ -940,12 +942,13 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .kal__tag.ist .kal__t--neu{opacity:1;transform:none}
 .kal__tag.heute:not(.ist){box-shadow:inset 0 0 0 2px var(--violett-zart)}
 .kal__leer{height:clamp(40px,2.9vw,50px)}
-.kal__slots{padding-top:2px}
+.kal__slots{background:var(--creme-3);border-radius:var(--r-gross);
+  padding:clamp(13px,1.15vw,17px)}
 .slots button:disabled{opacity:.42;box-shadow:inset 0 0 0 1.5px var(--linie)}
 .slots button:disabled:hover{transform:none;box-shadow:inset 0 0 0 1.5px var(--linie)}
-.slots{display:grid;gap:6px;margin-top:6px;
-  grid-template-columns:repeat(auto-fit,minmax(84px,1fr))}
-.slots button{border-radius:var(--r-pille);padding:10px 13px;font-size:14.5px;
+.slots{display:grid;gap:6px;margin-top:7px;
+  grid-template-columns:repeat(7,minmax(0,1fr))}
+.slots button{border-radius:var(--r-pille);padding:10px 6px;font-size:14px;
   font-weight:700;background:var(--creme-3);color:var(--tinte);
   box-shadow:inset 0 0 0 1.5px var(--linie);
   transition:background-color var(--t-knopf) var(--kurve-rein),
