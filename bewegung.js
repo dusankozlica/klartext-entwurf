@@ -686,7 +686,7 @@ function zeileHalten(el, dauerMs) {
       'Wunschtermin: ' + (tag && zeit ? lesbar(tag) + ', ' + zeit + ' Uhr' : 'offen'),
       '', w('text') || '',
     ];
-    location.href = 'mailto:hallo@klartext.example'
+    location.href = 'mailto:hallo@klartext-digital.ch'
       + '?subject=' + encodeURIComponent('Anfrage über die Website — ' + w('name'))
       + '&body=' + encodeURIComponent(zeilen.join('\n'));
   });
