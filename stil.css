@@ -711,13 +711,20 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
 .projekt__wort p{color:rgb(247 247 245 / .62);font-size:16px;line-height:1.6;
   max-width:46ch}
 .projekt__wort .knopf{margin-top:7px}
-.projekt__liste{display:grid;gap:2px;align-content:start}
-.projekt__liste li{display:flex;align-items:baseline;justify-content:space-between;
-  gap:18px;padding:13px 2px;border-bottom:1px solid var(--linie-hell);
-  font-size:16px}
-.projekt__liste li:last-child{border-bottom:0}
-.projekt__liste b{font-weight:700;white-space:nowrap;color:var(--creme)}
-.projekt__liste span{color:rgb(247 247 245 / .72)}
+/* Beispiele statt Preisliste: beim Projektgeschaeft haengt der Preis
+   am Umfang, und eine Zahlenspalte lud zum Vergleichen mit den
+   Abo-Paketen ein. Zweispaltig, damit die sechs Zeilen nicht in die
+   Laenge gehen. */
+.projekt__liste{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px 22px;align-content:start}
+.projekt__liste li{position:relative;padding-left:19px;font-size:16px;
+  line-height:1.45;color:rgb(247 247 245 / .78)}
+.projekt__liste li::before{content:"";position:absolute;left:0;top:.62em;
+  width:7px;height:7px;border-radius:50%;background:var(--violett)}
+
+@media (max-width:620px){
+  .projekt__liste{grid-template-columns:1fr}
+}
 
 @media (max-width:860px){
   .projekt{grid-template-columns:1fr;gap:22px}
@@ -903,15 +910,18 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
    Eingaben, rechts der Kalender. Vorher steckten beide in einer
    weissen Karte und der Kalender war nur ein grauer Kasten darin. */
 .fm{color:var(--tinte);display:grid;
-  grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);
+  grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);
   gap:clamp(12px,1.2vw,20px);align-items:stretch}
 /* Formular und Kalender teilen sich Zeile eins und sind damit
    gleich hoch — das Textfeld schliesst genau mit dem Kalender ab.
    Die Uhrzeit haengt darunter, nur in der rechten Spalte. */
-.fm__links{grid-column:1;grid-row:1}
-.kal{grid-column:2;grid-row:1}
-.kal__slots{grid-column:2;grid-row:2}
-.fm__fuss{grid-column:1;grid-row:2}
+/* Seitenverkehrt: Kalender links, Formular rechts. Damit landet
+   "Anfrage senden" rechts unten — dort, wo das Auge nach dem
+   Ausfuellen der Felder ohnehin ankommt. */
+.kal{grid-column:1;grid-row:1}
+.kal__slots{grid-column:1;grid-row:2}
+.fm__links{grid-column:2;grid-row:1}
+.fm__fuss{grid-column:2;grid-row:2}
 /* Die linke Spalte ist kuerzer als der Kalender — das Textfeld
    nimmt den Rest, statt eine Luecke stehen zu lassen. */
 /* Rechte Spalte: Kalender oben, Uhrzeit als eigene Karte darunter. */
@@ -1268,4 +1278,57 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+
+/* ── Kostenrechner (nur Unterseite Websites) ────────────────────
+   Zwei Spalten: links die Fragen, rechts das Ergebnis, das beim
+   Scrollen stehen bleibt. Die Auswahl laeuft ueber echte Radio- und
+   Checkbox-Felder — dadurch funktioniert Tastaturbedienung und
+   Vorlesesoftware ohne Zusatzarbeit, sichtbar sind nur die Pillen. */
+.rechner{padding:var(--sec) var(--pad) 0;max-width:1600px;margin:0 auto}
+.rechner__lead{max-width:56ch;margin-top:12px;color:var(--grau);
+  font-size:clamp(16px,1.1vw,19px);line-height:1.6}
+.rechner__leib{max-width:1520px;margin:clamp(24px,2.4vw,40px) auto 0;
+  display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);
+  gap:clamp(20px,2.2vw,36px);align-items:start}
+
+.rechner__fragen{display:grid;gap:clamp(16px,1.5vw,24px);
+  background:var(--creme-3);border-radius:var(--r-gross);
+  padding:clamp(22px,2vw,34px)}
+.rechner__block{border:0;padding:0;margin:0}
+.rechner__block--aus{display:none}
+.rechner__block legend{font-size:15px;font-weight:700;color:var(--tinte);
+  letter-spacing:.01em;margin-bottom:11px;padding:0}
+.rechner__wahl{display:flex;flex-wrap:wrap;gap:9px}
+.rechner__wahl label{position:relative;cursor:pointer}
+.rechner__wahl input{position:absolute;inset:0;opacity:0;cursor:pointer;margin:0}
+.rechner__wahl span{display:inline-block;padding:11px 20px;border-radius:var(--r-pille);
+  background:var(--creme-2);color:var(--tinte);font-size:16px;font-weight:500;
+  border:2px solid transparent;
+  transition:background-color var(--t-knopf) var(--kurve-rein),
+             border-color var(--t-knopf) var(--kurve-rein),
+             transform var(--t-knopf) var(--kurve-rein)}
+.rechner__wahl label:hover span{transform:scale(1.03)}
+.rechner__wahl input:checked + span{background:var(--violett);color:var(--tinte);
+  font-weight:700}
+.rechner__wahl input:focus-visible + span{border-color:var(--tinte)}
+
+.rechner__ergebnis{position:sticky;top:96px;display:grid;justify-items:start;gap:11px;
+  background:var(--tinte-2);color:var(--creme);border-radius:var(--r-gross);
+  padding:clamp(22px,2vw,32px)}
+.rechner__marke{color:var(--violett-hell);font-size:19px}
+.rechner__spanne{font-size:clamp(26px,2.4vw,38px);font-weight:800;line-height:1.1;
+  letter-spacing:-.02em}
+.rechner__posten{display:grid;gap:1px;width:100%;margin:2px 0 4px}
+.rechner__posten li{display:flex;align-items:baseline;justify-content:space-between;
+  gap:16px;padding:9px 0;border-bottom:1px solid var(--linie-hell);font-size:15px}
+.rechner__posten li:last-child{border-bottom:0}
+.rechner__posten span{color:rgb(247 247 245 / .72)}
+.rechner__posten b{font-weight:700;white-space:nowrap}
+.rechner__ergebnis .knopf{width:100%;margin-top:4px}
+.rechner__fussnote{font-size:14px;line-height:1.55;color:rgb(247 247 245 / .55)}
+
+@media (max-width:960px){
+  .rechner__leib{grid-template-columns:1fr}
+  .rechner__ergebnis{position:static}
 }
