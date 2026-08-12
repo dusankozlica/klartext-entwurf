@@ -204,9 +204,35 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
 /* Ziffernrolle */
 
 /* Korn — sehr fein, nur als Textur auf der hellen Fläche */
-.korn{position:fixed;inset:0;z-index:9;pointer-events:none;
-  background-image:url(korn.png);background-size:256px 256px;opacity:.035;
-  mix-blend-mode:multiply}
+/* ── Filmkorn, an rama.framer.media ausgemessen ──────────────────
+   Gemessen an der laufenden Vorlage, nicht geschaetzt:
+     Textur     256 px, monochrom, HARTES Einzelpixel-Rauschen
+                (Autokorrelation 1 px = 0.00 — bewusst unverklumpt),
+                Mittel 75 von 255, Standardabweichung 97
+     Deckkraft  0.04, kein Mischmodus
+     Bewegung   ~12 Wechsel pro Sekunde (83 ms), lineare Wegpunkte
+                mit Spruengen von ~77 px waagrecht, ~51 px senkrecht
+   Rama animiert per JavaScript; hier als CSS-Animation nachgebaut,
+   damit kein Skript pro Bild laufen muss. Bewegt wird nur transform,
+   das liegt auf der Grafikkarte. */
+.korn{position:fixed;inset:-200px;z-index:9;pointer-events:none;
+  background-image:url(korn-fein.png);background-repeat:repeat;
+  opacity:.04;will-change:transform;
+  animation:korn-flimmern .833s steps(1,end) infinite}
+
+@keyframes korn-flimmern{
+  0%  {transform:translate3d(0,0,0)}
+  10% {transform:translate3d(-77px,-51px,0)}
+  20% {transform:translate3d(-154px,0,0)}
+  30% {transform:translate3d(-77px,51px,0)}
+  40% {transform:translate3d(0,102px,0)}
+  50% {transform:translate3d(77px,51px,0)}
+  60% {transform:translate3d(154px,0,0)}
+  70% {transform:translate3d(77px,-51px,0)}
+  80% {transform:translate3d(0,-102px,0)}
+  90% {transform:translate3d(-38px,-25px,0)}
+}
+@media (prefers-reduced-motion:reduce){.korn{animation:none}}
 
 .kopfzeile{display:flex;align-items:flex-end;justify-content:space-between;
   gap:40px;flex-wrap:wrap;margin-bottom:clamp(40px,4vw,72px)}
@@ -666,6 +692,36 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
 .schalter button.ist em{color:var(--violett)}
 .preise__raster{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;
   max-width:1020px;margin:clamp(18px,1.8vw,28px) auto 0}
+
+/* ── Projektoption: fuer Firmen ohne Abo ────────────────────────
+   Bewusst breiter und flacher als die beiden Abo-Karten, damit sie
+   nicht als dritter Tarif gelesen wird, sondern als eigener Weg.
+   Nutzt dieselben Bausteine — Karte, Haken-Liste, Knopf. */
+.projekt{max-width:1020px;margin:20px auto 0;background:var(--tinte-2);
+  border-radius:var(--r-gross);padding:clamp(22px,1.9vw,30px);
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(20px,2.6vw,44px);align-items:center;
+  transition:transform var(--t-knopf) var(--kurve-rein),
+             box-shadow var(--t-knopf) var(--kurve-rein)}
+.projekt:hover,.projekt:focus-within{transform:scale(1.012);
+  box-shadow:0 18px 44px rgb(14 13 11 / .22)}
+.projekt__wort{display:grid;justify-items:start;gap:9px}
+.projekt__marke{color:var(--violett-hell);font-size:19px}
+.projekt h3{font-size:clamp(24px,1.9vw,32px);line-height:1.1}
+.projekt__wort p{color:rgb(247 247 245 / .62);font-size:16px;line-height:1.6;
+  max-width:46ch}
+.projekt__wort .knopf{margin-top:7px}
+.projekt__liste{display:grid;gap:2px;align-content:start}
+.projekt__liste li{display:flex;align-items:baseline;justify-content:space-between;
+  gap:18px;padding:13px 2px;border-bottom:1px solid var(--linie-hell);
+  font-size:16px}
+.projekt__liste li:last-child{border-bottom:0}
+.projekt__liste b{font-weight:700;white-space:nowrap;color:var(--creme)}
+.projekt__liste span{color:rgb(247 247 245 / .72)}
+
+@media (max-width:860px){
+  .projekt{grid-template-columns:1fr;gap:22px}
+}
 /* Die Karte kommt beim Hover auf den Betrachter zu statt nach oben zu
    rutschen — sie wird minimal groesser, mehr nicht. Ein Versatz nach
    oben liest sich als Verschieben, das Wachsen als Naeherkommen.
@@ -745,8 +801,10 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
    (Karte #F7F7F5, Fuellung #FFF). Der zarte Markenton traegt dort,
    bleibt aber in derselben Familie: helle Flaeche, violette Schrift. */
 .paket--voll .knopf--akzent{--knopf-fuell:var(--violett-zart)}
-.paket .knopf--rand{border-color:var(--linie-hell);color:var(--creme);--knopf-fuell:var(--creme)}
-.paket .knopf--rand:hover{border-color:var(--creme);color:var(--tinte)}
+.paket .knopf--rand,.projekt .knopf--rand{border-color:var(--linie-hell);
+  color:var(--creme);--knopf-fuell:var(--creme)}
+.paket .knopf--rand:hover,.projekt .knopf--rand:hover{border-color:var(--creme);
+  color:var(--tinte)}
 
 /* ── 11 · FAQ ──────────────────────────────────────────────── */
 .faq{padding:var(--sec) var(--pad) 0;max-width:1600px;margin:0 auto;
