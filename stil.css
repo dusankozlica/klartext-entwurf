@@ -172,7 +172,9 @@ h1 .brush,h2 .brush{font-size:.88em;letter-spacing:-.01em;
    Creme fuellte sich mit Weiss. Man sah fast nichts.
    Regel: violetter Knopf -> weisse Flaeche, violette Schrift. */
 .knopf--dunkel{background:var(--tinte);color:var(--creme);--knopf-fuell:var(--violett)}
-.knopf--dunkel:hover,.knopf--dunkel:focus-visible{color:#fff}
+/* Die Fuellung ist die Akzentfarbe — darauf gehoert dunkle Schrift,
+   weiss kam auf 2,0:1. */
+.knopf--dunkel:hover,.knopf--dunkel:focus-visible{color:var(--tinte)}
 .knopf--akzent{background:var(--violett);color:#fff;--knopf-fuell:#fff}
 .knopf--akzent:hover,.knopf--akzent:focus-visible{color:var(--violett)}
 .knopf--rand{border:2px solid var(--linie);color:var(--tinte);--knopf-fuell:var(--tinte)}
@@ -632,8 +634,11 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
   transform:scale(1.07);transform-origin:50% 0;
   transition:filter var(--t-lamelle) var(--kurve-rein),
              transform var(--t-lamelle) var(--kurve-rein)}
-.lamelle.ist img{filter:grayscale(1) brightness(var(--ton,1)) contrast(1.06);
-  transform:none}
+/* Das ausgewaehlte Portrait zeigt das Bild wie es ist: keine
+   Graustufen, keine Helligkeitskorrektur. Nur die anderen bleiben
+   zurueckgenommen. Das Filmkorn liegt als eigene Ebene darueber und
+   bleibt davon unberuehrt. */
+.lamelle.ist img{filter:none;transform:none}
 /* Violettes LICHT statt violetter Flaeche. Vorher lag eine volle
    Farbschicht (mix-blend-mode:color) ueber dem Foto — damit wurde
    auch der Hintergrund violett. In der Vorlage bleibt der Hintergrund
@@ -715,16 +720,11 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
    am Umfang, und eine Zahlenspalte lud zum Vergleichen mit den
    Abo-Paketen ein. Zweispaltig, damit die sechs Zeilen nicht in die
    Laenge gehen. */
-.projekt__liste{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:9px 22px;align-content:start}
-.projekt__liste li{position:relative;padding-left:19px;font-size:16px;
-  line-height:1.45;color:rgb(247 247 245 / .78)}
-.projekt__liste li::before{content:"";position:absolute;left:0;top:.62em;
-  width:7px;height:7px;border-radius:50%;background:var(--violett)}
-
-@media (max-width:620px){
-  .projekt__liste{grid-template-columns:1fr}
-}
+.projekt__liste{display:grid;gap:0;align-content:start}
+.projekt__liste li{padding:12px 0;border-bottom:1px solid var(--linie-hell);
+  font-size:16px;line-height:1.4;color:rgb(247 247 245 / .78)}
+.projekt__liste li:first-child{padding-top:0}
+.projekt__liste li:last-child{border-bottom:0;padding-bottom:0}
 
 @media (max-width:860px){
   .projekt{grid-template-columns:1fr;gap:22px}
@@ -807,7 +807,11 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 /* Auf der hellen Karte war die weisse Fuellung praktisch unsichtbar
    (Karte #F7F7F5, Fuellung #FFF). Der zarte Markenton traegt dort,
    bleibt aber in derselben Familie: helle Flaeche, violette Schrift. */
+/* Die Fuellung ist hier bewusst zart — dann darf die Schrift nicht
+   auf Creme drehen, das ergab 1,1:1. Sie bleibt dunkel. */
 .paket--voll .knopf--akzent{--knopf-fuell:var(--violett-zart)}
+.paket--voll .knopf--akzent:hover,
+.paket--voll .knopf--akzent:focus-visible{color:var(--tinte)}
 .paket .knopf--rand,.projekt .knopf--rand{border-color:var(--linie-hell);
   color:var(--creme);--knopf-fuell:var(--creme)}
 .paket .knopf--rand:hover,.projekt .knopf--rand:hover{border-color:var(--creme);
@@ -842,7 +846,11 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .fr__kopf{width:100%;text-align:left;padding:28px 32px;font-size:21px;font-weight:700;
   letter-spacing:-.02em;display:flex;align-items:center;justify-content:space-between;
   gap:24px;transition:color var(--t-knopf) var(--kurve-rein)}
-.fr:hover .fr__kopf,.fr:focus-within .fr__kopf{color:var(--violett-tief)}
+/* Nur die offene Frage traegt die Akzentfarbe. Beim Ueberfahren
+   wandert allein das Pluszeichen mit — sonst sehen zwei Zeilen
+   gleichzeitig aus wie geoeffnet. */
+.fr.ist .fr__kopf{color:var(--violett-tief)}
+.fr:hover .fr__kopf i,.fr:focus-within .fr__kopf i{color:var(--violett-tief)}
 .fr__kopf i{position:relative;width:20px;height:20px;flex:none;
   transition:transform var(--t-knopf) var(--kurve-rein)}
 .fr:hover .fr__kopf i,.fr:focus-within .fr__kopf i{transform:scale(1.16)}
@@ -1017,10 +1025,13 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
    der Uhrzeit — sonst stuende dort eine leere violette Flaeche. */
 .fm__fuss{display:flex;align-items:center;justify-content:space-between;
   gap:18px;flex-wrap:wrap;color:#fff;padding:4px clamp(6px,.8vw,14px) 0}
+/* Heller Knopf auf dunkler Karte: beim Hover fuellt er in der
+   Akzentfarbe statt in Schwarz — schwarz auf dunklem Grund war ein
+   Loch. Die Schrift bleibt dabei dunkel (9,5:1 auf dem Akzent). */
 .fm__fuss .knopf--akzent{background:var(--creme);color:var(--tinte);
-  --knopf-fuell:var(--tinte)}
+  --knopf-fuell:var(--violett)}
 .fm__fuss .knopf--akzent:hover,.fm__fuss .knopf--akzent:focus-visible{
-  color:var(--creme)}
+  color:var(--tinte)}
 .fm__gewaehlt{font-size:17px;font-weight:700;color:rgb(255 255 255 / .6);
   transition:color var(--t-farbe) var(--kurve)}
 .fm__gewaehlt.ist{color:#fff}
@@ -1191,9 +1202,9 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .ruf__karte--knapp .ruf__wort{padding:0}
 .ruf__karte--knapp .ruf__text{margin:0 auto 26px;max-width:44ch}
 .ruf__karte--knapp .knopf--akzent{background:var(--creme);color:var(--tinte);
-  --knopf-fuell:var(--tinte)}
+  --knopf-fuell:var(--violett)}
 .ruf__karte--knapp .knopf--akzent:hover,
-.ruf__karte--knapp .knopf--akzent:focus-visible{color:var(--creme)}
+.ruf__karte--knapp .knopf--akzent:focus-visible{color:var(--tinte)}
 
 /* Uebersichtsraster: gleiche Spalte wie die Ueberschrift daruber.
    Mit .blog lag es 40 px weiter aussen als der Titel. */
