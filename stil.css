@@ -320,8 +320,8 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
   transition:opacity var(--t-farbe) var(--kurve),transform var(--t-bedien) var(--kurve)}
 /* Geschwister dimmen, sobald eine Zeile überfahren wird */
 .ndd__liste:hover a{color:var(--grau-2)}
-.ndd__liste a:hover{background:var(--violett);color:#fff;transform:scale(1.02)}
-.ndd__liste a:hover .ndd__nr{color:rgb(255 255 255 / .7)}
+.ndd__liste a:hover{background:var(--violett);color:var(--tinte);transform:scale(1.02)}
+.ndd__liste a:hover .ndd__nr{color:rgb(14 13 11 / .55)}
 .ndd__liste a:hover i{opacity:1;transform:none}
 .ndd__fuss{display:inline-flex;align-items:center;gap:9px;align-self:start;
   margin:14px 0 0 24px;font-size:17px;font-weight:700;color:var(--violett);
@@ -842,7 +842,7 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .fr__kopf{width:100%;text-align:left;padding:28px 32px;font-size:21px;font-weight:700;
   letter-spacing:-.02em;display:flex;align-items:center;justify-content:space-between;
   gap:24px;transition:color var(--t-knopf) var(--kurve-rein)}
-.fr:hover .fr__kopf,.fr:focus-within .fr__kopf{color:var(--violett)}
+.fr:hover .fr__kopf,.fr:focus-within .fr__kopf{color:var(--violett-tief)}
 .fr__kopf i{position:relative;width:20px;height:20px;flex:none;
   transition:transform var(--t-knopf) var(--kurve-rein)}
 .fr:hover .fr__kopf i,.fr:focus-within .fr__kopf i{transform:scale(1.16)}
@@ -870,7 +870,7 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .beitrag:hover img{transform:scale(1.06)}
 .beitrag .datum{font-family:'Rock Salt',cursive;font-size:15px;color:var(--violett)}
 .beitrag h3{transition:color var(--t-farbe) var(--kurve)}
-.beitrag:hover h3{color:var(--violett)}
+.beitrag:hover h3{color:var(--violett-tief)}
 
 /* ── 13 · Kontakt ──────────────────────────────────────────────
    Ein breiter violetter Block: oben die Ansage, darunter das
@@ -1332,3 +1332,37 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
   .rechner__leib{grid-template-columns:1fr}
   .rechner__ergebnis{position:static}
 }
+
+/* ── Regler im Kostenrechner ────────────────────────────────────
+   Eigene Spur als Element darunter, damit der gefuellte Teil in der
+   Akzentfarbe laeuft — der Browser gibt das bei input[type=range]
+   nicht einheitlich her. Der Griff sitzt auf beiden Engines gleich,
+   deshalb sind -webkit- und -moz- getrennt gesetzt. */
+.rechner__block legend{display:flex;align-items:baseline;justify-content:space-between;
+  gap:12px;width:100%}
+.rechner__wert{font-size:19px;font-weight:800;color:var(--violett-tief);
+  font-variant-numeric:tabular-nums}
+.rechner__regler{position:relative;height:34px;display:flex;align-items:center}
+.rechner__spur{position:absolute;left:0;right:0;height:6px;border-radius:3px;
+  background:var(--creme-2);pointer-events:none}
+.rechner__spur::after{content:"";position:absolute;left:0;top:0;bottom:0;
+  width:var(--anteil,50%);border-radius:3px;background:var(--violett);
+  transition:width .18s var(--kurve-rein)}
+.rechner__regler input[type=range]{position:relative;z-index:1;width:100%;
+  -webkit-appearance:none;appearance:none;background:transparent;margin:0;height:34px;
+  cursor:pointer}
+.rechner__regler input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;
+  width:26px;height:26px;border-radius:50%;background:var(--creme-3);
+  border:3px solid var(--violett);box-shadow:0 3px 10px rgb(14 13 11 / .22);
+  transition:transform var(--t-knopf) var(--kurve-rein)}
+.rechner__regler input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.12)}
+.rechner__regler input[type=range]:active::-webkit-slider-thumb{transform:scale(1.04)}
+.rechner__regler input[type=range]::-moz-range-thumb{width:26px;height:26px;
+  border-radius:50%;background:var(--creme-3);border:3px solid var(--violett);
+  box-shadow:0 3px 10px rgb(14 13 11 / .22)}
+.rechner__regler input[type=range]:focus-visible::-webkit-slider-thumb{
+  border-color:var(--tinte)}
+.rechner__marken{display:flex;justify-content:space-between;margin-top:5px;
+  font-size:13px;color:var(--grau-2)}
+.rechner__deckel{font-size:14px;line-height:1.5;color:var(--violett-hell);
+  margin:-4px 0 2px}

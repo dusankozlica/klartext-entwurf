@@ -62,7 +62,7 @@
           </div>
       <aside class="ndd__karte">
         <p class="brush">Unsicher?</p>
-        <p class="ndd__karte-titel">Wir sortieren das in 20&nbsp;Minuten.</p>
+        <p class="ndd__karte-titel">Wir sortieren das in 15&nbsp;Minuten.</p>
         <p class="ndd__karte-text">Kurzes Gespräch, ehrliche Einschätzung.
           Auch wenn am Ende nichts daraus wird.</p>
         <a class="knopf knopf--akzent" href="../index.html#kontakt" tabindex="-1">Gespräch buchen</a>
@@ -137,7 +137,7 @@
       <div>
         <span class="chip" data-rein>Kostenrechner</span>
         <h2 data-rein-zeilen><span>Was kostet eure Website?</span></h2>
-        <p class="rechner__lead" data-rein>Vier Fragen, ein Richtwert. Damit ihr wisst, in
+        <p class="rechner__lead" data-rein>Ein paar Angaben, ein Richtwert. Damit ihr wisst, in
           welcher Grössenordnung ihr plant, bevor wir miteinander sprechen.</p>
       </div>
     </div>
@@ -154,14 +154,14 @@
           </div>
         </fieldset>
 
-        <fieldset class="rechner__block" data-block="umfang">
-          <legend>Wie viele Unterseiten?</legend>
-          <div class="rechner__wahl">
-            <label><input type="radio" name="umfang" value="klein" data-wort="Bis 5 Unterseiten" checked><span>bis 5</span></label>
-            <label><input type="radio" name="umfang" value="mittel" data-wort="6 bis 10 Unterseiten"><span>6 – 10</span></label>
-            <label><input type="radio" name="umfang" value="gross" data-wort="11 bis 20 Unterseiten"><span>11 – 20</span></label>
-            <label><input type="radio" name="umfang" value="sehrgross" data-wort="Mehr als 20 Unterseiten"><span>mehr als 20</span></label>
+        <fieldset class="rechner__block" data-block="seiten">
+          <legend>Wie viele Unterseiten?<output class="rechner__wert" id="rSeitenWert">8</output></legend>
+          <div class="rechner__regler">
+            <span class="rechner__spur" id="rSeitenSpur"></span>
+            <input type="range" id="rSeiten" min="1" max="30" step="1" value="8"
+                   aria-label="Anzahl Unterseiten">
           </div>
+          <div class="rechner__marken"><span>1</span><span>15</span><span>30+</span></div>
         </fieldset>
 
         <fieldset class="rechner__block">
@@ -198,6 +198,8 @@
       <aside class="rechner__ergebnis">
         <span class="brush rechner__marke">Richtwert</span>
         <p class="rechner__spanne" id="rSpanne">CHF 0 – 0</p>
+        <p class="rechner__deckel" id="rDeckel" hidden>Ab dieser Grösse hängt der Preis so stark
+          am Einzelfall, dass ein Rechner nur noch raten würde. Sprechen wir darüber.</p>
         <ul class="rechner__posten" id="rPosten"></ul>
         <a class="knopf knopf--akzent gross voll" id="rAnfrage" href="#kontakt">
           <span class="rolle"><span>Anfrage mit dieser Auswahl</span><span aria-hidden="true">Anfrage mit dieser Auswahl</span></span>
@@ -223,7 +225,7 @@
       <div class="ruf__wort">
         <p class="brush">Auf ein Wort</p>
         <h2>Passt das zu<br>eurem Vorhaben?</h2>
-        <p class="ruf__text">Dreissig Minuten reichen für eine ehrliche
+        <p class="ruf__text">Fünfzehn Minuten reichen für eine ehrliche
           Einschätzung, auch wenn am Ende nichts daraus wird.</p>
         <a class="knopf knopf--akzent gross" href="../index.html#kontakt">
           <span class="rolle"><span>Gespräch buchen</span><span aria-hidden="true">Gespräch buchen</span></span>
