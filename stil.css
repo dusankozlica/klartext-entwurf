@@ -1217,9 +1217,16 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
    Kein eigenes Bedienelement, sondern der Seitenknopf — mit
    Punktfuellung und Textrolle wie ueberall. Nur die Fassung ist
    fuer dunklen Grund: heller Rand, Fuellung in Creme. */
-.lz__mehr{grid-column:1;justify-self:start;margin-top:6px;
+/* max-width haelt den Knopf in jeder Breite innerhalb seiner Spalte.
+   Die Huelle darum blendet mit overflow:hidden auf — was ueber den
+   Rand ragt, waere dort abgeschnitten. Der laengste Text der Seite
+   steht auf diesem Knopf: "Mehr zu Performance Marketing". */
+.lz__mehr{grid-column:1;justify-self:start;margin-top:6px;max-width:100%;
   border:2px solid var(--linie-hell);color:var(--creme);
   --knopf-fuell:var(--creme)}
+@media (max-width:700px){
+  .lz__mehr{font-size:15px;padding-left:20px;padding-right:20px}
+}
 .lz__mehr:hover,.lz__mehr:focus-visible{border-color:var(--creme);
   color:var(--tinte)}
 
