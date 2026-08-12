@@ -175,8 +175,18 @@ h1 .brush,h2 .brush{font-size:.88em;letter-spacing:-.01em;
 /* Die Fuellung ist die Akzentfarbe — darauf gehoert dunkle Schrift,
    weiss kam auf 2,0:1. */
 .knopf--dunkel:hover,.knopf--dunkel:focus-visible{color:var(--tinte)}
-.knopf--akzent{background:var(--violett);color:#fff;--knopf-fuell:#fff}
-.knopf--akzent:hover,.knopf--akzent:focus-visible{color:var(--violett)}
+.knopf--akzent{background:var(--violett);color:#fff;--knopf-fuell:var(--tinte)}
+.knopf--akzent:hover,.knopf--akzent:focus-visible{color:var(--creme)}
+
+/* Dunkle Umgebungen: helle Fuellung, dunkle Schrift */
+.dienste .knopf--akzent,
+.rechner__ergebnis .knopf--akzent,
+.ndd__karte .knopf--akzent,
+.fuss .knopf--akzent{--knopf-fuell:var(--creme)}
+.dienste .knopf--akzent:hover,.dienste .knopf--akzent:focus-visible,
+.rechner__ergebnis .knopf--akzent:hover,.rechner__ergebnis .knopf--akzent:focus-visible,
+.ndd__karte .knopf--akzent:hover,.ndd__karte .knopf--akzent:focus-visible,
+.fuss .knopf--akzent:hover,.fuss .knopf--akzent:focus-visible{color:var(--tinte)}
 .knopf--rand{border:2px solid var(--linie);color:var(--tinte);--knopf-fuell:var(--tinte)}
 .knopf--rand:hover,.knopf--rand:focus-visible{border-color:var(--tinte);color:var(--creme)}
 .knopf:active{transform:scale(.98)}
