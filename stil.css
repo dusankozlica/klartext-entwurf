@@ -182,10 +182,12 @@ h1 .brush,h2 .brush{font-size:.88em;letter-spacing:-.01em;
 .dienste .knopf--akzent,
 .rechner__ergebnis .knopf--akzent,
 .ndd__karte .knopf--akzent,
+.nav__pille .knopf--akzent,
 .fuss .knopf--akzent{--knopf-fuell:var(--creme)}
 .dienste .knopf--akzent:hover,.dienste .knopf--akzent:focus-visible,
 .rechner__ergebnis .knopf--akzent:hover,.rechner__ergebnis .knopf--akzent:focus-visible,
 .ndd__karte .knopf--akzent:hover,.ndd__karte .knopf--akzent:focus-visible,
+.nav__pille .knopf--akzent:hover,.nav__pille .knopf--akzent:focus-visible,
 .fuss .knopf--akzent:hover,.fuss .knopf--akzent:focus-visible{color:var(--tinte)}
 .knopf--rand{border:2px solid var(--linie);color:var(--tinte);--knopf-fuell:var(--tinte)}
 .knopf--rand:hover,.knopf--rand:focus-visible{border-color:var(--tinte);color:var(--creme)}
@@ -257,8 +259,14 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
   display:flex;align-items:center;justify-content:space-between;gap:24px;
   padding:10px 10px 10px 30px;color:var(--creme);
   box-shadow:0 12px 40px rgb(14 13 11 / .16)}
-.nav__mark{font-weight:800;font-size:23px;letter-spacing:-.045em}
-.nav__mark i{color:var(--violett-hell);font-style:normal}
+.nav__mark{font-weight:800;font-size:23px;letter-spacing:-.045em;
+  display:inline-flex;align-items:baseline;gap:.1em}
+/* Der Punkt ist Markenzeichen, nicht Satzzeichen: als Kreis gezeichnet,
+   damit die Groesse frei steuerbar ist. Das Zeichen im HTML bleibt
+   stehen (Vorlesegeraete, Auswahl), wird aber unsichtbar gestellt. */
+.nav__mark i{font-style:normal;color:transparent;flex:0 0 auto;
+  width:.32em;height:.32em;border-radius:50%;background:var(--violett-hell);
+  align-self:baseline;overflow:hidden}
 .nav__wege{display:flex;gap:6px;font-size:17px;font-weight:500}
 
 /* ── Menü-Hover: Pille poppt auf, Wort kippt durch ──────────────
@@ -819,9 +827,10 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
    bleibt aber in derselben Familie: helle Flaeche, violette Schrift. */
 /* Die Fuellung ist hier bewusst zart — dann darf die Schrift nicht
    auf Creme drehen, das ergab 1,1:1. Sie bleibt dunkel. */
-.paket--voll .knopf--akzent{--knopf-fuell:var(--violett-zart)}
-.paket--voll .knopf--akzent:hover,
-.paket--voll .knopf--akzent:focus-visible{color:var(--tinte)}
+/* Auf der weissen Karte war die Fuellung zartes Mint — 1,1:1 gegen
+   die Karte, der Knopf loeste sich beim Hover auf. Hier gilt die
+   Grundregel: dunkle Flaeche, helle Schrift. */
+.paket--voll .knopf--akzent{--knopf-fuell:var(--tinte)}
 .paket .knopf--rand,.projekt .knopf--rand{border-color:var(--linie-hell);
   color:var(--creme);--knopf-fuell:var(--creme)}
 .paket .knopf--rand:hover,.projekt .knopf--rand:hover{border-color:var(--creme);
@@ -1038,10 +1047,13 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 /* Heller Knopf auf dunkler Karte: beim Hover fuellt er in der
    Akzentfarbe statt in Schwarz — schwarz auf dunklem Grund war ein
    Loch. Die Schrift bleibt dabei dunkel (9,5:1 auf dem Akzent). */
+/* Der Knopf steht auf der violetten Karte. Eine violette Fuellung war
+   dort dieselbe Farbe wie der Grund — beim Hover blieb nichts uebrig
+   als die Schrift. Cremeknopf wird schwarz. */
 .fm__fuss .knopf--akzent{background:var(--creme);color:var(--tinte);
-  --knopf-fuell:var(--violett)}
+  --knopf-fuell:var(--tinte)}
 .fm__fuss .knopf--akzent:hover,.fm__fuss .knopf--akzent:focus-visible{
-  color:var(--tinte)}
+  color:var(--creme)}
 .fm__gewaehlt{font-size:17px;font-weight:700;color:rgb(255 255 255 / .6);
   transition:color var(--t-farbe) var(--kurve)}
 .fm__gewaehlt.ist{color:#fff}
@@ -1092,10 +1104,15 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .fuss__wortmarke{max-width:1520px;margin:clamp(30px,3vw,54px) auto -.2em;
   font-size:clamp(90px,17.4vw,268px);font-weight:900;letter-spacing:-.055em;
   line-height:.8;text-align:center;white-space:nowrap;
+  display:flex;align-items:baseline;justify-content:center;gap:.03em;
   color:transparent;-webkit-text-stroke:2px rgb(247 247 245 / .22);
   transition:color var(--t-bild) var(--kurve),
     -webkit-text-stroke-color var(--t-bild) var(--kurve)}
-.fuss__wortmarke i{font-style:normal;-webkit-text-stroke-color:var(--violett-hell)}
+/* Hier gefuellt statt umrissen: zwischen lauter Konturen ist die volle
+   Flaeche der einzige Punkt, an dem das Auge haengen bleibt. */
+.fuss__wortmarke i{font-style:normal;flex:0 0 auto;-webkit-text-stroke:0;
+  width:.28em;height:.28em;border-radius:50%;background:var(--violett-hell);
+  align-self:baseline;overflow:hidden}
 .fuss:hover .fuss__wortmarke{-webkit-text-stroke-color:rgb(247 247 245 / .4)}
 
 .fuss__recht{max-width:1520px;margin:clamp(50px,5vw,90px) auto 0;padding:26px 0 0;
