@@ -39,6 +39,10 @@ const T_REIN = 0.74, WEG_REIN = 20, SKALA_REIN = 0.9;
 
 /* ── Sanftes Scrollen ───────────────────────────────────────── */
 const lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1, syncTouch: false });
+/* Nach aussen sichtbar, damit der Diagnose-Schalter ?ohne=lenis das
+   weiche Scrollen wirklich anhalten kann statt nur eine Klasse zu
+   entfernen. */
+window.__lenis = lenis;
 gsap.ticker.add((t) => lenis.raf(t * 1000));
 gsap.ticker.lagSmoothing(0);
 lenis.on('scroll', ScrollTrigger.update);

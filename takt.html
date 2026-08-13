@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Bildtakt messen</title>
+<style>
+  html,body{margin:0;height:100%;background:#111;color:#eee;
+    font:16px/1.6 -apple-system,system-ui,sans-serif;
+    display:grid;place-items:center;text-align:center}
+  b{display:block;font-size:96px;line-height:1;font-weight:800;margin:.1em 0}
+  p{max-width:34ch;color:#9a9a9a;margin:.4em auto}
+</style></head><body>
+<div>
+  <span>Bilder je Sekunde</span>
+  <b id="z">–</b>
+  <p>Diese Seite enthaelt nichts ausser diesem Zaehler.
+     Kein Bild, kein Video, kein Scrollskript, kein Stylesheet von aussen.</p>
+  <p id="h"></p>
+</div>
+<script>
+/* Reiner Vergleichswert: was schafft dieser Browser auf einer voellig
+   leeren Seite? Ist die Zahl hier ebenfalls 30, liegt es nicht an
+   unserer Seite, sondern am Browser oder am Geraet. */
+var n=0,t0=performance.now(),z=document.getElementById('z');
+(function takt(t){
+  n++;
+  if(t-t0>=1000){z.textContent=Math.round(n*1000/(t-t0));n=0;t0=t}
+  requestAnimationFrame(takt);
+})(t0);
+document.getElementById('h').textContent =
+  'Bildschirm: ' + screen.width + ' x ' + screen.height +
+  ' \u00b7 Pixelverhaeltnis ' + (window.devicePixelRatio||1);
+</script>
+</body></html>
