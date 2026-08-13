@@ -1227,7 +1227,12 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .ruf__karte--knapp{grid-template-columns:1fr;text-align:center;
   justify-items:center;padding:clamp(40px,4.6vw,80px)}
 .ruf__karte--knapp .ruf__wort{padding:0}
-.ruf__karte--knapp .ruf__text{margin:0 auto 26px;max-width:44ch}
+/* Auf der grossen Karte stand der Satz in 15 px, waehrend die Seite
+   sonst 17 bis 21 px fuehrt — er wirkte wie eine Fussnote. Gleiche
+   Groesse wie jeder andere Fliesstext, und mehr Luft zum Titel. */
+.ruf__karte--knapp .ruf__text{font-size:clamp(17px,1.25vw,21px);
+  line-height:1.55;max-width:46ch;
+  margin:clamp(16px,1.7vw,28px) auto clamp(28px,3vw,42px)}
 .ruf__karte--knapp .knopf--akzent{background:var(--creme);color:var(--tinte);
   --knopf-fuell:var(--violett)}
 .ruf__karte--knapp .knopf--akzent:hover,
@@ -1240,7 +1245,10 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .artikel--recht{margin-top:clamp(16px,1.8vw,30px)}
 
 /* Fallstudie: Text links, Eckdaten als Karte rechts */
-.fall__gross{max-width:1520px}
+/* Das Grossbild hing frei: oben 110 px zum Titel, unten 4 px zum Text.
+   Der Rhythmus der Seite ist 44 px unter dem Titel und var(--sec)
+   zwischen den Bloecken — hier stand es ausserhalb dieses Systems. */
+.fall__gross{max-width:1520px;margin-top:0;margin-bottom:var(--sec)}
 .fall__frage{font-size:clamp(21px,1.8vw,29px);letter-spacing:-.03em;margin:0 0 9px}
 .unter__text .fall__frage:not(:first-child){margin-top:1.5em}
 .fall__fakten{background:var(--creme-3);border-radius:var(--r-mittel);
@@ -1700,3 +1708,24 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 @media (max-width:520px){
   .geraete .handy{--b:min(150px,40vw);right:-2%}
 }
+
+
+/* ── Mauszeiger ────────────────────────────────────────────────
+   Bewegung von chkstepan.com abgemessen: der Punkt folgt mit
+   Faktor 0,2 je Bild, der Ring mit 0,1 — er bleibt also sichtbar
+   zurueck und zieht nach. Groessenwechsel in 0,25 s, Ein- und
+   Ausblenden in 0,6 s. */
+.zeiger{position:fixed;inset:0;z-index:999998;pointer-events:none}
+.zeiger__punkt,.zeiger__ring{position:absolute;border-radius:50%;
+  transform:translate(-50%,-50%);opacity:0}
+.zeiger__punkt{width:8px;height:8px;background:var(--violett-hell);
+  transition:opacity .6s}
+.zeiger__ring{width:28px;height:28px;border:1px solid var(--violett-hell);
+  transition:opacity .6s,width .25s,height .25s}
+.zeiger__punkt.ist,.zeiger__ring.ist{opacity:1}
+/* Ueber allem, was anklickbar ist, waechst der Ring. */
+.zeiger__ring.zeigt{width:50px;height:50px}
+@media (prefers-reduced-motion:reduce){
+  .zeiger__ring{transition:opacity .6s}
+}
+@media (hover:none),(pointer:coarse){ .zeiger{display:none} }
