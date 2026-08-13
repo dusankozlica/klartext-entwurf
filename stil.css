@@ -1551,3 +1551,152 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
   .handy{--b:min(258px,72vw)}
 }
 
+
+
+/* ── MacBook hinter dem Handy ──────────────────────────────────
+   Die Schraeglage entsteht durch eine Fluchtpunkt-Drehung, nicht
+   durch Scheren: geschertes Rechteck sieht nach verrutschter Grafik
+   aus, gedrehtes nach Geraet im Raum.
+   Alle Masse haengen an --mb (Breite des aufgeklappten Deckels).
+   Bildschirm 16:10 wie beim echten Geraet. */
+/* Kein min(100%,…): in einer automatisch bemessenen Rasterspalte
+   bemisst sich 100% an der Spalte, die sich am Inhalt bemisst — die
+   Spalte fiel dadurch auf zwei Pixel zusammen. Die Untergrenze ist
+   deshalb so gewaehlt, dass sie auf ein Telefon passt. */
+.geraete{position:relative;width:clamp(280px,48vw,720px);justify-self:end}
+@media (max-width:1099px){ .geraete{margin:clamp(30px,5vw,54px) auto 0} }
+
+/* Deckel und Basis stehen in EINER 3D-Welt (preserve-3d) und teilen
+   damit einen Fluchtpunkt. Vorher war die Basis ein flacher Balken mit
+   eigener Geometrie — das sah nach zwei losen Rechtecken aus.
+   Masse nach dem MacBook Pro 14": Gehaeuse 312,6 x 221,2 mm, also
+   Tiefe = 0,708 x Breite. Der Deckel ist flacher als das Gehaeuse,
+   weil Rand oben und Kinn unten dazukommen. */
+.mac{width:100%;perspective:1600px}
+/* Nur leicht gedreht. Bei 19 Grad wurde der Sockel so stark
+   verkuerzt, dass er als grauer Keil las statt als Gehaeuse — flacher
+   gedreht bleibt die Form lesbar und wirkt trotzdem raeumlich. */
+.mac__welt{position:relative;transform-style:preserve-3d;
+  transform:rotateX(4deg) rotateY(-10deg) rotate(-.6deg)}
+/* Schlagschatten liegt ausserhalb der 3D-Welt, sonst kippt er mit. */
+.mac::after{content:"";position:absolute;left:6%;right:6%;bottom:-4%;
+  height:12%;border-radius:50%;filter:blur(26px);
+  background:rgb(0 0 0 / .42);z-index:-1}
+
+.mac__deckel{position:relative;width:100%;aspect-ratio:1/.657;
+  padding:1.2% 1.2% 0;border-radius:13px 13px 4px 4px;
+  background:linear-gradient(158deg,#6a6f77 0%,#2b2e33 26%,#41454b 54%,
+    #1d1f23 80%,#6d727a 100%);
+  box-shadow:inset 0 0 0 1px rgb(255 255 255 / .1),
+    0 30px 60px -34px rgb(0 0 0 / .7)}
+.mac__schirm{position:relative;width:100%;aspect-ratio:16/10;
+  overflow:hidden;border-radius:5px;background:#08090b;
+  box-shadow:inset 0 0 0 1px rgb(0 0 0 / .6)}
+.mac__kinn{display:block;text-align:center;line-height:3.5;
+  height:3.5%;font-size:1.15%;letter-spacing:.14em;
+  color:rgb(255 255 255 / .34)}
+
+/* Die Basis haengt am unteren Deckelrand und klappt nach vorn weg. */
+/* Flacher gelegt (72 statt 77 Grad) und deutlich heller: bei dunklem
+   Ton und steilem Winkel las sich die Basis als Schatten statt als
+   Gehaeuse. Alu ist hell, auch im Halbschatten. */
+.mac__basis{position:absolute;top:100%;left:-1.4%;width:102.8%;
+  aspect-ratio:1/.2;transform-origin:50% 0;transform:rotateX(-84deg);
+  transform-style:preserve-3d;
+  border-radius:0 0 16px 16px;
+  background:linear-gradient(180deg,#9aa1aa 0%,#787f88 22%,#5b6169 58%,
+    #43484f 84%,#2e3238 100%);
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / .28),
+    inset 0 -2px 3px rgb(0 0 0 / .35)}
+/* Tastenfeld und Trackpad: dunkel auf hell, sonst verschwinden sie. */
+/* Nur eine flache Kante statt einer ausgeklappten Tastaturflaeche:
+   die volle Flaeche wurde durch die Verkuerzung zu einem grauen
+   Vieleck, das man nicht mehr als Gehaeuse liest. Geblieben ist die
+   Daumenkerbe — das einzige Detail, das auf dieser Hoehe noch traegt. */
+.mac__tasten{position:absolute;left:44%;right:44%;top:50%;height:46%;
+  border-radius:0 0 40% 40%;background:rgb(0 0 0 / .28);
+  box-shadow:inset 0 1px 3px rgb(0 0 0 / .55),
+    0 1px 0 rgb(255 255 255 / .18)}
+/* Vorderkante: steht wieder senkrecht (dieselben 71 Grad zurueck) und
+   gibt dem Gehaeuse sichtbare Hoehe. Ohne sie wirkt die Basis wie ein
+   Blatt Papier statt wie ein Geraet. */
+.mac__basis::after{content:"";position:absolute;left:0;right:0;bottom:0;
+  height:30%;transform-origin:50% 100%;transform:rotateX(84deg);
+  background:linear-gradient(180deg,#767d86 0%,#4c515a 55%,#2b2f35 100%);
+  border-radius:0 0 14px 14px;
+  box-shadow:0 10px 22px -8px rgb(0 0 0 / .55)}
+.mac__feld{display:none;position:absolute;left:33%;right:33%;top:62%;height:26%;
+  border-radius:2% / 6%;background:rgb(255 255 255 / .1);
+  box-shadow:inset 0 0 0 1px rgb(0 0 0 / .22),
+    0 1px 0 rgb(255 255 255 / .2)}
+
+/* ── Mini-Website auf dem Schirm ──────────────────────────────── */
+.ws{position:absolute;inset:0;display:flex;flex-direction:column;
+  font-size:calc(var(--ws,1vw) );
+  background:radial-gradient(125% 95% at 76% 16%,
+    color-mix(in srgb,var(--violett) 16%,#12161a) 0%,#0d1013 52%,#08090b 100%);
+  color:#EAF3F2;container-type:inline-size}
+.ws__kopf{display:flex;align-items:center;gap:4.4cqw;
+  padding:3.2cqw 4.4cqw 0;font-size:1.55cqw;letter-spacing:.06em;
+  text-transform:uppercase;color:rgb(234 243 242 / .62)}
+.ws__kopf b{font-size:2.1cqw;letter-spacing:.12em;color:#fff;margin-right:auto}
+/* Rechts bleibt bewusst Platz frei: dort steht das Handy davor. Ohne
+   diesen Rand lagen die Kennzahlen genau unter dem Telefon. */
+.ws__leib{flex:1;display:grid;grid-template-columns:1.06fr .94fr;
+  gap:2.6cqw;padding:3.4cqw 29cqw 4cqw 4.4cqw;align-items:center}
+.ws__wort em{display:block;font-style:normal;font-size:1.6cqw;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:rgb(234 243 242 / .55);margin-bottom:1.4cqw}
+.ws__wort strong{display:block;font-size:5.6cqw;line-height:1.02;
+  font-weight:900;letter-spacing:-.03em}
+.ws__wort u{text-decoration:none;color:var(--violett)}
+.ws__wort p{font-size:1.5cqw;line-height:1.5;margin:1.8cqw 0 0;
+  color:rgb(234 243 242 / .66)}
+.ws__knopf{display:inline-flex;align-items:center;gap:.8cqw;
+  margin-top:2.4cqw;padding:1.1cqw 2.2cqw;border-radius:99px;
+  border:1px solid rgb(234 243 242 / .34);font-size:1.45cqw;
+  letter-spacing:.08em;text-transform:uppercase}
+
+.ws__karten{display:grid;gap:2cqw;align-content:center}
+.kpi{position:relative;border-radius:1.6cqw;padding:2cqw 2.2cqw;
+  background:rgb(255 255 255 / .07);
+  border:1px solid rgb(255 255 255 / .12);
+  backdrop-filter:blur(2px)}
+.kpi__kopf{display:block;font-size:1.35cqw;letter-spacing:.1em;
+  text-transform:uppercase;color:rgb(234 243 242 / .6)}
+.kpi__wert{display:block;font-size:3.4cqw;font-weight:900;
+  letter-spacing:-.02em;line-height:1.1;margin-top:.4cqw;
+  color:var(--violett)}
+.kpi svg{display:block;width:100%;margin-top:1cqw}
+.kpi--kurve svg{height:5.2cqw}
+.kpi--balken svg{height:4.6cqw}
+.kpi__flaeche{fill:color-mix(in srgb,var(--violett) 22%,transparent)}
+.kpi__linie{fill:none;stroke:var(--violett);stroke-width:2.6;
+  stroke-linecap:round;stroke-linejoin:round;
+  vector-effect:non-scaling-stroke}
+.kpi__punkt{fill:#fff}
+.kpi--balken rect{fill:rgb(234 243 242 / .3)}
+.kpi--balken .kpi__hoch{fill:var(--violett)}
+/* Der Ring sitzt rechts neben der Zahl statt darunter — sonst wird
+   die Karte doppelt so hoch wie die beiden anderen. */
+.kpi--ring{display:grid;grid-template-columns:1fr auto;
+  align-items:center;column-gap:1.4cqw}
+.kpi--ring .kpi__kopf,.kpi--ring .kpi__wert{grid-column:1}
+.kpi--ring svg{grid-column:2;grid-row:1/3;width:6.4cqw;height:6.4cqw;
+  margin:0;transform:rotate(-90deg)}
+.kpi__spur{fill:none;stroke:rgb(234 243 242 / .22);stroke-width:5}
+.kpi__bogen{fill:none;stroke:var(--violett);stroke-width:5;
+  stroke-linecap:round;stroke-dasharray:113;stroke-dashoffset:26}
+
+/* Das Handy steht vor dem Rechner, rechts unten angeschnitten. */
+.geraete .handy{position:absolute;right:-10%;bottom:-19%;z-index:3;
+  --b:clamp(178px,16.4vw,252px);margin:0}
+/* Die Ueberschrift teilt sich die Zeile jetzt mit den Geraeten. Bei der
+   alten Groesse brach sie auf vier Zeilen und schob den Kopfbereich
+   ueber den Bildschirmrand. */
+@media (min-width:1100px){
+  .buehne h1{font-size:clamp(46px,5.15vw,100px)}
+}
+@media (max-width:520px){
+  .geraete .handy{--b:min(150px,40vw);right:-2%}
+}

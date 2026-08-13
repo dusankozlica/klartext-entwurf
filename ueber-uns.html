@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.lader{display:none}
+.laedt{overflow:hidden}.laedt body{overflow:hidden}
+.laedt .lader{--marke:clamp(40px,8.6vw,124px);--zahl:clamp(28px,4.2vw,62px);--lueck:clamp(14px,1.6vw,26px);position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:24px;background:linear-gradient(118deg,#0E0D0B 0%,#150F24 22%,#241046 42%,#3A0C8C 64%,#5406D2 84%,#6A00F4 100%);color:#F7F7F5;font-family:Figtree,system-ui,sans-serif;transition:opacity .62s cubic-bezier(.44,0,.56,1)}
+.lader--weg{opacity:0}
+.lader__mitte{display:grid;justify-items:center;transition:transform .62s cubic-bezier(.44,0,.56,1)}
+.lader--weg .lader__mitte{transform:translateY(-14px)}
+.lader__marke{display:inline-flex;align-items:baseline;gap:.1em;font-weight:900;letter-spacing:-.055em;line-height:1;font-size:var(--marke)}
+.lader__marke i{font-style:normal;color:transparent;flex:0 0 auto;width:.3em;height:.3em;border-radius:50%;background:#A57BFF;align-self:baseline;overflow:hidden}
+.lader__reihe{display:flex;align-items:center;gap:var(--lueck);width:min(calc(var(--marke)*10.35 + 2*(var(--lueck) + var(--zahl)*3.5)),calc(100vw - 48px));margin-top:clamp(30px,3.4vw,52px)}
+.lader__balken{flex:1;height:clamp(6px,.55vw,10px);border-radius:99px;background:rgb(247 247 245/.22);overflow:hidden}
+.lader__fuell{display:block;height:100%;width:0;border-radius:99px;background:#F7F7F5}
+.lader__zahl{flex:none;width:calc(var(--zahl)*3.5);font-family:'Rock Salt',cursive;font-weight:400;color:#A57BFF;font-size:var(--zahl);text-align:left;line-height:1}
+.lader__zahl--geist{visibility:hidden}
+.lader__wort{margin-top:clamp(24px,2.6vw,38px);text-align:center;font-size:clamp(17px,1.65vw,27px);line-height:1.45;max-width:32ch;color:rgb(247 247 245/.78)}
+@media (max-width:720px){.lader__zahl--geist{display:none}.lader__reihe{width:min(calc(var(--marke)*10.35 + var(--lueck) + var(--zahl)*3.5),calc(100vw - 40px))}}
+@media (prefers-reduced-motion:reduce){.laedt .lader{transition-duration:.2s}.lader__mitte{transition:none}}
+</style>
+<meta name="robots" content="noindex, nofollow">
+<title>Über uns | KLARTEXT. Werbeagentur Zürich</title>
+<meta name="description" content="Wer hinter KLARTEXT. steht und wie wir arbeiten: eine feste Ansprechperson, Strategie, Gestaltung und Produktion aus einer Hand, monatlich kündbar.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='9' fill='%236A00F4'/></svg>">
+<link rel="stylesheet" href="stil.css">
+<script>document.documentElement.className+=" laedt";setTimeout(function(){document.documentElement.classList.remove("laedt")},8000)</script>
+</head>
+<body>
+
+<div class="lader" id="lader" aria-hidden="true">
+  <div class="lader__mitte">
+    <div class="lader__marke">KLARTEXT<i>.</i></div>
+    <div class="lader__reihe">
+      <span class="lader__zahl lader__zahl--geist" aria-hidden="true">0%</span>
+      <div class="lader__balken"><span class="lader__fuell"></span></div>
+      <span class="lader__zahl">0%</span>
+    </div>
+    <p class="lader__wort"></p>
+  </div>
+</div>
+
+
+<div class="korn" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="nav__pille">
+    <a class="nav__mark" href="index.html">KLARTEXT<i>.</i></a>
+    <nav class="nav__wege" aria-label="Hauptnavigation">
+      <a class="mlink" href="arbeiten/index.html"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">Arbeiten</span><span class="mlink__t mlink__t--neu" aria-hidden="true">Arbeiten</span></a>
+      <span class="ndd">
+        <a class="mlink ndd__ausloeser" href="index.html#leistungen" aria-expanded="false">
+          <span class="mlink__bg" aria-hidden="true"></span>
+          <span class="mlink__t">Leistungen<i class="ndd__chev" aria-hidden="true"></i></span>
+          <span class="mlink__t mlink__t--neu" aria-hidden="true">Leistungen<i class="ndd__chev"></i></span>
+        </a>
+      </span>
+      <a class="mlink" href="ueber-uns.html"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">Über uns</span><span class="mlink__t mlink__t--neu" aria-hidden="true">Über uns</span></a>
+      <a class="mlink" href="blog/index.html"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">Blog</span><span class="mlink__t mlink__t--neu" aria-hidden="true">Blog</span></a>
+        <a class="mlink" href="index.html#preise"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">Preise</span><span class="mlink__t mlink__t--neu" aria-hidden="true">Preise</span></a>
+    </nav>
+    <a class="knopf knopf--akzent nav__cta" href="index.html#kontakt">
+      <span class="rolle"><span>Gespräch buchen</span><span aria-hidden="true">Gespräch buchen</span></span>
+    </a>
+  </div>
+    <div class="ndd__panel" role="group" aria-label="Leistungen im Überblick" aria-hidden="true">
+    <div class="ndd__inhalt">
+      <div class="ndd__spalte ndd__spalte--liste">
+        <ol class="ndd__liste">
+            <li><a href="leistungen/branding.html" data-i="0"><span class="ndd__nr">01</span><span class="ndd__name">Branding</span><i aria-hidden="true">↗</i></a></li>
+            <li><a href="leistungen/social-media.html" data-i="1"><span class="ndd__nr">02</span><span class="ndd__name">Social Media</span><i aria-hidden="true">↗</i></a></li>
+            <li><a href="leistungen/websites.html" data-i="2"><span class="ndd__nr">03</span><span class="ndd__name">Websites</span><i aria-hidden="true">↗</i></a></li>
+            <li><a href="leistungen/performance.html" data-i="3"><span class="ndd__nr">04</span><span class="ndd__name">Performance Marketing</span><i aria-hidden="true">↗</i></a></li>
+            <li><a href="leistungen/email-marketing.html" data-i="4"><span class="ndd__nr">05</span><span class="ndd__name">E-Mail Marketing</span><i aria-hidden="true">↗</i></a></li>
+            </ol>
+        <a class="ndd__fuss" href="leistungen/index.html" tabindex="-1">Alle Leistungen <i aria-hidden="true">↗</i></a>
+      </div>
+      <div class="ndd__vorschau" aria-hidden="true">
+            <div class="ndd__bild">
+          <img src="bilder/dienst-1.jpg" alt="" class="ist">
+          <img src="bilder/dienst-2.jpg" alt="">
+          <img src="bilder/dienst-3.jpg" alt="">
+          <img src="bilder/dienst-4.jpg" alt="">
+          <img src="bilder/dienst-5.jpg" alt="">
+            </div>
+            <div class="ndd__saetze">
+          <div class="ndd__satz ist"><b>Positionierung, die sitzt</b><span>Markenstrategie, Wortmarke, Farb- und Schriftsystem, Bildsprache und ein Brand Guide, mit dem euer Team selbst weiterarbeitet.</span></div>
+          <div class="ndd__satz"><b>Regelmässig statt sporadisch</b><span>Redaktionsplan für Instagram, TikTok und LinkedIn, Produktion im festen Takt und eine Community, die betreut wird.</span></div>
+          <div class="ndd__satz"><b>Auftritte, die verkaufen</b><span>Konzept, Gestaltung und Umsetzung. Schnell, auffindbar und so gebaut, dass ihr Inhalte selbst pflegen könnt.</span></div>
+          <div class="ndd__satz"><b>Budget, das arbeitet</b><span>Google Ads, Meta Ads, TikTok Ads und LinkedIn Ads mit sauberem Tracking und laufender Optimierung.</span></div>
+          <div class="ndd__satz"><b>Der Kanal, der euch gehört</b><span>Newsletter, automatisierte Strecken und Segmentierung. Keine Plattform dazwischen, keine Reichweite auf Miete.</span></div>
+            </div>
+          </div>
+      <aside class="ndd__karte">
+        <p class="brush">Unsicher?</p>
+        <p class="ndd__karte-titel">Wir sortieren das in 15&nbsp;Minuten.</p>
+        <p class="ndd__karte-text">Kurzes Gespräch, ehrliche Einschätzung.
+          Auch wenn am Ende nichts daraus wird.</p>
+        <a class="knopf knopf--akzent" href="index.html#kontakt" tabindex="-1">Gespräch buchen</a>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ══ Kopf ══ -->
+  <section class="unter">
+    <a class="zurueck" href="index.html" data-rein>
+      <i aria-hidden="true">←</i><span>Zur Startseite</span></a>
+    <span class="chip" data-rein>Über uns</span>
+    <h1 data-rein-zeilen><span>Eine Agentur,</span><span>keine Abteilung.</span></h1>
+    <p class="brush" data-rein>Kurze Wege statt langer Ketten.</p>
+  </section>
+
+  <!-- ══ Text und Bild ══ -->
+  <section class="unter__leib">
+    <div class="unter__text" data-rein>
+      <p>KLARTEXT. ist eine Werbeagentur in Zürich. Wir arbeiten für Unternehmen, die
+        keine grosse Marketingabteilung haben und trotzdem einen Auftritt brauchen, der
+        mithält. Strategie, Gestaltung und Produktion kommen bei uns aus einer Hand.</p>
+      <p>Wir sind bewusst klein geblieben. Wer bei uns anruft, spricht mit der Person,
+        die auch an der Arbeit sitzt. Es gibt keine Weiterleitung an ein Team, das ihr
+        nie gesehen habt, und keine Präsentation, die drei Wochen braucht, weil sie durch
+        vier Schleifen läuft.</p>
+      <p>Was wir nicht machen: Auftritte, die nur intern gefallen. Vor jeder Gestaltung
+        steht die Frage, was die Massnahme leisten soll. Bekommt ihr darauf keine klare
+        Antwort, sagen wir das, bevor Budget dafür draufgeht.</p>
+      <p class="unter__dauer"><span>Sitz</span><b>Zürich, tätig in der Deutschschweiz</b></p>
+    </div>
+    <figure class="unter__bild" data-rein>
+      <img src="bilder/dienst-1.jpg" alt="Arbeit bei KLARTEXT." loading="lazy">
+    </figure>
+  </section>
+
+  <!-- ══ Haltung ══ -->
+  <section class="unter__block">
+    <div class="dienste__block" data-zug>
+      <div class="dienste__kopf">
+        <p class="brush">Wofür wir stehen</p>
+        <h2 data-rein-zeilen><span>Vier Punkte,</span><span>an denen ihr uns messt.</span></h2>
+      </div>
+      <ul class="drin">
+        <li>Eine feste Ansprechperson, vom ersten Gespräch bis zur Auswertung</li>
+        <li>Jede Massnahme hat eine Aufgabe, die vorher feststeht</li>
+        <li>Monatlich kündbar, ohne Mindestlaufzeit</li>
+        <li>Ihr bekommt alle Dateien und Zugänge, auch wenn ihr geht</li>
+        <li>Zahlen im Monatsbericht, auch die unangenehmen</li>
+        <li>Keine Weitergabe an Subunternehmen ohne euer Wissen</li>
+        <li>Termine, die wir zusagen, halten wir oder melden uns vorher</li>
+        <li>Wir sagen ab, wenn wir nicht die Richtigen sind</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══ Ablauf ══ -->
+  <section class="unter__ablauf">
+    <div class="kopfzeile">
+      <div>
+        <span class="chip" data-rein>Zusammenarbeit</span>
+        <h2 data-rein-zeilen><span>So läuft es ab.</span></h2>
+      </div>
+    </div>
+    <ol class="schritte">
+      <li class="schritt"><b>01</b><div><h3>Erstgespräch</h3><p>Fünfzehn Minuten, ehrliche Einschätzung. Auch wenn am Ende nichts daraus wird.</p></div></li>
+      <li class="schritt"><b>02</b><div><h3>Bestandsaufnahme</h3><p>Was ist da, was fehlt, was kostet gerade Geld, ohne zu wirken.</p></div></li>
+      <li class="schritt"><b>03</b><div><h3>Plan</h3><p>Ein Vorschlag mit Aufgaben, Reihenfolge und festem Preis.</p></div></li>
+      <li class="schritt"><b>04</b><div><h3>Umsetzung</h3><p>Produktion im festen Takt, Bericht am Monatsende, Nachjustieren.</p></div></li>
+    </ol>
+  </section>
+
+  <!-- ══ Team ══ -->
+  <section class="team" id="team">
+    <div class="team__block" data-zug>
+      <p class="brush mitte">Unser Team</p>
+      <h2 class="mitte">Die Mannschaft</h2>
+      <div class="lamellen" id="lamellen">
+        <button class="lamelle ist" type="button" aria-pressed="true" style="--bildpos:50% 50%;--ton:.78">
+          <img src="bilder/portrait-1.jpg" alt="">
+          <span class="lamelle__schild"><b>Dušan</b><i>Gründer</i></span>
+        </button>
+        <button class="lamelle" type="button" aria-pressed="false" style="--bildpos:51% 50%;--ton:.85">
+          <img src="bilder/portrait-2.jpg" alt="">
+          <span class="lamelle__schild"><b>Pia</b><i>Marketing Manager</i></span>
+        </button>
+        <button class="lamelle" type="button" aria-pressed="false" style="--bildpos:50% 50%;--ton:.78">
+          <img src="bilder/portrait-4.jpg" alt="">
+          <span class="lamelle__schild"><b>Mara</b><i>Project Manager</i></span>
+        </button>
+        <button class="lamelle" type="button" aria-pressed="false" style="--bildpos:50% 50%;--ton:.66">
+          <img src="bilder/portrait-5.jpg" alt="">
+          <span class="lamelle__schild"><b>Reto</b><i>Digital Strategist</i></span>
+        </button>
+        <button class="lamelle" type="button" aria-pressed="false" style="--bildpos:50% 50%;--ton:.74">
+          <img src="bilder/portrait-6.jpg" alt="">
+          <span class="lamelle__schild"><b>Amir</b><i>Content Creator</i></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Weiter ══ -->
+  <section class="weiter">
+    <p class="brush mitte">Weiter</p>
+    <div class="weiter__reihe">
+      <a class="weiter__karte" href="arbeiten/index.html"><span class="weiter__nr">01</span><span class="weiter__name">Arbeiten</span><i aria-hidden="true">↗</i></a>
+      <a class="weiter__karte" href="leistungen/index.html"><span class="weiter__nr">02</span><span class="weiter__name">Leistungen</span><i aria-hidden="true">↗</i></a>
+    </div>
+  </section>
+
+  <!-- ══ Ruf ══ -->
+  <section class="ruf">
+    <div class="ruf__karte ruf__karte--knapp" data-rein>
+      <div class="ruf__wort">
+        <p class="brush">Auf ein Wort</p>
+        <h2>Lernen wir uns<br>kennen.</h2>
+        <p class="ruf__text">Fünfzehn Minuten reichen für eine ehrliche
+          Einschätzung, auch wenn am Ende nichts daraus wird.</p>
+        <a class="knopf knopf--akzent gross" href="index.html#kontakt">
+          <span class="rolle"><span>Gespräch buchen</span><span aria-hidden="true">Gespräch buchen</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="fuss">
+  <div class="fuss__oben">
+    <div class="fuss__reden">
+      <p class="brush">Auf ein Wort</p>
+      <h2>Reden<br>wir.</h2>
+      <div class="fuss__kontakt">
+        <a class="fuss__gross" href="mailto:hallo@klartext-digital.ch">
+          <span>hallo@klartext-digital.ch</span><i aria-hidden="true">↗</i></a>
+        <a class="fuss__gross" href="tel:+41000000000">
+          <span>+41 00 000 00 00</span><i aria-hidden="true">↗</i></a>
+      </div>
+      <p class="fuss__ort">Werbeagentur mit Sitz in Zürich, tätig in der ganzen Deutschschweiz<br>
+        Mo bis Fr, 08:30 bis 18:00</p>
+    </div>
+
+    <div class="fuss__spalten">
+      <nav class="fuss__spalte">
+        <p class="fuss__kopf">Seite</p>
+        <a class="mlink" href="arbeiten/index.html"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">Arbeiten</span><span class="mlink__t mlink__t--neu" aria-hidden="true">Arbeiten</span></a>
+        <a class="mlink" href="leistungen/index.html"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">Leistungen</span><span class="mlink__t mlink__t--neu" aria-hidden="true">Leistungen</span></a>
+        <a class="mlink" href="ueber-uns.html"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">Über uns</span><span class="mlink__t mlink__t--neu" aria-hidden="true">Über uns</span></a>
+        <a class="mlink" href="blog/index.html"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">Blog</span><span class="mlink__t mlink__t--neu" aria-hidden="true">Blog</span></a>
+        <a class="mlink" href="index.html#preise"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">Preise</span><span class="mlink__t mlink__t--neu" aria-hidden="true">Preise</span></a>
+        <a class="mlink" href="index.html#kontakt"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">Kontakt</span><span class="mlink__t mlink__t--neu" aria-hidden="true">Kontakt</span></a>
+      </nav>
+      <nav class="fuss__spalte">
+        <p class="fuss__kopf">Leistungen</p>
+        <a class="mlink" href="leistungen/branding.html"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">Branding</span><span class="mlink__t mlink__t--neu" aria-hidden="true">Branding</span></a>
+        <a class="mlink" href="leistungen/social-media.html"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">Social Media</span><span class="mlink__t mlink__t--neu" aria-hidden="true">Social Media</span></a>
+        <a class="mlink" href="leistungen/websites.html"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">Websites</span><span class="mlink__t mlink__t--neu" aria-hidden="true">Websites</span></a>
+        <a class="mlink" href="leistungen/performance.html"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">Performance Marketing</span><span class="mlink__t mlink__t--neu" aria-hidden="true">Performance Marketing</span></a>
+        <a class="mlink" href="leistungen/email-marketing.html"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">E-Mail Marketing</span><span class="mlink__t mlink__t--neu" aria-hidden="true">E-Mail Marketing</span></a>
+      </nav>
+      <div class="fuss__spalte">
+        <p class="fuss__kopf">Folgen</p>
+        <div class="fuss__sozial">
+          <a href="index.html" aria-label="Instagram"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5.4"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>
+          <a href="index.html" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M7.4 10.4v6.2M7.4 7.6v.1M11.4 16.6v-3.4a2.4 2.4 0 0 1 4.8 0v3.4M11.4 16.6v-6.2"/></svg><span>LinkedIn</span></a>
+          <a href="index.html" aria-label="TikTok"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M14.2 3.5v10.9a3.6 3.6 0 1 1-3.6-3.6"/><path d="M14.2 3.5a5 5 0 0 0 5 5"/></svg><span>TikTok</span></a>
+          <a href="index.html" aria-label="Behance"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M3 6h5.2a2.6 2.6 0 0 1 0 5.2H3zM3 11.2h5.6a2.9 2.9 0 0 1 0 5.8H3zM14.6 13.4h6.4a3.2 3.2 0 0 0-6.4 0 3.2 3.2 0 0 0 5.9 1.7M15.6 7.4h4.4"/></svg><span>Behance</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fuss__recht">
+    <p>2026 Klartext Digital GmbH · Alle Rechte vorbehalten</p>
+    <nav>
+      <a href="recht/impressum.html">Impressum</a>
+      <a href="recht/datenschutz.html">Datenschutz</a>
+    </nav>
+  </div>
+
+  <!-- Riesige Wortmarke als Grafik, unten angeschnitten -->
+  <div class="fuss__wortmarke" aria-hidden="true">KLARTEXT<i>.</i></div>
+</footer>
+
+<div class="demo">Entwurf · Texte, Namen und Zahlen sind Platzhalter</div>
+
+<script src="js/lenis.min.js"></script>
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="lader.js"></script>
+<script src="bewegung.js"></script>
+</body>
+</html>
