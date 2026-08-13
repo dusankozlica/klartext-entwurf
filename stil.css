@@ -544,8 +544,7 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
 .vref__chips{display:flex;gap:10px;flex-wrap:wrap}
 .vref__chips button{display:flex;align-items:center;gap:12px;min-height:60px;
   border-radius:var(--r-pille);padding:9px 20px 9px 9px;text-align:left;
-  border:2px solid rgb(247 247 245 / .2);background:rgb(14 13 11 / .38);
-  backdrop-filter:blur(10px);opacity:.75;
+  border:2px solid rgb(247 247 245 / .2);background:rgb(14 13 11 / .38);opacity:.75;
   transition:opacity var(--t-farbe) var(--kurve),
     background-color var(--t-flaeche) var(--kurve),border-color var(--t-flaeche) var(--kurve)}
 .vref__chips button{transition:opacity var(--t-farbe) var(--kurve),
@@ -1126,8 +1125,7 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .demo{position:fixed;right:14px;bottom:14px;z-index:50;font-size:11px;
   letter-spacing:.05em;text-transform:uppercase;color:var(--grau);
   background:rgb(255 255 255 / .9);border:1px solid var(--linie);
-  border-radius:var(--r-pille);padding:7px 15px;pointer-events:none;
-  backdrop-filter:blur(6px)}
+  border-radius:var(--r-pille);padding:7px 15px;pointer-events:none;}
 
 /* ── Unterseiten: Leistungen und Blog ──────────────────────────
    Gleicher Kopf, gleicher Fuss, gleiche Bewegung wie die Startseite.
@@ -1668,8 +1666,7 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .ws__karten{display:grid;gap:2cqw;align-content:center}
 .kpi{position:relative;border-radius:1.6cqw;padding:2cqw 2.2cqw;
   background:rgb(255 255 255 / .07);
-  border:1px solid rgb(255 255 255 / .12);
-  backdrop-filter:blur(2px)}
+  border:1px solid rgb(255 255 255 / .12);}
 .kpi__kopf{display:block;font-size:1.35cqw;letter-spacing:.1em;
   text-transform:uppercase;color:rgb(234 243 242 / .6)}
 .kpi__wert{display:block;font-size:3.4cqw;font-weight:900;
