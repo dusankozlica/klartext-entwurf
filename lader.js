@@ -13,7 +13,10 @@
   if (!l) { wurzel.classList.remove('laedt'); return; }
 
   const fuell = l.querySelector('.lader__fuell');
-  const zahl  = l.querySelector('.lader__zahl');
+  /* Nicht das erste Element mit dieser Klasse nehmen: das ist das
+     unsichtbare Gegengewicht links vom Balken. Beschriftet wurde sonst
+     die Kopie, und die echte Zahl blieb bei null stehen. */
+  const zahl  = l.querySelector('.lader__zahl:not(.lader__zahl--geist)');
   const wort  = l.querySelector('.lader__wort');
 
   const SAETZE = [
