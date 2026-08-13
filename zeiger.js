@@ -101,6 +101,7 @@
                         'px,0) translate(-50%,-50%)';
 
   let letzt = performance.now();
+  let takt = 0;
   (function takt(jetzt) {
     /* Der Faktor gilt fuer 60 Bilder je Sekunde. Ohne diese Umrechnung
        haengt die Geschwindigkeit an der Bildrate: bei 30 Bildern zieht
@@ -112,8 +113,20 @@
     const dt = Math.min(250, jetzt - letzt);
     letzt = jetzt;
     const s = dt / 16.667;
-    const kp = 1 - Math.pow(1 - K_PUNKT, s);
-    const kr = 1 - Math.pow(1 - K_RING, s);
+
+    /* Bei halbem Bildtakt (Safari deckelt im Energiesparmodus auf 30)
+       kommen nur halb so viele Positionen an. Die Bewegung ist dann
+       zwar zeitlich richtig, sieht aber stufig aus — und der Ring
+       haengt sichtbar hinterher. Deshalb faehrt der Zeiger dort naeher
+       an die Spitze heran: gemessener Takt ueber 55 Bilder = Werte wie
+       im Vorbild, bei 30 und darunter deutlich strammer. */
+    takt = takt ? takt * .9 + (1000 / Math.max(1, dt)) * .1 : 1000 / Math.max(1, dt);
+    const eng = Math.min(1, Math.max(0, (55 - takt) / 25));
+    const kPunkt = K_PUNKT + (.42 - K_PUNKT) * eng;
+    const kRing  = K_RING  + (.24 - K_RING) * eng;
+
+    const kp = 1 - Math.pow(1 - kPunkt, s);
+    const kr = 1 - Math.pow(1 - kRing, s);
 
     p.x = misch(p.x, ziel.x, kp);
     p.y = misch(p.y, ziel.y, kp);
