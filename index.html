@@ -77,6 +77,7 @@
   <!-- ══ 1 · Bühne ══ -->
   <section class="buehne">
     <div class="buehne__kopf">
+      <div class="buehne__text">
       <span class="chip" data-rein>Kreativagentur · Zürich</span>
       <h1 data-rein-zeilen>
         <span>Marken, die man</span>
@@ -95,6 +96,73 @@
           </a>
         </div>
       </div>
+      </div>
+
+      <div class="handy" data-rein aria-hidden="true">
+        <div class="handy__rahmen">
+          <div class="handy__schirm">
+            <video class="handy__film ist" src="video/testimonial-01.mp4"
+                   poster="video/testimonial-01-poster.jpg"
+                   data-text="Wie aus einem groben Briefing eine Marke wird, die man wiedererkennt."
+                   muted loop playsinline preload="metadata"></video>
+            <video class="handy__film" src="video/testimonial-02.mp4"
+                   poster="video/testimonial-02-poster.jpg"
+                   data-text="Drei Wochen Produktion, ein Redaktionsplan, der wirklich haelt."
+                   muted loop playsinline preload="none"></video>
+            <video class="handy__film" src="video/testimonial-03.mp4"
+                   poster="video/testimonial-03-poster.jpg"
+                   data-text="Vom ersten Entwurf bis zur fertigen Kampagne aus einer Hand."
+                   muted loop playsinline preload="none"></video>
+
+            <span class="handy__insel"></span>
+
+            <div class="ig">
+              <div class="ig__oben">
+                <span class="ig__titel">Reels</span>
+                <svg viewBox="0 0 24 24" class="ig__kamera"><path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h1.2a1 1 0 0 0 .82-.43l.67-.98A1 1 0 0 1 9.01 4h5.98a1 1 0 0 1 .83.44l.66.98a1 1 0 0 0 .83.44h1.19A2.5 2.5 0 0 1 21 8.5v8A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5v-8Z"/><circle cx="12" cy="12.4" r="3.4"/></svg>
+              </div>
+
+              <div class="ig__spalte">
+                <span class="ig__tat">
+                  <svg viewBox="0 0 24 24" class="ig__herz"><path d="M12 20.5S3.5 15.2 3.5 9.4A4.9 4.9 0 0 1 12 6.2a4.9 4.9 0 0 1 8.5 3.2c0 5.8-8.5 11.1-8.5 11.1Z"/></svg>
+                  <b>2481</b>
+                </span>
+                <span class="ig__tat">
+                  <svg viewBox="0 0 24 24"><path d="M21 11.6c0 4.2-4 7.6-9 7.6a10 10 0 0 1-2.6-.34L4 20.5l1.5-3.6A7.1 7.1 0 0 1 3 11.6C3 7.4 7 4 12 4s9 3.4 9 7.6Z"/></svg>
+                  <b>134</b>
+                </span>
+                <span class="ig__tat">
+                  <svg viewBox="0 0 24 24"><path d="M21.2 3.4 2.9 10.1a.5.5 0 0 0 .03.95l7.2 2.1 2.1 7.2a.5.5 0 0 0 .95.03L21.2 3.4Z"/><path d="m10.2 13.2 4.2-4.2"/></svg>
+                  <b>96</b>
+                </span>
+                <span class="ig__tat">
+                  <svg viewBox="0 0 24 24"><path d="M6 3.8h12c.55 0 1 .45 1 1v15.4l-7-4.4-7 4.4V4.8c0-.55.45-1 1-1Z"/></svg>
+                </span>
+                <span class="ig__tat">
+                  <svg viewBox="0 0 24 24"><circle cx="5.4" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="18.6" cy="12" r="1.5"/></svg>
+                </span>
+                <span class="ig__platte"><img src="bilder/portrait-3.jpg" alt=""></span>
+              </div>
+
+              <div class="ig__unten">
+                <div class="ig__wer">
+                  <img class="ig__bild" src="bilder/portrait-1.jpg" alt="">
+                  <span class="ig__name">klartext.digital</span>
+                  <span class="ig__folgen">Folgen</span>
+                </div>
+                <p class="ig__text">Wie aus einem groben Briefing eine Marke wird, die man wiedererkennt.</p>
+                <div class="ig__ton">
+                  <svg viewBox="0 0 24 24"><path d="M9 18V6.4l10-2v11.2"/><circle cx="6.6" cy="18" r="2.6"/><circle cx="16.4" cy="15.6" r="2.6"/></svg>
+                  <span class="ig__spur"><span class="ig__band"><i>Originalton · klartext.digital</i><i>Originalton · klartext.digital</i></span></span>
+                </div>
+              </div>
+            </div>
+
+            <span class="handy__strich"></span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
   </section>
@@ -631,5 +699,6 @@
 <script src="js/gsap.min.js"></script>
 <script src="js/ScrollTrigger.min.js"></script>
 <script src="bewegung.js"></script>
+  <script src="handy.js"></script>
 </body>
 </html>

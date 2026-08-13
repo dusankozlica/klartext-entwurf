@@ -1404,3 +1404,117 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
   font-size:13px;color:var(--grau-2)}
 .rechner__deckel{font-size:14px;line-height:1.5;color:var(--violett-hell);
   margin:-4px 0 2px}
+
+
+/* ── Handy im Kopfbereich ──────────────────────────────────────
+   Alle Masse haengen an einer einzigen Variablen --b (Breite des
+   Geraets). Dadurch skaliert das ganze Geraet samt Oberflaeche
+   ueber eine Zahl, statt an zwanzig Stellen nachjustiert zu werden.
+   Die Oberflaeche ist bewusst in Instagram-Weiss gehalten und nicht
+   eingefaerbt: ein Handybild, das nach der eigenen Marke aussieht,
+   liest sich als Grafik — nicht als echter Beitrag. */
+.buehne__kopf{max-width:1520px;margin:0 auto;width:100%}
+@media (min-width:1100px){
+  .buehne__kopf{display:grid;grid-template-columns:minmax(0,1fr) auto;
+    gap:clamp(36px,4.4vw,84px);align-items:center}
+}
+.handy{--b:clamp(228px,19vw,292px);width:var(--b);justify-self:end;
+  margin:clamp(34px,5vw,58px) auto 0}
+@media (min-width:1100px){ .handy{margin:0} }
+
+.handy__rahmen{position:relative;width:100%;aspect-ratio:9/19.3;
+  padding:calc(var(--b)*.032);border-radius:calc(var(--b)*.158);
+  background:linear-gradient(147deg,#4a4e55 0%,#101114 22%,#2b2e33 48%,
+    #0c0d0f 74%,#4d525a 100%);
+  box-shadow:0 42px 80px -28px rgb(0 0 0 / .72),
+    0 10px 26px rgb(0 0 0 / .34),
+    inset 0 0 0 1px rgb(255 255 255 / .13)}
+.handy__schirm{position:relative;width:100%;height:100%;overflow:hidden;
+  border-radius:calc(var(--b)*.127);background:#0b0b0d;isolation:isolate}
+.handy__film{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;opacity:0;transition:opacity .8s var(--kurve)}
+.handy__film.ist{opacity:1}
+.handy__insel{position:absolute;z-index:5;top:calc(var(--b)*.036);left:50%;
+  transform:translateX(-50%);width:31%;height:calc(var(--b)*.095);
+  border-radius:99px;background:#000}
+.handy__strich{position:absolute;z-index:5;bottom:calc(var(--b)*.027);left:50%;
+  transform:translateX(-50%);width:33%;height:calc(var(--b)*.0145);
+  border-radius:99px;background:rgb(255 255 255 / .8)}
+
+/* Oberflaeche */
+.ig{position:absolute;inset:0;z-index:3;color:#fff;
+  font-family:Figtree,system-ui,sans-serif;letter-spacing:-.01em;
+  text-shadow:0 1px 3px rgb(0 0 0 / .42)}
+/* Zwei Schleier: oben fuer die Kopfzeile, unten fuer Name und Text.
+   Ohne sie verschwindet weisse Schrift auf hellen Bildstellen. */
+.ig::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgb(0 0 0 / .5) 0%,rgb(0 0 0 / 0) 20%,
+    rgb(0 0 0 / 0) 46%,rgb(0 0 0 / .68) 100%)}
+.ig > *{position:relative}
+
+.ig__oben{position:absolute;top:calc(var(--b)*.16);left:calc(var(--b)*.05);
+  right:calc(var(--b)*.05);display:flex;align-items:center;
+  justify-content:space-between}
+.ig__titel{font-size:calc(var(--b)*.055);font-weight:700}
+.ig__kamera{width:calc(var(--b)*.075);height:calc(var(--b)*.075);
+  fill:none;stroke:#fff;stroke-width:1.7;stroke-linejoin:round}
+
+.ig__spalte{position:absolute;right:calc(var(--b)*.048);
+  bottom:calc(var(--b)*.285);display:grid;justify-items:center;
+  gap:calc(var(--b)*.052)}
+.ig__tat{display:grid;justify-items:center;gap:calc(var(--b)*.013)}
+.ig__tat svg{width:calc(var(--b)*.092);height:calc(var(--b)*.092);
+  fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;
+  stroke-linejoin:round;filter:drop-shadow(0 1px 2px rgb(0 0 0 / .4))}
+.ig__tat b{font-size:calc(var(--b)*.037);font-weight:600}
+/* Das Herz ist gefuellt — der Beitrag gilt als geliked. Es ist der
+   einzige Farbfleck der Oberflaeche und traegt den Blick. */
+.ig__tat svg.ig__herz{fill:#ff3040;stroke:#ff3040}
+.ig__platte{width:calc(var(--b)*.082);height:calc(var(--b)*.082);
+  border-radius:calc(var(--b)*.022);overflow:hidden;
+  border:1.5px solid rgb(255 255 255 / .85);margin-top:calc(var(--b)*.006)}
+.ig__platte img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* min-width:0 ist hier Pflicht: Felder in einem Raster schrumpfen von
+   sich aus nicht unter die Breite ihres Inhalts. Ohne das wurde die
+   Bildunterschrift 509px breit und lief aus dem Display heraus. */
+.ig__unten{position:absolute;left:calc(var(--b)*.05);
+  right:calc(var(--b)*.205);bottom:calc(var(--b)*.072);
+  display:grid;gap:calc(var(--b)*.03)}
+.ig__unten > *{min-width:0}
+.ig__wer{display:flex;align-items:center;gap:calc(var(--b)*.033)}
+.ig__bild{width:calc(var(--b)*.088);height:calc(var(--b)*.088);
+  border-radius:50%;object-fit:cover;display:block;
+  border:1.5px solid rgb(255 255 255 / .9)}
+.ig__name{font-size:calc(var(--b)*.044);font-weight:700}
+.ig__folgen{border:1px solid rgb(255 255 255 / .9);border-radius:99px;
+  padding:calc(var(--b)*.011) calc(var(--b)*.038);
+  font-size:calc(var(--b)*.036);font-weight:600;white-space:nowrap}
+.ig__text{font-size:calc(var(--b)*.04);line-height:1.35;margin:0;max-width:100%;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden}
+.ig__ton{display:flex;align-items:center;gap:calc(var(--b)*.028);
+  font-size:calc(var(--b)*.036);white-space:nowrap}
+/* Eigenes Fenster fuer die Laufschrift. Lag das overflow auf .ig__ton,
+   wanderte der Text unter das Notensymbol statt daneben. */
+.ig__spur{flex:1;min-width:0;overflow:hidden}
+.ig__ton svg{width:calc(var(--b)*.052);height:calc(var(--b)*.052);flex:none;
+  fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round}
+/* Laufschrift: zwei gleiche Haelften, der Abstand steckt im Element
+   selbst. Steckte er im gap, waere die Wiederholung nicht exakt und
+   der Text wuerde bei jedem Durchlauf springen. */
+.ig__band{display:flex;animation:ig-band 13s linear infinite}
+.ig__band i{font-style:normal;padding-right:calc(var(--b)*.42)}
+@keyframes ig-band{to{transform:translateX(-50%)}}
+@keyframes ig-puls{0%,86%,100%{transform:scale(1)}
+  90%{transform:scale(1.24)}94%{transform:scale(.97)}}
+.ig__tat svg.ig__herz{animation:ig-puls 5.5s var(--kurve) infinite;
+  transform-origin:50% 50%}
+
+@media (prefers-reduced-motion:reduce){
+  .ig__band,.ig__tat svg.ig__herz{animation:none}
+  .handy__film{transition:none}
+}
+@media (max-width:520px){
+  .handy{--b:min(258px,72vw)}
+}
