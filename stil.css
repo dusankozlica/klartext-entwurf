@@ -1407,12 +1407,14 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 
 
 /* ── Handy im Kopfbereich ──────────────────────────────────────
-   Alle Masse haengen an einer einzigen Variablen --b (Breite des
-   Geraets). Dadurch skaliert das ganze Geraet samt Oberflaeche
-   ueber eine Zahl, statt an zwanzig Stellen nachjustiert zu werden.
-   Die Oberflaeche ist bewusst in Instagram-Weiss gehalten und nicht
-   eingefaerbt: ein Handybild, das nach der eigenen Marke aussieht,
-   liest sich als Grafik — nicht als echter Beitrag. */
+   Masse nach den Herstellerangaben zum iPhone 15 Pro:
+     Gehaeuse 70,6 x 146,6 mm · Anzeige 393 x 852 Punkte
+     Anzeigeflaeche 64,9 x 140,7 mm -> Rand 2,85 mm = 4,1 % der Breite
+     Eckenradius der Anzeige 55 pt = 14,0 % der Anzeigebreite
+     Dynamic Island 126 x 37,3 pt, 11 pt unter der Oberkante
+     Homebalken 139 x 5 pt, 8 pt ueber der Unterkante
+   Alles haengt an --b, der Gehaeusebreite. Eine Zahl aendern
+   heisst: das ganze Geraet samt Oberflaeche skaliert mit. */
 .buehne__kopf{max-width:1520px;margin:0 auto;width:100%}
 @media (min-width:1100px){
   .buehne__kopf{display:grid;grid-template-columns:minmax(0,1fr) auto;
@@ -1422,94 +1424,124 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
   margin:clamp(34px,5vw,58px) auto 0}
 @media (min-width:1100px){ .handy{margin:0} }
 
-.handy__rahmen{position:relative;width:100%;aspect-ratio:9/19.3;
-  padding:calc(var(--b)*.032);border-radius:calc(var(--b)*.158);
+.handy__rahmen{position:relative;width:100%;aspect-ratio:70.6/146.6;
+  /* Oben und unten minimal mehr Rand als seitlich — nur so kommt die
+     Anzeige exakt auf 393:852. Bei gleichem Rand ringsum sind es
+     2,1723 statt 2,1679. */
+  padding:calc(var(--b)*.0432) calc(var(--b)*.041);
+  border-radius:calc(var(--b)*.169);
   background:linear-gradient(147deg,#4a4e55 0%,#101114 22%,#2b2e33 48%,
     #0c0d0f 74%,#4d525a 100%);
   box-shadow:0 42px 80px -28px rgb(0 0 0 / .72),
     0 10px 26px rgb(0 0 0 / .34),
     inset 0 0 0 1px rgb(255 255 255 / .13)}
 .handy__schirm{position:relative;width:100%;height:100%;overflow:hidden;
-  border-radius:calc(var(--b)*.127);background:#0b0b0d;isolation:isolate}
+  border-radius:calc(var(--b)*.128);background:#0b0b0d;isolation:isolate}
 .handy__film{position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;opacity:0;transition:opacity .8s var(--kurve)}
 .handy__film.ist{opacity:1}
-.handy__insel{position:absolute;z-index:5;top:calc(var(--b)*.036);left:50%;
-  transform:translateX(-50%);width:31%;height:calc(var(--b)*.095);
+.handy__insel{position:absolute;z-index:6;top:calc(var(--b)*.026);left:50%;
+  transform:translateX(-50%);width:32%;height:calc(var(--b)*.087);
   border-radius:99px;background:#000}
-.handy__strich{position:absolute;z-index:5;bottom:calc(var(--b)*.027);left:50%;
-  transform:translateX(-50%);width:33%;height:calc(var(--b)*.0145);
-  border-radius:99px;background:rgb(255 255 255 / .8)}
+.handy__strich{position:absolute;z-index:6;bottom:calc(var(--b)*.019);left:50%;
+  transform:translateX(-50%);width:35.4%;height:calc(var(--b)*.0117);
+  border-radius:99px;background:rgb(255 255 255 / .85)}
 
-/* Oberflaeche */
+/* ── Reel-Oberflaeche ──────────────────────────────────────────
+   Aufbau wie in der App: Statusleiste, Titel, rechte Leiste
+   (Herz, Kommentar, Senden, Menue, Tonbild), unten Konto und Text,
+   ganz unten die Navigationsleiste. Ein Merkzeichen gibt es in der
+   Leiste nicht — Speichern liegt im Menue hinter den drei Punkten. */
 .ig{position:absolute;inset:0;z-index:3;color:#fff;
   font-family:Figtree,system-ui,sans-serif;letter-spacing:-.01em;
   text-shadow:0 1px 3px rgb(0 0 0 / .42)}
-/* Zwei Schleier: oben fuer die Kopfzeile, unten fuer Name und Text.
-   Ohne sie verschwindet weisse Schrift auf hellen Bildstellen. */
+/* Zwei Schleier: oben fuer Statusleiste und Titel, unten fuer Name,
+   Text und Navigation. Ohne sie verschwindet weisse Schrift auf
+   hellen Bildstellen. */
 .ig::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,rgb(0 0 0 / .5) 0%,rgb(0 0 0 / 0) 20%,
-    rgb(0 0 0 / 0) 46%,rgb(0 0 0 / .68) 100%)}
+  background:linear-gradient(180deg,rgb(0 0 0 / .5) 0%,rgb(0 0 0 / 0) 18%,
+    rgb(0 0 0 / 0) 44%,rgb(0 0 0 / .72) 100%)}
 .ig > *{position:relative}
 
-.ig__oben{position:absolute;top:calc(var(--b)*.16);left:calc(var(--b)*.05);
-  right:calc(var(--b)*.05);display:flex;align-items:center;
+/* Statusleiste: Uhrzeit und Zeichen sitzen auf Hoehe der Insel. */
+.ig__leiste{position:absolute;top:calc(var(--b)*.038);
+  left:calc(var(--b)*.075);right:calc(var(--b)*.062);
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:calc(var(--b)*.049);font-weight:700;letter-spacing:0}
+.ig__zeichen{display:flex;align-items:center;gap:calc(var(--b)*.016)}
+.ig__zeichen svg{height:calc(var(--b)*.038);width:auto;fill:#fff}
+.ig__akku{fill:none;stroke:#fff;stroke-width:1}
+.ig__akku .ig__voll,.ig__akku path{fill:#fff;stroke:none}
+
+.ig__oben{position:absolute;top:calc(var(--b)*.18);left:calc(var(--b)*.06);
+  right:calc(var(--b)*.06);display:flex;align-items:center;
   justify-content:space-between}
 .ig__titel{font-size:calc(var(--b)*.055);font-weight:700}
 .ig__kamera{width:calc(var(--b)*.075);height:calc(var(--b)*.075);
   fill:none;stroke:#fff;stroke-width:1.7;stroke-linejoin:round}
 
-.ig__spalte{position:absolute;right:calc(var(--b)*.048);
-  bottom:calc(var(--b)*.285);display:grid;justify-items:center;
-  gap:calc(var(--b)*.052)}
+.ig__spalte{position:absolute;right:calc(var(--b)*.05);
+  bottom:calc(var(--b)*.335);display:grid;justify-items:center;
+  gap:calc(var(--b)*.05)}
 .ig__tat{display:grid;justify-items:center;gap:calc(var(--b)*.013)}
-.ig__tat svg{width:calc(var(--b)*.092);height:calc(var(--b)*.092);
+.ig__tat svg{width:calc(var(--b)*.09);height:calc(var(--b)*.09);
   fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;
   stroke-linejoin:round;filter:drop-shadow(0 1px 2px rgb(0 0 0 / .4))}
-.ig__tat b{font-size:calc(var(--b)*.037);font-weight:600}
+.ig__tat b{font-size:calc(var(--b)*.036);font-weight:600}
 /* Das Herz ist gefuellt — der Beitrag gilt als geliked. Es ist der
-   einzige Farbfleck der Oberflaeche und traegt den Blick. */
-.ig__tat svg.ig__herz{fill:#ff3040;stroke:#ff3040}
-.ig__platte{width:calc(var(--b)*.082);height:calc(var(--b)*.082);
-  border-radius:calc(var(--b)*.022);overflow:hidden;
-  border:1.5px solid rgb(255 255 255 / .85);margin-top:calc(var(--b)*.006)}
+   einzige Farbfleck der Oberflaeche und traegt den Blick.
+   Die Regel muss genauer sein als .ig__tat svg{fill:none}. */
+.ig__tat svg.ig__herz{fill:#ff3040;stroke:#ff3040;
+  animation:ig-puls 5.5s var(--kurve) infinite;transform-origin:50% 50%}
+.ig__platte{width:calc(var(--b)*.08);height:calc(var(--b)*.08);
+  border-radius:calc(var(--b)*.021);overflow:hidden;
+  border:1.5px solid rgb(255 255 255 / .85);margin-top:calc(var(--b)*.004)}
 .ig__platte img{width:100%;height:100%;object-fit:cover;display:block}
 
+.ig__unten{position:absolute;left:calc(var(--b)*.055);
+  right:calc(var(--b)*.21);bottom:calc(var(--b)*.16);
+  display:grid;gap:calc(var(--b)*.028)}
 /* min-width:0 ist hier Pflicht: Felder in einem Raster schrumpfen von
    sich aus nicht unter die Breite ihres Inhalts. Ohne das wurde die
-   Bildunterschrift 509px breit und lief aus dem Display heraus. */
-.ig__unten{position:absolute;left:calc(var(--b)*.05);
-  right:calc(var(--b)*.205);bottom:calc(var(--b)*.072);
-  display:grid;gap:calc(var(--b)*.03)}
+   Bildunterschrift breiter als das Display und lief heraus. */
 .ig__unten > *{min-width:0}
-.ig__wer{display:flex;align-items:center;gap:calc(var(--b)*.033)}
-.ig__bild{width:calc(var(--b)*.088);height:calc(var(--b)*.088);
+.ig__wer{display:flex;align-items:center;gap:calc(var(--b)*.032)}
+.ig__bild{width:calc(var(--b)*.085);height:calc(var(--b)*.085);
   border-radius:50%;object-fit:cover;display:block;
   border:1.5px solid rgb(255 255 255 / .9)}
-.ig__name{font-size:calc(var(--b)*.044);font-weight:700}
+.ig__name{font-size:calc(var(--b)*.043);font-weight:700}
 .ig__folgen{border:1px solid rgb(255 255 255 / .9);border-radius:99px;
-  padding:calc(var(--b)*.011) calc(var(--b)*.038);
-  font-size:calc(var(--b)*.036);font-weight:600;white-space:nowrap}
-.ig__text{font-size:calc(var(--b)*.04);line-height:1.35;margin:0;max-width:100%;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
-  overflow:hidden}
-.ig__ton{display:flex;align-items:center;gap:calc(var(--b)*.028);
-  font-size:calc(var(--b)*.036);white-space:nowrap}
-/* Eigenes Fenster fuer die Laufschrift. Lag das overflow auf .ig__ton,
-   wanderte der Text unter das Notensymbol statt daneben. */
-.ig__spur{flex:1;min-width:0;overflow:hidden}
-.ig__ton svg{width:calc(var(--b)*.052);height:calc(var(--b)*.052);flex:none;
+  padding:calc(var(--b)*.011) calc(var(--b)*.037);
+  font-size:calc(var(--b)*.035);font-weight:600;white-space:nowrap}
+.ig__text{font-size:calc(var(--b)*.039);line-height:1.35;margin:0;
+  max-width:100%;display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden}
+.ig__ton{display:flex;align-items:center;gap:calc(var(--b)*.027);
+  font-size:calc(var(--b)*.035);white-space:nowrap}
+.ig__ton svg{width:calc(var(--b)*.05);height:calc(var(--b)*.05);flex:none;
   fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round}
-/* Laufschrift: zwei gleiche Haelften, der Abstand steckt im Element
-   selbst. Steckte er im gap, waere die Wiederholung nicht exakt und
-   der Text wuerde bei jedem Durchlauf springen. */
+/* Eigenes Fenster fuer die Laufschrift: laege das Beschneiden auf
+   .ig__ton, wanderte der Text unter das Notenzeichen. */
+.ig__spur{flex:1;min-width:0;overflow:hidden}
+/* Zwei gleiche Haelften, der Abstand steckt im Element selbst. Steckte
+   er im gap, waere die Wiederholung nicht exakt und der Text wuerde
+   bei jedem Durchlauf springen. */
 .ig__band{display:flex;animation:ig-band 13s linear infinite}
 .ig__band i{font-style:normal;padding-right:calc(var(--b)*.42)}
 @keyframes ig-band{to{transform:translateX(-50%)}}
 @keyframes ig-puls{0%,86%,100%{transform:scale(1)}
   90%{transform:scale(1.24)}94%{transform:scale(.97)}}
-.ig__tat svg.ig__herz{animation:ig-puls 5.5s var(--kurve) infinite;
-  transform-origin:50% 50%}
+
+/* Navigationsleiste — in der App liegt sie ueber dem Film. */
+.ig__reiter{position:absolute;left:calc(var(--b)*.05);
+  right:calc(var(--b)*.05);bottom:calc(var(--b)*.058);
+  display:flex;align-items:center;justify-content:space-between}
+.ig__reiter svg{width:calc(var(--b)*.072);height:calc(var(--b)*.072);
+  fill:none;stroke:#fff;stroke-width:1.7;stroke-linecap:round;
+  stroke-linejoin:round;filter:drop-shadow(0 1px 2px rgb(0 0 0 / .4))}
+.ig__ich{width:calc(var(--b)*.064);height:calc(var(--b)*.064);
+  border-radius:50%;overflow:hidden;border:1.5px solid #fff}
+.ig__ich img{width:100%;height:100%;object-fit:cover;display:block}
 
 @media (prefers-reduced-motion:reduce){
   .ig__band,.ig__tat svg.ig__herz{animation:none}
