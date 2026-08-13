@@ -1716,8 +1716,13 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
    zurueck und zieht nach. Groessenwechsel in 0,25 s, Ein- und
    Ausblenden in 0,6 s. */
 .zeiger{position:fixed;inset:0;z-index:999998;pointer-events:none}
-.zeiger__punkt,.zeiger__ring{position:absolute;border-radius:50%;
-  transform:translate(-50%,-50%);opacity:0}
+/* left/top pro Bild zu setzen zwingt den Browser jedes Mal zu einer
+   neuen Layoutberechnung. Chrome faengt das ab, Safari nicht — dort
+   lief der Zeiger sichtbar hinterher. Bewegt wird deshalb ueber
+   transform, das laeuft auf der Grafikkarte. */
+.zeiger__punkt,.zeiger__ring{position:absolute;top:0;left:0;
+  border-radius:50%;transform:translate(-50%,-50%);opacity:0;
+  will-change:transform}
 .zeiger__punkt{width:8px;height:8px;background:var(--violett-hell);
   transition:opacity .6s}
 .zeiger__ring{width:28px;height:28px;border:1px solid var(--violett-hell);

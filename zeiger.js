@@ -61,13 +61,27 @@
   }, { passive: true });
 
   const misch = (a, b, k) => a + (b - a) * k;
-  (function takt() {
-    p.x = misch(p.x, ziel.x, K_PUNKT);
-    p.y = misch(p.y, ziel.y, K_PUNKT);
-    r.x = misch(r.x, ziel.x, K_RING);
-    r.y = misch(r.y, ziel.y, K_RING);
-    punkt.style.left = p.x + 'px'; punkt.style.top = p.y + 'px';
-    ring.style.left  = r.x + 'px'; ring.style.top  = r.y + 'px';
+  const setze = (e, x, y) =>
+    e.style.transform = 'translate3d(' + x.toFixed(2) + 'px,' + y.toFixed(2) +
+                        'px,0) translate(-50%,-50%)';
+
+  let letzt = performance.now();
+  (function takt(jetzt) {
+    /* Der Faktor gilt fuer 60 Bilder je Sekunde. Ohne diese Umrechnung
+       haengt die Geschwindigkeit an der Bildrate: bei 30 Bildern zieht
+       der Zeiger doppelt so lange nach, bei 120 halb so lange. */
+    const dt = Math.min(64, jetzt - letzt);
+    letzt = jetzt;
+    const s = dt / 16.667;
+    const kp = 1 - Math.pow(1 - K_PUNKT, s);
+    const kr = 1 - Math.pow(1 - K_RING, s);
+
+    p.x = misch(p.x, ziel.x, kp);
+    p.y = misch(p.y, ziel.y, kp);
+    r.x = misch(r.x, ziel.x, kr);
+    r.y = misch(r.y, ziel.y, kr);
+    setze(punkt, p.x, p.y);
+    setze(ring, r.x, r.y);
     requestAnimationFrame(takt);
-  })();
+  })(letzt);
 })();
