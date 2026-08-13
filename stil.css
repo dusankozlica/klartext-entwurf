@@ -229,7 +229,11 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
    Rama animiert per JavaScript; hier als CSS-Animation nachgebaut,
    damit kein Skript pro Bild laufen muss. Bewegt wird nur transform,
    das liegt auf der Grafikkarte. */
-.korn{position:fixed;inset:-200px;z-index:9;pointer-events:none;
+/* Die Flaeche war 200 px ueber jeden Rand hinaus gezogen, obwohl der
+   groesste Sprung 77 px betraegt. Auf einem 1440er Schirm sind das
+   0,6 Millionen Bildpunkte zu viel, die bei jedem Flimmern ueber die
+   ganze Seite gemischt werden. */
+.korn{position:fixed;inset:-90px;z-index:9;pointer-events:none;
   background-image:url(korn-fein.png);background-repeat:repeat;
   opacity:.04;will-change:transform;
   animation:korn-flimmern .833s steps(1,end) infinite}

@@ -72,6 +72,27 @@
     document.body.appendChild(anzeige);
   }
 
+  /* Schalter zum Eingrenzen: ?ohne=korn | film | mac | glas | alles
+     Damit laesst sich einzeln abschalten, was Bilder kosten koennte,
+     ohne dass ich raten muss, welcher Verdaechtige es ist. */
+  (function () {
+    const o = new URLSearchParams(location.search).get('ohne');
+    if (!o) return;
+    const aus = (w) => o === 'alles' || o === w;
+    if (aus('korn')) document.querySelectorAll('.korn').forEach(e => e.remove());
+    if (aus('film')) document.querySelectorAll('video').forEach(v => {
+      v.pause(); v.removeAttribute('src'); v.load(); v.style.display = 'none';
+    });
+    if (aus('mac')) document.querySelectorAll('.mac').forEach(e => e.remove());
+    if (aus('glas')) {
+      const st = document.createElement('style');
+      /* Grosse weiche Schatten und Verlaeufe kosten beim Neuzeichnen. */
+      st.textContent = '*{box-shadow:none!important;filter:none!important}';
+      document.head.appendChild(st);
+    }
+    if (aus('lenis')) { document.documentElement.classList.remove('lenis'); }
+  })();
+
   const misch = (a, b, k) => a + (b - a) * k;
   const setze = (e, x, y) =>
     e.style.transform = 'translate3d(' + x.toFixed(2) + 'px,' + y.toFixed(2) +
