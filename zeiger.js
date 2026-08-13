@@ -32,6 +32,7 @@
 
   addEventListener('mousemove', function (e) {
     ziel.x = e.clientX; ziel.y = e.clientY;
+    letzteBewegung = performance.now();
     if (!sichtbar) {
       sichtbar = true;
       punkt.classList.add('ist');
@@ -63,7 +64,8 @@
   /* Messhilfe: die Seite mit ?takt aufrufen, dann steht oben links,
      wie viele Bilder je Sekunde ankommen und wie weit der Ring
      zurueckliegt. Ohne den Zusatz in der Adresse laeuft nichts davon. */
-  let anzeige = null, bilder = 0, tSek = 0;
+  let anzeige = null;
+  let ruheB = 0, ruheT = 0, bewB = 0, bewT = 0, letzteBewegung = -9999;
   if (location.search.indexOf('takt') > -1) {
     anzeige = document.createElement('div');
     anzeige.style.cssText = 'position:fixed;left:12px;top:12px;z-index:999999;' +
@@ -121,12 +123,16 @@
     setze(ring, r.x, r.y);
 
     if (anzeige) {
-      bilder++; tSek += dt;
-      if (tSek >= 500) {
-        const abstand = Math.round(Math.hypot(ziel.x - r.x, ziel.y - r.y));
-        anzeige.textContent = 'Bilder/s ' + Math.round(bilder * 1000 / tSek) +
-          '  ·  Ring zurueck ' + abstand + ' px';
-        bilder = 0; tSek = 0;
+      /* Getrennt zaehlen: waehrend die Maus laeuft und wenn sie steht.
+         Nur so laesst sich unterscheiden, ob die SEITE langsam ist
+         oder ob der ZEIGER die Bilder kostet. */
+      if (jetzt - letzteBewegung < 250) { bewB++; bewT += dt; }
+      else { ruheB++; ruheT += dt; }
+      if (ruheT + bewT >= 700) {
+        const z1 = ruheT > 120 ? Math.round(ruheB * 1000 / ruheT) : '–';
+        const z2 = bewT  > 120 ? Math.round(bewB  * 1000 / bewT)  : '–';
+        anzeige.textContent = 'ruhig ' + z1 + ' B/s   beim Bewegen ' + z2 + ' B/s';
+        ruheB = 0; ruheT = 0; bewB = 0; bewT = 0;
       }
     }
     requestAnimationFrame(takt);

@@ -232,24 +232,28 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
 /* Die Flaeche war 200 px ueber jeden Rand hinaus gezogen, obwohl der
    groesste Sprung 77 px betraegt. Auf einem 1440er Schirm sind das
    0,6 Millionen Bildpunkte zu viel, die bei jedem Flimmern ueber die
-   ganze Seite gemischt werden. */
-.korn{position:fixed;inset:-90px;z-index:9;pointer-events:none;
+   ganze Seite gemischt werden. Die Verschiebung ist halbiert (max. 77
+   statt 154 px), damit der Ueberstand kleiner sein darf — sichtbar
+   aendert das nichts, weil das Rauschmuster bei jedem Sprung ohnehin
+   voellig anders steht. */
+.korn{position:fixed;inset:-96px;z-index:9;pointer-events:none;
   background-image:url(korn-fein.png);background-repeat:repeat;
   opacity:.04;will-change:transform;
   animation:korn-flimmern .833s steps(1,end) infinite}
 
 @keyframes korn-flimmern{
   0%  {transform:translate3d(0,0,0)}
-  10% {transform:translate3d(-77px,-51px,0)}
-  20% {transform:translate3d(-154px,0,0)}
-  30% {transform:translate3d(-77px,51px,0)}
-  40% {transform:translate3d(0,102px,0)}
-  50% {transform:translate3d(77px,51px,0)}
-  60% {transform:translate3d(154px,0,0)}
-  70% {transform:translate3d(77px,-51px,0)}
-  80% {transform:translate3d(0,-102px,0)}
-  90% {transform:translate3d(-38px,-25px,0)}
+  10% {transform:translate3d(-38px,-25px,0)}
+  20% {transform:translate3d(-77px,0,0)}
+  30% {transform:translate3d(-38px,25px,0)}
+  40% {transform:translate3d(0,51px,0)}
+  50% {transform:translate3d(38px,25px,0)}
+  60% {transform:translate3d(77px,0,0)}
+  70% {transform:translate3d(38px,-25px,0)}
+  80% {transform:translate3d(0,-51px,0)}
+  90% {transform:translate3d(-19px,-12px,0)}
 }
+
 @media (prefers-reduced-motion:reduce){.korn{animation:none}}
 
 .kopfzeile{display:flex;align-items:flex-end;justify-content:space-between;
@@ -1716,7 +1720,11 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
    Faktor 0,2 je Bild, der Ring mit 0,1 — er bleibt also sichtbar
    zurueck und zieht nach. Groessenwechsel in 0,25 s, Ein- und
    Ausblenden in 0,6 s. */
-.zeiger{position:fixed;inset:0;z-index:999998;pointer-events:none}
+/* contain + eigene Ebene: ohne das kann Safari beim Bewegen des
+   Zeigers Bereiche der Seite darunter neu zeichnen — bei einer
+   vollflaechigen festen Ebene ueber allem ist das teuer. */
+.zeiger{position:fixed;inset:0;z-index:999998;pointer-events:none;
+  contain:layout style paint;transform:translateZ(0)}
 /* left/top pro Bild zu setzen zwingt den Browser jedes Mal zu einer
    neuen Layoutberechnung. Chrome faengt das ab, Safari nicht — dort
    lief der Zeiger sichtbar hinterher. Bewegt wird deshalb ueber
