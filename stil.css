@@ -1550,3 +1550,54 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 @media (max-width:520px){
   .handy{--b:min(258px,72vw)}
 }
+
+
+/* ── Ladeschirm ────────────────────────────────────────────────
+   Liegt ueber allem, bis die Seite wirklich steht. Sichtbar wird er
+   nur, wenn <html> die Klasse .laedt traegt — die setzt ein winziges
+   Skript im Kopf. Ohne JavaScript erscheint er also gar nicht und
+   kann nichts blockieren. */
+.lader{display:none}
+.laedt{overflow:hidden}
+.laedt body{overflow:hidden}
+.laedt .lader{position:fixed;inset:0;z-index:200;display:grid;
+  place-items:center;padding:24px;
+  /* Diese Fassung hat keinen Verlauf im Farbsystem — hier einer im
+     gleichen Aufbau wie der tuerkise der Schwesterfassung: von der
+     Tinte ins gesaettigte Violett. */
+  background:linear-gradient(118deg,#0E0D0B 0%,#150F24 22%,#241046 42%,
+    #3A0C8C 64%,#5406D2 84%,#6A00F4 100%);color:var(--creme);
+  transition:opacity .62s var(--kurve)}
+.lader--weg{opacity:0}
+.lader__mitte{display:grid;justify-items:center;
+  transition:transform .62s var(--kurve)}
+.lader--weg .lader__mitte{transform:translateY(-14px)}
+
+.lader__marke{display:inline-flex;align-items:baseline;gap:.1em;
+  font-weight:900;letter-spacing:-.055em;line-height:1;
+  font-size:clamp(40px,8.6vw,124px)}
+/* Derselbe gezeichnete Punkt wie in der Kopfzeile. */
+.lader__marke i{font-style:normal;color:transparent;flex:0 0 auto;
+  width:.3em;height:.3em;border-radius:50%;background:var(--violett-hell);
+  align-self:baseline;overflow:hidden}
+
+.lader__reihe{display:flex;align-items:center;
+  gap:clamp(14px,1.6vw,24px);width:min(520px,74vw);
+  margin-top:clamp(26px,3vw,44px)}
+.lader__balken{flex:1;height:4px;border-radius:99px;
+  background:rgb(247 247 245 / .22);overflow:hidden}
+.lader__fuell{display:block;height:100%;width:0;border-radius:99px;
+  background:var(--creme)}
+/* Die Zahl steht in der Handschrift. min-width haelt den Balken ruhig:
+   ohne sie wandert er bei jedem Stellenwechsel um ein paar Pixel. */
+.lader__zahl{color:var(--violett-hell);font-size:clamp(19px,2.1vw,28px);
+  min-width:4.2ch;text-align:left;line-height:1}
+
+.lader__wort{margin-top:clamp(20px,2.2vw,30px);text-align:center;
+  font-size:clamp(15px,1.15vw,19px);line-height:1.5;max-width:34ch;
+  color:rgb(247 247 245 / .74)}
+
+@media (prefers-reduced-motion:reduce){
+  .laedt .lader{transition-duration:.2s}
+  .lader__mitte{transition:none}
+}

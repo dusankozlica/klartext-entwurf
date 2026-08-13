@@ -8,8 +8,21 @@
 <meta name="description" content="Der einzige Kanal, der euch gehört. Reichweite auf Social Media ist gemietet. Ein Verteiler nicht. Wer eine Liste hat, erreicht seine Leute auch dann, wenn der Algorithmus die Regeln änd">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='9' fill='%236A00F4'/></svg>">
 <link rel="stylesheet" href="../stil.css">
+<script>document.documentElement.className+=" laedt";setTimeout(function(){document.documentElement.classList.remove("laedt")},8000)</script>
 </head>
 <body>
+
+<div class="lader" id="lader" aria-hidden="true">
+  <div class="lader__mitte">
+    <div class="lader__marke">KLARTEXT<i>.</i></div>
+    <div class="lader__reihe">
+      <div class="lader__balken"><span class="lader__fuell"></span></div>
+      <span class="lader__zahl brush">0%</span>
+    </div>
+    <p class="lader__wort"></p>
+  </div>
+</div>
+
 
 <div class="korn" aria-hidden="true"></div>
 
@@ -215,6 +228,7 @@
 <script src="../js/lenis.min.js"></script>
 <script src="../js/gsap.min.js"></script>
 <script src="../js/ScrollTrigger.min.js"></script>
+<script src="../lader.js"></script>
 <script src="../bewegung.js"></script>
 </body>
 </html>

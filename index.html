@@ -8,8 +8,21 @@
 <meta name="description" content="KLARTEXT. ist eine Werbeagentur in Zürich für Branding, Social Media, Websites, Performance Marketing mit Google Ads, Meta, TikTok und LinkedIn sowie E-Mail Marketing. Feste Ansprechperson, monatlich kündbar.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='9' fill='%236A00F4'/></svg>">
 <link rel="stylesheet" href="stil.css">
+<script>document.documentElement.className+=" laedt";setTimeout(function(){document.documentElement.classList.remove("laedt")},8000)</script>
 </head>
 <body>
+
+<div class="lader" id="lader" aria-hidden="true">
+  <div class="lader__mitte">
+    <div class="lader__marke">KLARTEXT<i>.</i></div>
+    <div class="lader__reihe">
+      <div class="lader__balken"><span class="lader__fuell"></span></div>
+      <span class="lader__zahl brush">0%</span>
+    </div>
+    <p class="lader__wort"></p>
+  </div>
+</div>
+
 
 <div class="korn" aria-hidden="true"></div>
 
@@ -712,6 +725,7 @@
 <script src="js/lenis.min.js"></script>
 <script src="js/gsap.min.js"></script>
 <script src="js/ScrollTrigger.min.js"></script>
+<script src="lader.js"></script>
 <script src="bewegung.js"></script>
   <script src="handy.js"></script>
 </body>
