@@ -1842,3 +1842,8 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 /* Querformat-Film als Aufmacher */
 .fall__film{position:relative}
 .reel--quer video{aspect-ratio:16/9}
+
+/* Der Aufmacher steht im Kopfbereich, ueber dem Titel. Dessen
+   Seitenpolster gilt bereits — ein eigenes wuerde sich addieren. */
+.unter .fall__gross{max-width:none;padding:0;
+  margin:clamp(18px,2vw,30px) 0 clamp(28px,3.2vw,52px)}
