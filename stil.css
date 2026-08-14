@@ -1254,7 +1254,8 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 /* Das Grossbild hing frei: oben 110 px zum Titel, unten 4 px zum Text.
    Der Rhythmus der Seite ist 44 px unter dem Titel und var(--sec)
    zwischen den Bloecken — hier stand es ausserhalb dieses Systems. */
-.fall__gross{max-width:1520px;margin-top:0;margin-bottom:var(--sec)}
+.fall__gross{max-width:1520px;margin-top:0;
+  margin-bottom:clamp(44px,4.6vw,84px)}
 .fall__frage{font-size:clamp(21px,1.8vw,29px);letter-spacing:-.03em;margin:0 0 9px}
 .unter__text .fall__frage:not(:first-child){margin-top:1.5em}
 .fall__fakten{background:var(--creme-3);border-radius:var(--r-mittel);
@@ -1767,11 +1768,59 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .reels{max-width:1520px;margin:var(--sec) auto 0;padding:0 var(--pad)}
 .reels__reihe{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
   gap:clamp(12px,1.3vw,22px);margin-top:clamp(26px,3vw,44px)}
+/* Zwei statt vier: dann darf jeder Film groesser stehen. */
+.reels__reihe--zwei{grid-template-columns:repeat(2,minmax(0,1fr));
+  max-width:840px}
 @media (max-width:1000px){ .reels__reihe{grid-template-columns:repeat(2,1fr)} }
-@media (max-width:560px){ .reels__reihe{grid-template-columns:1fr} }
-.reel{margin:0;display:grid;gap:14px}
+@media (max-width:560px){
+  .reels__reihe,.reels__reihe--zwei{grid-template-columns:1fr}
+}
+.reel{position:relative;margin:0;display:grid;gap:14px}
 .reel video{width:100%;aspect-ratio:9/16;object-fit:cover;display:block;
-  border-radius:var(--r-gross);background:var(--creme-2)}
+  border-radius:var(--r-gross);background:var(--creme-2);cursor:pointer}
 .reel figcaption{display:grid;gap:2px}
 .reel figcaption b{font-size:clamp(16px,1.2vw,19px);letter-spacing:-.02em}
 .reel figcaption span{font-size:15px;color:var(--grau)}
+
+/* Tonschalter. Ohne Klick laeuft kein Ton — das schreibt der Browser
+   so vor, und es ist auch richtig so. */
+.reel__ton{position:absolute;top:14px;right:14px;width:42px;height:42px;
+  display:grid;place-items:center;border-radius:50%;
+  background:rgb(14 13 11 / .55);color:#fff;border:0;cursor:pointer;
+  transition:background-color var(--t-knopf) var(--kurve-rein),
+    transform var(--t-knopf) var(--kurve-rein)}
+.reel__ton:hover,.reel__ton:focus-visible{background:rgb(14 13 11 / .8);
+  transform:scale(1.08)}
+.reel__ton svg{width:21px;height:21px;fill:none;stroke:currentColor;
+  stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.reel__horn{fill:currentColor;stroke:none}
+/* Stumm: Kreuz sichtbar, Wellen weg. Mit Ton umgekehrt. */
+.reel__welle{opacity:0}
+.reel__kreuz{opacity:1}
+.reel.tont .reel__welle{opacity:1}
+.reel.tont .reel__kreuz{opacity:0}
+.reel.tont .reel__ton{background:var(--violett);color:var(--tinte)}
+
+/* ── Fallseite: Film im Lesefluss ────────────────────────────── */
+/* Ein Hochformat-Film neben Text wird schnell riesig: 0,62 der Spalte
+   waren 560 px breit und damit fast tausend hoch — hoeher als der
+   Bildschirm. Deshalb feste Obergrenze statt Spaltenanteil. */
+/* Schmaler als die uebrigen Abschnitte: Text und Hochformat-Film
+   zusammen sind rund 900 px breit — auf 1520 gespannt klaffte in der
+   Mitte ein leeres Feld. */
+.mitfilm{max-width:1180px;margin:var(--sec) auto 0;padding:0 var(--pad);
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  gap:clamp(30px,4vw,72px);align-items:center}
+.mitfilm__film{width:clamp(220px,24vw,340px)}
+.mitfilm--links .mitfilm__wort{order:2}
+.mitfilm--links .mitfilm__film{order:1}
+@media (max-width:900px){
+  .mitfilm{grid-template-columns:1fr}
+  .mitfilm--links .mitfilm__wort,.mitfilm--links .mitfilm__film{order:0}
+  .mitfilm__film{max-width:420px}
+}
+.mitfilm__wort h2{font-size:clamp(28px,3.1vw,52px);letter-spacing:-.035em;
+  line-height:1.04;margin:.1em 0 .4em}
+.mitfilm__wort p{font-size:clamp(16px,1.25vw,21px);line-height:1.6;
+  color:var(--grau);max-width:46ch;margin:0 0 .8em}
+.mitfilm__hinweis{font-size:15px !important;color:var(--grau);opacity:.8}
