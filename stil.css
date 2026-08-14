@@ -1856,26 +1856,37 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .lese{position:relative;display:grid;grid-template-rows:1fr auto;
   background:var(--creme-3);border-radius:var(--r-gross);overflow:hidden;
   color:var(--tinte);text-decoration:none;
-  transition:transform var(--t-knopf) var(--kurve),
-             box-shadow var(--t-flaeche) var(--kurve)}
-.lese:hover{transform:translateY(-4px);box-shadow:0 18px 46px rgb(14 13 11 / .11)}
+  /* Flaeche und Form im gleichen Tempo — laufen sie verschieden
+     schnell, faellt der Versatz auf. Gleiche Regel wie bei den
+     Knoepfen, nur mit der Dauer fuer grosse Flaechen. */
+  transition:transform var(--t-flaeche) var(--kurve),
+             box-shadow var(--t-flaeche) var(--kurve),
+             background var(--t-flaeche) var(--kurve),
+             color var(--t-flaeche) var(--kurve)}
+.lese:hover,.lese:focus-visible{transform:translateY(-4px);
+  box-shadow:0 18px 46px rgb(14 13 11 / .13)}
 /* Der Textteil traegt die Hoehe, damit die Bildkanten aller Karten
    auf einer Linie liegen — im Vorbild ist genau das der ruhige Teil. */
 .lese__oben{display:grid;grid-template-rows:auto auto 1fr auto;
   gap:clamp(9px,.9vw,14px);padding:clamp(24px,2.2vw,34px)}
 .lese__meta{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0}
-.lese__zeit{font-family:'Rock Salt',cursive;font-size:14px;color:var(--violett-tief)}
-.lese__datum{font-size:14px;color:var(--grau)}
+/* Handschrift auf weisser Karte: in der violetten Fassung das tiefe
+   Violett der Marke. In der Bernstein-Fassung waere das Gegenstueck
+   ein abgedunkeltes Gold — eine Farbe, die es in der Marke nicht
+   gibt. Dort steht die Zeile deshalb in Tinte. */
+.lese__zeit{font-family:'Rock Salt',cursive;font-size:14px;color:var(--violett-tief);
+  transition:color var(--t-flaeche) var(--kurve)}
+.lese__datum{font-size:14px;color:var(--grau);
+  transition:color var(--t-flaeche) var(--kurve)}
 .lese__titel{font-size:clamp(21px,1.55vw,28px);letter-spacing:-.03em;
   line-height:1.14;font-weight:800;
-  transition:color var(--t-farbe) var(--kurve)}
-.lese:hover .lese__titel{color:var(--violett-tief)}
-.lese--akzent:hover .lese__titel{color:inherit}
+  transition:color var(--t-flaeche) var(--kurve)}
 /* Vier Zeilen Anriss: kuerzer sagt zu wenig, laenger schiebt das Bild
    aus dem Blick. Der Text ist der erste Absatz des Artikels. */
 .lese__anriss{font-size:clamp(15px,1.05vw,17px);line-height:1.5;color:var(--grau);
   margin:0;display:-webkit-box;-webkit-box-orient:vertical;
-  -webkit-line-clamp:4;line-clamp:4;overflow:hidden}
+  -webkit-line-clamp:4;line-clamp:4;overflow:hidden;
+  transition:color var(--t-flaeche) var(--kurve)}
 .lese__wer{display:flex;align-items:center;gap:12px;
   margin-top:clamp(8px,1vw,16px)}
 .lese__wer img{width:44px;height:44px;border-radius:50%;object-fit:cover;
@@ -1883,18 +1894,20 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .lese__wer b{display:block;font-size:15px;font-weight:700;
   letter-spacing:-.01em;line-height:1.3}
 .lese__wer i{display:block;font-style:normal;font-size:14px;
-  color:var(--grau);line-height:1.3}
+  color:var(--grau);line-height:1.3;
+  transition:color var(--t-flaeche) var(--kurve)}
 .lese__bild{height:clamp(150px,13vw,200px);overflow:hidden;background:var(--creme-2)}
 .lese__bild img{width:100%;height:100%;object-fit:cover;display:block;
   transition:transform var(--t-bild) var(--kurve)}
 .lese:hover .lese__bild img{transform:scale(1.06)}
 
-.lese--akzent{background:var(--violett);color:var(--creme)}
-.lese--akzent .lese__zeit{color:var(--violett-zart)}      /* 5.6:1 */
-.lese--akzent .lese__datum,
-.lese--akzent .lese__anriss,
-.lese--akzent .lese__wer i{color:rgb(247 247 245 / .86)}  /* 5.1:1 */
-.lese--akzent .lese__wer img{background:rgb(247 247 245 / .18)}
+.lese:hover,.lese:focus-visible{background:var(--violett);color:var(--creme)}
+.lese:hover .lese__titel,.lese:focus-visible .lese__titel{color:var(--creme)}
+.lese:hover .lese__zeit,.lese:focus-visible .lese__zeit{color:var(--violett-zart)}   /* 5.6:1 */
+.lese:hover .lese__datum,.lese:hover .lese__anriss,.lese:hover .lese__wer i,
+.lese:focus-visible .lese__datum,.lese:focus-visible .lese__anriss,
+.lese:focus-visible .lese__wer i{color:rgb(247 247 245 / .86)}                       /* 5.1:1 */
+.lese:hover .lese__wer img{background:rgb(247 247 245 / .18)}
 
 /* Band auf der Startseite: laeuft nach rechts aus dem Bild.
    Der negative Rand rechnet vom zentrierten Behaelter bis an den
