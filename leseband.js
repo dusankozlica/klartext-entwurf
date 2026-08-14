@@ -47,33 +47,43 @@
      sie da sind. Einmal nachrechnen, wenn die Seite fertig ist. */
   addEventListener('load', zeichne);
 
-  /* ── 2 · Ziehen ── */
+  /* ── 2 · Ziehen ──────────────────────────────────────────────
+     WICHTIG: kein setPointerCapture. Solange ein Element den Zeiger
+     faengt, leitet Chrome auch die alten Maus-Ereignisse dorthin um —
+     der Klick kam damit nie beim Link an, und die Karten fuehrten
+     ins Leere. Wir hoeren stattdessen am Fenster mit und lassen den
+     Klick seinen normalen Weg gehen.
+     Der Griff-Zeiger erscheint erst, wenn wirklich gezogen wird. */
   let zeiger = null, startX = 0, startLinks = 0, weg = 0;
+
+  const bewege = (e) => {
+    if (e.pointerId !== zeiger) return;
+    const d = e.clientX - startX;
+    if (Math.abs(d) > weg) weg = Math.abs(d);
+    if (weg > 6) spur.classList.add('zieht');
+    spur.scrollLeft = startLinks - d;
+  };
+
+  const loslassen = (e) => {
+    if (e.pointerId !== zeiger) return;
+    zeiger = null;
+    spur.classList.remove('zieht');
+    removeEventListener('pointermove', bewege);
+    removeEventListener('pointerup', loslassen);
+    removeEventListener('pointercancel', loslassen);
+  };
 
   spur.addEventListener('pointerdown', (e) => {
     if (e.button !== 0 || e.pointerType === 'touch') return;  // Touch kann der Browser selbst
     zeiger = e.pointerId; startX = e.clientX; startLinks = spur.scrollLeft; weg = 0;
-    spur.setPointerCapture(zeiger);
-    spur.classList.add('zieht');
+    addEventListener('pointermove', bewege);
+    addEventListener('pointerup', loslassen);
+    addEventListener('pointercancel', loslassen);
   });
 
-  spur.addEventListener('pointermove', (e) => {
-    if (e.pointerId !== zeiger) return;
-    const d = e.clientX - startX;
-    if (Math.abs(d) > weg) weg = Math.abs(d);
-    spur.scrollLeft = startLinks - d;
-  });
-
-  const loslassen = (e) => {
-    if (e.pointerId !== zeiger) return;
-    spur.releasePointerCapture(zeiger);
-    zeiger = null;
-    spur.classList.remove('zieht');
-  };
-  spur.addEventListener('pointerup', loslassen);
-  spur.addEventListener('pointercancel', loslassen);
-
-  /* Sechs Pixel Toleranz: darunter war es ein Klick, darueber ein Zug. */
+  /* Sechs Pixel Toleranz: darunter war es ein Klick, darueber ein Zug.
+     Nur dann wird der Klick geschluckt — sonst oeffnet das Loslassen
+     den Artikel unter dem Finger. */
   spur.addEventListener('click', (e) => {
     if (weg > 6) { e.preventDefault(); e.stopPropagation(); }
     weg = 0;
