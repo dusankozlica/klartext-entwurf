@@ -1824,3 +1824,21 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .mitfilm__wort p{font-size:clamp(16px,1.25vw,21px);line-height:1.6;
   color:var(--grau);max-width:46ch;margin:0 0 .8em}
 .mitfilm__hinweis{font-size:15px !important;color:var(--grau);opacity:.8}
+
+
+/* ── Fallseite: Bildstrecke ──────────────────────────────────── */
+.gal{max-width:1520px;margin:var(--sec) auto 0;padding:0 var(--pad)}
+/* Spaltenlayout statt Raster: die Bilder sind unterschiedlich hoch,
+   im Raster entstuenden Luecken oder Beschnitt. So behaelt jedes sein
+   eigenes Format. */
+.gal__raster{columns:3;column-gap:clamp(12px,1.3vw,22px);
+  margin-top:clamp(26px,3vw,44px)}
+@media (max-width:900px){ .gal__raster{columns:2} }
+@media (max-width:520px){ .gal__raster{columns:1} }
+.gal__stueck{margin:0 0 clamp(12px,1.3vw,22px);break-inside:avoid}
+.gal__stueck img{width:100%;height:auto;display:block;
+  border-radius:var(--r-gross);background:var(--creme-2)}
+
+/* Querformat-Film als Aufmacher */
+.fall__film{position:relative}
+.reel--quer video{aspect-ratio:16/9}
