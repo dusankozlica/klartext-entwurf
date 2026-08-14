@@ -7,6 +7,11 @@
 .lader{display:none}
 .laedt{overflow:hidden}.laedt body{overflow:hidden}
 .laedt .lader{--marke:clamp(40px,8.6vw,124px);--zahl:clamp(28px,4.2vw,62px);--lueck:clamp(14px,1.6vw,26px);position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:24px;background:linear-gradient(118deg,#0E0D0B 0%,#150F24 22%,#241046 42%,#3A0C8C 64%,#5406D2 84%,#6A00F4 100%);color:#F7F7F5;font-family:Figtree,system-ui,sans-serif;transition:opacity .62s cubic-bezier(.44,0,.56,1)}
+/* Waehrend des Ladens liegt das Filmkorn ueber dem Schirm statt
+   darunter. Keine zweite Kornebene: die vorhandene wird nur kurz
+   hochgezogen — damit stimmt auch der Bildpfad auf jeder Unterseite,
+   der steckt in stil.css. */
+.laedt .korn{z-index:201}
 .lader--weg{opacity:0}
 .lader__mitte{display:grid;justify-items:center;transition:transform .62s cubic-bezier(.44,0,.56,1)}
 .lader--weg .lader__mitte{transform:translateY(-14px)}
