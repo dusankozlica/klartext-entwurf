@@ -1847,3 +1847,85 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
    Seitenpolster gilt bereits — ein eigenes wuerde sich addieren. */
 .unter .fall__gross{max-width:none;padding:0;
   margin:clamp(18px,2vw,30px) 0 clamp(28px,3.2vw,52px)}
+
+/* ── Blog: Lesekarten ─────────────────────────────────────────
+   Aufbau nach fastforward.design: Meta, Titel, Anriss, Verfasser,
+   Bild buendig am unteren Rand. Uebernommen ist der AUFBAU — Schrift,
+   Farbe, Radien und Dauern bleiben unsere.
+   Eigene Klasse, weil .beitrag auch in Arbeiten und Leistungen steckt. */
+.lese{position:relative;display:grid;grid-template-rows:1fr auto;
+  background:var(--creme-3);border-radius:var(--r-gross);overflow:hidden;
+  color:var(--tinte);text-decoration:none;
+  transition:transform var(--t-knopf) var(--kurve),
+             box-shadow var(--t-flaeche) var(--kurve)}
+.lese:hover{transform:translateY(-4px);box-shadow:0 18px 46px rgb(14 13 11 / .11)}
+/* Der Textteil traegt die Hoehe, damit die Bildkanten aller Karten
+   auf einer Linie liegen — im Vorbild ist genau das der ruhige Teil. */
+.lese__oben{display:grid;grid-template-rows:auto auto 1fr auto;
+  gap:clamp(9px,.9vw,14px);padding:clamp(24px,2.2vw,34px)}
+.lese__meta{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0}
+.lese__zeit{font-family:'Rock Salt',cursive;font-size:14px;color:var(--violett-tief)}
+.lese__datum{font-size:14px;color:var(--grau)}
+.lese__titel{font-size:clamp(21px,1.55vw,28px);letter-spacing:-.03em;
+  line-height:1.14;font-weight:800;
+  transition:color var(--t-farbe) var(--kurve)}
+.lese:hover .lese__titel{color:var(--violett-tief)}
+.lese--akzent:hover .lese__titel{color:inherit}
+/* Vier Zeilen Anriss: kuerzer sagt zu wenig, laenger schiebt das Bild
+   aus dem Blick. Der Text ist der erste Absatz des Artikels. */
+.lese__anriss{font-size:clamp(15px,1.05vw,17px);line-height:1.5;color:var(--grau);
+  margin:0;display:-webkit-box;-webkit-box-orient:vertical;
+  -webkit-line-clamp:4;line-clamp:4;overflow:hidden}
+.lese__wer{display:flex;align-items:center;gap:12px;
+  margin-top:clamp(8px,1vw,16px)}
+.lese__wer img{width:44px;height:44px;border-radius:50%;object-fit:cover;
+  flex:0 0 auto;background:var(--creme-2)}
+.lese__wer b{display:block;font-size:15px;font-weight:700;
+  letter-spacing:-.01em;line-height:1.3}
+.lese__wer i{display:block;font-style:normal;font-size:14px;
+  color:var(--grau);line-height:1.3}
+.lese__bild{height:clamp(150px,13vw,200px);overflow:hidden;background:var(--creme-2)}
+.lese__bild img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform var(--t-bild) var(--kurve)}
+.lese:hover .lese__bild img{transform:scale(1.06)}
+
+.lese--akzent{background:var(--violett);color:var(--creme)}
+.lese--akzent .lese__zeit{color:var(--violett-zart)}      /* 5.6:1 */
+.lese--akzent .lese__datum,
+.lese--akzent .lese__anriss,
+.lese--akzent .lese__wer i{color:rgb(247 247 245 / .86)}  /* 5.1:1 */
+.lese--akzent .lese__wer img{background:rgb(247 247 245 / .18)}
+
+/* Band auf der Startseite: laeuft nach rechts aus dem Bild.
+   Der negative Rand rechnet vom zentrierten Behaelter bis an den
+   Fensterrand — main hat overflow:clip, es entsteht kein Seiten-
+   Scroll. */
+.leseband{position:relative;max-width:1520px;margin-inline:auto}
+.leseband__spur{display:flex;gap:clamp(14px,1.4vw,24px);
+  overflow-x:auto;overscroll-behavior-x:contain;
+  scroll-snap-type:x proximity;
+  /* Waagerechter Ueberlauf beschneidet auch OBEN und UNTEN. Ohne
+     Luft blieben der Schlagschatten beim Schweben und der Fokus-
+     rahmen an der Kante haengen. Das Polster schafft den Platz, der
+     negative Rand nimmt ihn optisch wieder zurueck. */
+  padding:8px var(--pad) 38px 0;
+  margin:-8px calc(50% - 50vw) -38px 0;
+  scrollbar-width:none;-ms-overflow-style:none;cursor:grab}
+.leseband__spur::-webkit-scrollbar{display:none}
+.leseband__spur.zieht{cursor:grabbing;scroll-snap-type:none}
+.leseband__spur > .lese{flex:0 0 clamp(268px,23.5vw,378px);
+  scroll-snap-align:start}
+/* Waehrend gezogen wird, soll die Karte nicht auch noch anheben */
+.leseband__spur.zieht .lese{transform:none;box-shadow:none}
+.leseband__leiste{height:3px;border-radius:var(--r-pille);
+  background:var(--linie);margin-top:clamp(22px,2.2vw,34px);
+  overflow:hidden}
+.leseband__lauf{display:block;height:100%;border-radius:var(--r-pille);
+  background:var(--violett);width:var(--breit,30%);
+  transform:translateX(var(--weg,0px))}
+
+/* Uebersichtsseite: dieselbe Karte im Gitter */
+.lesegitter{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(16px,1.6vw,26px)}
+@media (max-width:1040px){ .lesegitter{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:640px){ .lesegitter{grid-template-columns:1fr} }
