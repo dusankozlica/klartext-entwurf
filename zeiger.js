@@ -55,10 +55,128 @@
      Effekt (Ausklappmenue, Rechner, Filme). */
   const KLICKBAR = 'a,button,input,textarea,select,summary,[role="button"],' +
                    '.knopf,.kreis,.lamelle,.mlink,.fr__kopf,.ig__folgen';
+
+  /* ── Farbe: sichtbar auf jedem Grund ──────────────────────────
+     Eine feste Zeigerfarbe kann es nicht geben. Gemessen: das helle
+     Bernstein verschwindet auf Creme (1.45:1), auf weissen Karten
+     (1.56:1) und auf der gefaerbten Karte (1.31:1). Deshalb schaut
+     der Zeiger nach, worauf er gerade liegt, und nimmt von drei
+     Kandidaten den, der dort zu sehen ist. */
+  const probe = document.createElement('span');
+  probe.style.cssText = 'position:absolute;left:-9999px;top:0';
+  document.body.appendChild(probe);
+  const aufloesen = (v) => { probe.style.color = ''; probe.style.color = v;
+    return getComputedStyle(probe).color; };
+
+  const kanal = (c) => { c /= 255; return c <= .04045 ? c / 12.92
+    : Math.pow((c + .055) / 1.055, 2.4); };
+  const leuchten = (r, g, b) => .2126 * kanal(r) + .7152 * kanal(g) + .0722 * kanal(b);
+  const ausText = (t) => {
+    const m = String(t).match(/rgba?\(([^)]+)\)/);
+    if (!m) return null;
+    const z = m[1].split(/[,\s\/]+/).filter(Boolean).map(Number);
+    if (z.length >= 4 && z[3] < .5) return null;
+    return leuchten(z[0], z[1], z[2]);
+  };
+  const gegen = (a, b) => (Math.max(a, b) + .05) / (Math.min(a, b) + .05);
+
+  const wz = getComputedStyle(wurzel);
+  const KANDIDATEN = ['--zeiger-marke', '--zeiger-hell', '--zeiger-dunkel']
+    .map((n) => {
+      const roh = aufloesen(wz.getPropertyValue(n).trim() || 'currentColor');
+      return { wert: roh, hell: ausText(roh) };
+    })
+    .filter((k) => k.hell !== null);
+
+  /* Bilder und Filme tragen keine Hintergrundfarbe. Einmal je Element
+     ein 16x16-Abzug, daraus die mittlere Helligkeit — das reicht, um
+     hell von dunkel zu unterscheiden, und kostet nur beim ersten Mal. */
+  const gemerkt = new WeakMap();
+  const medienHelligkeit = (el) => {
+    if (gemerkt.has(el)) return gemerkt.get(el);
+    if (el.tagName === 'IMG' && (!el.complete || !el.naturalWidth)) return null;
+    if (el.tagName === 'VIDEO' && el.readyState < 2) return null;
+    let L = null;
+    try {
+      const c = document.createElement('canvas');
+      c.width = 16; c.height = 16;
+      const g = c.getContext('2d', { willReadFrequently: true });
+      g.drawImage(el, 0, 0, 16, 16);
+      const d = g.getImageData(0, 0, 16, 16).data;
+      let sum = 0;
+      for (let i = 0; i < d.length; i += 4) sum += leuchten(d[i], d[i + 1], d[i + 2]);
+      L = sum / (d.length / 4);
+    } catch (x) { L = null; }
+    gemerkt.set(el, L);
+    return L;
+  };
+
+  /* Verlaeufe haben keine einzelne Farbe — die Mitte der Stopps ist
+     nah genug, um hell und dunkel auseinanderzuhalten. */
+  const verlaufHelligkeit = (bild) => {
+    const treffer = bild.match(/rgba?\([^)]+\)/g);
+    if (!treffer) return null;
+    const werte = treffer.map(ausText).filter((x) => x !== null);
+    if (!werte.length) return null;
+    return werte.reduce((a, b) => a + b, 0) / werte.length;
+  };
+
+  const grundHelligkeit = (el) => {
+    let e = el;
+    while (e && e.nodeType === 1) {
+      if (e.tagName === 'IMG' || e.tagName === 'VIDEO') {
+        const L = medienHelligkeit(e);
+        if (L !== null) return L;
+      }
+      const st = getComputedStyle(e);
+      if (st.backgroundImage && st.backgroundImage.indexOf('gradient') > -1) {
+        const L = verlaufHelligkeit(st.backgroundImage);
+        if (L !== null) return L;
+      }
+      const L = ausText(st.backgroundColor);
+      if (L !== null) return L;
+      e = e.parentElement;
+    }
+    return leuchten(247, 247, 245);
+  };
+
+  let letzteFarbe = '';
+  const faerbe = (el) => {
+    if (!el || !KANDIDATEN.length) return;
+    const grund = grundHelligkeit(el);
+    let beste = KANDIDATEN[0], bester = gegen(KANDIDATEN[0].hell, grund);
+    if (bester < 3) {
+      for (let i = 1; i < KANDIDATEN.length; i++) {
+        const k = gegen(KANDIDATEN[i].hell, grund);
+        if (k > bester) { bester = k; beste = KANDIDATEN[i]; }
+      }
+    }
+    if (beste.wert !== letzteFarbe) {
+      letzteFarbe = beste.wert;
+      wurzel.style.setProperty('--zeiger-farbe', beste.wert);
+    }
+  };
+
+  /* Zweimal nachsehen: sofort, und noch einmal, wenn die Fuellung
+     einer Karte durchgelaufen ist — sonst bliebe die Farbe von vorher
+     stehen, waehrend der Grund schon gewechselt hat. */
+  let letzteMessung = 0;
+  const nachsehen = (el) => { faerbe(el); setTimeout(() => faerbe(el), 380); };
+
   addEventListener('mouseover', function (e) {
     const t = e.target;
     if (t && t.closest && t.closest(KLICKBAR)) ring.classList.add('zeigt');
     else ring.classList.remove('zeigt');
+    nachsehen(t);
+  }, { passive: true });
+
+  /* Waehrend der Zeiger laeuft, hoechstens alle 120 ms nachrechnen —
+     das reicht fuers Auge und belastet kein Bild. */
+  addEventListener('mousemove', function (e) {
+    const jetzt = performance.now();
+    if (jetzt - letzteMessung < 120) return;
+    letzteMessung = jetzt;
+    faerbe(e.target);
   }, { passive: true });
 
   /* Messhilfe: die Seite mit ?takt aufrufen, dann steht oben links,
