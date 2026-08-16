@@ -1757,17 +1757,15 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .zeiger{--zeiger-marke:var(--violett-hell);
   --zeiger-hell:var(--creme);
   --zeiger-dunkel:var(--violett-tief)}
-/* Haarlinie in beide Richtungen: aussen dunkel, darum hell. Damit
-   traegt die Markenfarbe auch dort, wo sie fuer sich genommen zu
-   wenig Kontrast haette — auf Creme kommt Bernstein nur auf 2.04:1.
-   Kein Weichzeichner, nur Spreizung: das kostet beim Zeichnen nichts. */
+/* Reine Markenfarbe, kein zweiter Rand. Ein dunkler Aussenrand haette
+   den Kontrast auf hellem Grund gestuetzt, brachte aber eine Farbe in
+   den Zeiger, die es in der Marke nicht gibt. Die Sichtbarkeit traegt
+   stattdessen die Farbwahl in zeiger.js. */
 .zeiger__punkt{width:8px;height:8px;
   background:var(--zeiger-farbe,var(--zeiger-marke));
-  box-shadow:0 0 0 1px rgb(14 13 11 / .55),0 0 0 2px rgb(247 247 245 / .38);
   transition:opacity .6s,background-color .18s linear}
 .zeiger__ring{width:28px;height:28px;
   border:1px solid var(--zeiger-farbe,var(--zeiger-marke));
-  box-shadow:0 0 0 1px rgb(14 13 11 / .42),inset 0 0 0 1px rgb(247 247 245 / .34);
   transition:opacity .6s,width .25s,height .25s,border-color .18s linear}
 .zeiger__punkt.ist,.zeiger__ring.ist{opacity:1}
 /* Ueber allem, was anklickbar ist, waechst der Ring. */
