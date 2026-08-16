@@ -111,17 +111,71 @@
     return L;
   };
 
-  /* Verlaeufe haben keine einzelne Farbe — die Mitte der Stopps ist
-     nah genug, um hell und dunkel auseinanderzuhalten. */
-  const verlaufHelligkeit = (bild) => {
-    const treffer = bild.match(/rgba?\([^)]+\)/g);
-    if (!treffer) return null;
-    const werte = treffer.map(ausText).filter((x) => x !== null);
-    if (!werte.length) return null;
-    return werte.reduce((a, b) => a + b, 0) / werte.length;
+  /* Verlaeufe an der STELLE des Zeigers auswerten, nicht mitteln.
+     Der Lader laeuft von fast schwarz bis hell — der Mittelwert sagt
+     "mittelhell" und waere an beiden Enden falsch. Der Punkt wird auf
+     die Verlaufsachse projiziert, dann zwischen den beiden
+     umliegenden Stopps gemischt. */
+  const RICHTUNGEN = { 'to top': 0, 'to right': 90, 'to bottom': 180,
+    'to left': 270, 'to top right': 45, 'to right top': 45,
+    'to bottom right': 135, 'to right bottom': 135,
+    'to bottom left': 225, 'to left bottom': 225,
+    'to top left': 315, 'to left top': 315 };
+
+  const stoppsLesen = (bild) => {
+    const teile = bild.match(/rgba?\([^)]+\)(\s+[\d.]+%)?/g);
+    if (!teile || teile.length < 2) return null;
+    const stopps = teile.map((t) => {
+      const farbe = ausText(t);
+      const pos = t.match(/([\d.]+)%/);
+      return { L: farbe, p: pos ? parseFloat(pos[1]) / 100 : null };
+    });
+    if (stopps.some((x) => x.L === null)) return null;
+    /* Stopps ohne Angabe gleichmaessig verteilen */
+    if (stopps[0].p === null) stopps[0].p = 0;
+    if (stopps[stopps.length - 1].p === null) stopps[stopps.length - 1].p = 1;
+    for (let i = 1; i < stopps.length - 1; i++)
+      if (stopps[i].p === null) stopps[i].p = i / (stopps.length - 1);
+    return stopps;
   };
 
-  const grundHelligkeit = (el) => {
+  const verlaufHelligkeit = (bild, kasten, x, y) => {
+    const stopps = stoppsLesen(bild);
+    if (!stopps) return null;
+    const mittel = () => stopps.reduce((a, b) => a + b.L, 0) / stopps.length;
+    if (!kasten || bild.indexOf('linear-gradient') < 0) return mittel();
+
+    let grad = null;
+    const wGrad = bild.match(/linear-gradient\(\s*(-?[\d.]+)deg/);
+    if (wGrad) grad = parseFloat(wGrad[1]);
+    else {
+      const wWort = bild.match(/linear-gradient\(\s*(to [a-z ]+?)\s*,/);
+      grad = wWort ? RICHTUNGEN[wWort[1].trim()] : 180;   /* Vorgabe: nach unten */
+    }
+    if (grad === null || grad === undefined) return mittel();
+
+    const bog = grad * Math.PI / 180;
+    const sx = Math.sin(bog), cy = Math.cos(bog);
+    const laenge = Math.abs(kasten.width * sx) + Math.abs(kasten.height * cy);
+    if (!laenge) return mittel();
+    const mx = kasten.left + kasten.width / 2, my = kasten.top + kasten.height / 2;
+    /* Bildschirmachse zeigt nach unten, die Verlaufsachse nach oben */
+    const weg = (x - mx) * sx + (y - my) * -cy;
+    let t = .5 + weg / laenge;
+    t = t < 0 ? 0 : t > 1 ? 1 : t;
+
+    for (let i = 1; i < stopps.length; i++) {
+      if (t <= stopps[i].p) {
+        const a = stopps[i - 1], b = stopps[i];
+        const spanne = b.p - a.p;
+        const k = spanne > 0 ? (t - a.p) / spanne : 0;
+        return a.L + (b.L - a.L) * k;
+      }
+    }
+    return stopps[stopps.length - 1].L;
+  };
+
+  const grundHelligkeit = (el, x, y) => {
     let e = el;
     while (e && e.nodeType === 1) {
       if (e.tagName === 'IMG' || e.tagName === 'VIDEO') {
@@ -130,7 +184,7 @@
       }
       const st = getComputedStyle(e);
       if (st.backgroundImage && st.backgroundImage.indexOf('gradient') > -1) {
-        const L = verlaufHelligkeit(st.backgroundImage);
+        const L = verlaufHelligkeit(st.backgroundImage, e.getBoundingClientRect(), x, y);
         if (L !== null) return L;
       }
       const L = ausText(st.backgroundColor);
@@ -141,11 +195,18 @@
   };
 
   let letzteFarbe = '';
-  const faerbe = (el) => {
+  /* Die Schwelle liegt bewusst tief. Reiner Helligkeitskontrast misst
+     den Farbunterschied nicht mit: Bernstein auf hellem Teal kommt auf
+     1.20:1, ist aber als warmer Punkt auf kaltem Grund klar zu sehen —
+     dazu die Haarlinie, die auf jedem Grund eine Kante zieht. Gewichen
+     wird nur, wo der Grund praktisch dieselbe Farbe hat wie der Zeiger
+     (Bernstein auf Bernstein: 1.0). Sonst bleibt die Markenfarbe. */
+  const SCHWELLE = 1.15;
+  const faerbe = (el, x, y) => {
     if (!el || !KANDIDATEN.length) return;
-    const grund = grundHelligkeit(el);
+    const grund = grundHelligkeit(el, x, y);
     let beste = KANDIDATEN[0], bester = gegen(KANDIDATEN[0].hell, grund);
-    if (bester < 3) {
+    if (bester < SCHWELLE) {
       for (let i = 1; i < KANDIDATEN.length; i++) {
         const k = gegen(KANDIDATEN[i].hell, grund);
         if (k > bester) { bester = k; beste = KANDIDATEN[i]; }
@@ -161,13 +222,14 @@
      einer Karte durchgelaufen ist — sonst bliebe die Farbe von vorher
      stehen, waehrend der Grund schon gewechselt hat. */
   let letzteMessung = 0;
-  const nachsehen = (el) => { faerbe(el); setTimeout(() => faerbe(el), 380); };
+  const nachsehen = (el, x, y) => { faerbe(el, x, y);
+    setTimeout(() => faerbe(el, x, y), 380); };
 
   addEventListener('mouseover', function (e) {
     const t = e.target;
     if (t && t.closest && t.closest(KLICKBAR)) ring.classList.add('zeigt');
     else ring.classList.remove('zeigt');
-    nachsehen(t);
+    nachsehen(t, e.clientX, e.clientY);
   }, { passive: true });
 
   /* Waehrend der Zeiger laeuft, hoechstens alle 120 ms nachrechnen —
@@ -176,7 +238,7 @@
     const jetzt = performance.now();
     if (jetzt - letzteMessung < 120) return;
     letzteMessung = jetzt;
-    faerbe(e.target);
+    faerbe(e.target, e.clientX, e.clientY);
   }, { passive: true });
 
   /* Messhilfe: die Seite mit ?takt aufrufen, dann steht oben links,
