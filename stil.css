@@ -68,7 +68,7 @@
      rechnen sich daraus, damit Rand und Inhalt nie auseinanderlaufen.
      Der Rand waechst fliessend mit dem Fenster: auf dem Handy 24 px,
      am grossen Schirm 72 px — vorher sprang er in Stufen. */
-  --maxw:1380px;
+  --maxw:1240px;
   --pad:clamp(24px,4.4vw,72px);
   --sec:clamp(90px,9vw,170px);
 }
