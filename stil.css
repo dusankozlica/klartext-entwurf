@@ -918,7 +918,10 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
    passte auf keinen Bildschirm; nebeneinander nutzt er die Breite,
    die ohnehin da ist, und der Kalender darf gross sein. */
 .ruf{padding:var(--sec) var(--pad)}
-.ruf__karte{max-width:var(--maxw);margin:0 auto;background:var(--violett);color:#fff;
+/* Bewusst schmaler als die Sektionen: bei voller Breite ziehen
+   sich Kalender und Felder so weit auseinander, dass man die
+   vier Angaben nicht mehr auf einen Blick hat. */
+.ruf__karte{max-width:1240px;margin:0 auto;background:var(--violett);color:#fff;
   border-radius:var(--r-seite);padding:clamp(14px,1.3vw,20px)}
 .ruf__karte .brush{color:var(--violett-zart)}
 .ruf__kopf{display:flex;align-items:flex-end;justify-content:space-between;
