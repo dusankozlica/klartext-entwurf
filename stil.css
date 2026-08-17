@@ -1121,16 +1121,16 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .fuss__sozial a:hover{background:var(--creme);color:var(--tinte);transform:var(--kipp)}
 
 /* Wortmarke als Grafik — unten angeschnitten, füllt die Breite */
-/* Stand vorher als Umriss da und lief beim Schweben zu. Eine fertige
-   Datei traegt keinen Umriss — der Weckeffekt bleibt als Aufhellen von
-   22 auf 100 Prozent, gleiche Dauer wie vorher. */
+/* Bleibt dauerhaft zurueckgenommen. Vorher lief sie beim Schweben auf
+   volle Deckkraft — Ausloeser war die ganze Fusszeile, es reichte also
+   die Maus irgendwo im unteren Seitendrittel. Sie ist dort Grundton,
+   nicht Hauptdarsteller. */
 .fuss__wortmarke{max-width:var(--maxw);margin:clamp(30px,3vw,54px) auto 0;
-  padding:0 var(--pad);line-height:0;
-  opacity:.22;transition:opacity var(--t-bild) var(--kurve)}
+  padding:0 var(--pad);line-height:0;opacity:.14}
 .fuss__wortmarke img{width:100%;height:auto;display:block}
 /* Hier gefuellt statt umrissen: zwischen lauter Konturen ist die volle
    Flaeche der einzige Punkt, an dem das Auge haengen bleibt. */
-.fuss:hover .fuss__wortmarke{opacity:1}
+
 
 .fuss__recht{max-width:var(--maxw);margin:clamp(50px,5vw,90px) auto 0;padding:26px 0 0;
   border-top:1px solid var(--linie-hell);
