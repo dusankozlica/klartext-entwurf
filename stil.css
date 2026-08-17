@@ -272,14 +272,11 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
   display:flex;align-items:center;justify-content:space-between;gap:24px;
   padding:10px 10px 10px 30px;color:var(--creme);
   box-shadow:0 12px 40px rgb(14 13 11 / .16)}
-.nav__mark{font-weight:800;font-size:23px;letter-spacing:-.045em;
-  display:inline-flex;align-items:baseline;gap:.1em}
-/* Der Punkt ist Markenzeichen, nicht Satzzeichen: als Kreis gezeichnet,
-   damit die Groesse frei steuerbar ist. Das Zeichen im HTML bleibt
-   stehen (Vorlesegeraete, Auswahl), wird aber unsichtbar gestellt. */
-.nav__mark i{font-style:normal;color:transparent;flex:0 0 auto;
-  width:.32em;height:.32em;border-radius:50%;background:var(--violett-hell);
-  align-self:baseline;overflow:hidden}
+/* Die Wortmarke ist jetzt eine Datei, keine gesetzte Schrift mehr.
+   Hoehe statt Schriftgrad steuern — das Seitenverhaeltnis steckt im
+   SVG und bleibt dabei unangetastet. */
+.nav__mark{display:inline-flex;align-items:center;line-height:0}
+.nav__mark img{height:26px;width:auto;display:block}
 .nav__wege{display:flex;gap:6px;font-size:17px;font-weight:500}
 
 /* ── Menü-Hover: Pille poppt auf, Wort kippt durch ──────────────
@@ -1119,19 +1116,16 @@ body.langtakt .preis__neu{font-size:1em;opacity:1}
 .fuss__sozial a:hover{background:var(--creme);color:var(--tinte);transform:var(--kipp)}
 
 /* Wortmarke als Grafik — unten angeschnitten, füllt die Breite */
-.fuss__wortmarke{max-width:var(--maxw);margin:clamp(30px,3vw,54px) auto -.2em;
-  font-size:clamp(90px,17.4vw,268px);font-weight:900;letter-spacing:-.055em;
-  line-height:.8;text-align:center;white-space:nowrap;
-  display:flex;align-items:baseline;justify-content:center;gap:.03em;
-  color:transparent;-webkit-text-stroke:2px rgb(247 247 245 / .22);
-  transition:color var(--t-bild) var(--kurve),
-    -webkit-text-stroke-color var(--t-bild) var(--kurve)}
+/* Stand vorher als Umriss da und lief beim Schweben zu. Eine fertige
+   Datei traegt keinen Umriss — der Weckeffekt bleibt als Aufhellen von
+   22 auf 100 Prozent, gleiche Dauer wie vorher. */
+.fuss__wortmarke{max-width:var(--maxw);margin:clamp(30px,3vw,54px) auto 0;
+  padding:0 var(--pad);line-height:0;
+  opacity:.22;transition:opacity var(--t-bild) var(--kurve)}
+.fuss__wortmarke img{width:100%;height:auto;display:block}
 /* Hier gefuellt statt umrissen: zwischen lauter Konturen ist die volle
    Flaeche der einzige Punkt, an dem das Auge haengen bleibt. */
-.fuss__wortmarke i{font-style:normal;flex:0 0 auto;-webkit-text-stroke:0;
-  width:.28em;height:.28em;border-radius:50%;background:var(--violett-hell);
-  align-self:baseline;overflow:hidden}
-.fuss:hover .fuss__wortmarke{-webkit-text-stroke-color:rgb(247 247 245 / .4)}
+.fuss:hover .fuss__wortmarke{opacity:1}
 
 .fuss__recht{max-width:var(--maxw);margin:clamp(50px,5vw,90px) auto 0;padding:26px 0 0;
   border-top:1px solid var(--linie-hell);

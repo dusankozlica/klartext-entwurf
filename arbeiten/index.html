@@ -15,8 +15,8 @@
 .lader--weg{opacity:0}
 .lader__mitte{display:grid;justify-items:center;transition:transform .62s cubic-bezier(.44,0,.56,1)}
 .lader--weg .lader__mitte{transform:translateY(-14px)}
-.lader__marke{display:inline-flex;align-items:baseline;gap:.1em;font-weight:900;letter-spacing:-.055em;line-height:1;font-size:var(--marke)}
-.lader__marke i{font-style:normal;color:transparent;flex:0 0 auto;width:.3em;height:.3em;border-radius:50%;background:#A57BFF;align-self:baseline;overflow:hidden}
+.lader__marke{display:block;line-height:0}.lader__marke img{width:calc(var(--marke)*5.175);max-width:calc(100vw - 48px);height:auto;display:block}
+
 .lader__reihe{display:flex;align-items:center;gap:var(--lueck);width:min(calc(var(--marke)*10.35 + 2*(var(--lueck) + var(--zahl)*3.5)),calc(100vw - 48px));margin-top:clamp(30px,3.4vw,52px)}
 .lader__balken{flex:1;height:clamp(6px,.55vw,10px);border-radius:99px;background:rgb(247 247 245/.22);overflow:hidden}
 .lader__fuell{display:block;height:100%;width:0;border-radius:99px;background:#F7F7F5}
@@ -33,12 +33,17 @@
 <link rel="stylesheet" href="../stil.css">
 <script>document.documentElement.className+=" laedt";setTimeout(function(){document.documentElement.classList.remove("laedt")},8000);
 (function(){var b=new URLSearchParams(location.search).get("breite");if(b)document.documentElement.style.setProperty("--maxw",parseInt(b,10)+"px")})()</script>
+
+<link rel="icon" href="../marke/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../marke/favicon-32.png" sizes="32x32">
+<link rel="icon" href="../marke/favicon-dunkel-32.png" sizes="32x32" media="(prefers-color-scheme:dark)">
+<link rel="apple-touch-icon" href="../marke/favicon-180.png">
 </head>
 <body>
 
 <div class="lader" id="lader" aria-hidden="true">
   <div class="lader__mitte">
-    <div class="lader__marke">KLARTEXT<i>.</i></div>
+    <div class="lader__marke"><img src="../marke/wortmarke-negativ.svg" alt="KLARTEXT" width="7877" height="1714"></div>
     <div class="lader__reihe">
       <span class="lader__zahl lader__zahl--geist" aria-hidden="true">0%</span>
       <div class="lader__balken"><span class="lader__fuell"></span></div>
@@ -53,7 +58,7 @@
 
 <header class="nav">
   <div class="nav__pille">
-    <a class="nav__mark" href="../index.html">KLARTEXT<i>.</i></a>
+    <a class="nav__mark" href="../index.html" aria-label="KLARTEXT — zur Startseite"><img src="../marke/wortmarke.svg" alt="KLARTEXT" width="7877" height="1714"></a>
     <nav class="nav__wege" aria-label="Hauptnavigation">
       <a class="mlink" href="../arbeiten/index.html"><span class="mlink__bg" aria-hidden="true"></span><span class="mlink__t">Arbeiten</span><span class="mlink__t mlink__t--neu" aria-hidden="true">Arbeiten</span></a>
       <span class="ndd">
@@ -218,7 +223,7 @@
   </div>
 
   <!-- Riesige Wortmarke als Grafik, unten angeschnitten -->
-  <div class="fuss__wortmarke" aria-hidden="true">KLARTEXT<i>.</i></div>
+  <div class="fuss__wortmarke" aria-hidden="true"><img src="../marke/wortmarke-negativ.svg" alt="" width="7877" height="1714"></div>
 </footer>
 
 <div class="demo">Entwurf · Texte, Namen und Zahlen sind Platzhalter</div>
