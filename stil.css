@@ -275,8 +275,12 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
 /* Die Wortmarke ist jetzt eine Datei, keine gesetzte Schrift mehr.
    Hoehe statt Schriftgrad steuern — das Seitenverhaeltnis steckt im
    SVG und bleibt dabei unangetastet. */
-.nav__mark{display:inline-flex;align-items:center;line-height:0}
-.nav__mark img{height:26px;width:auto;display:block}
+.nav__mark{display:inline-flex;align-items:center;line-height:0;
+  flex:0 0 auto}   /* nie stauchen: ein verzerrtes Logo faellt auf */
+/* 44 statt 26: die Pille ist innen 56 hoch, die Hoehe gibt der
+   Knopf vor. Das Logo hat also Luft und darf sie nehmen. */
+.nav__mark img{height:clamp(28px,3.4vw,44px);width:auto;
+  flex:0 0 auto;display:block}
 .nav__wege{display:flex;gap:6px;font-size:17px;font-weight:500}
 
 /* ── Menü-Hover: Pille poppt auf, Wort kippt durch ──────────────
