@@ -61,6 +61,9 @@
   --r-mittel:24px;
   --r-klein:16px;
   --r-pille:999px;
+  /* Menueleiste: abgerundetes Rechteck statt Kapsel. Unter der
+     halben Leistenhoehe (38), sonst wird daraus wieder eine Kapsel. */
+  --r-leiste:26px;
   --r-seite:56px;
 
   /* ── Raum ──────────────────────────────────────────────────
@@ -268,7 +271,7 @@ a:hover .rolle > span,button:hover .rolle > span{transform:translateY(-100%)}
 .nav{position:fixed;top:14px;left:0;right:0;z-index:40;padding:0 var(--pad);
   display:flex;justify-content:center;pointer-events:none}
 .nav__pille{pointer-events:auto;width:100%;max-width:var(--maxw);
-  background:var(--tinte);border-radius:var(--r-pille);
+  background:var(--tinte);border-radius:var(--r-leiste);
   display:flex;align-items:center;justify-content:space-between;gap:24px;
   padding:10px 10px 10px 30px;color:var(--creme);
   box-shadow:0 12px 40px rgb(14 13 11 / .16)}
