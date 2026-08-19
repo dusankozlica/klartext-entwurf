@@ -372,7 +372,11 @@ function zeileHalten(el, dauerMs) {
          Das Zusammenziehen haelt 40 px davor an, sonst klebte der Text
          am Ende an der runden Kante. Mindestens 24 px, damit auf
          schmalen Bildschirmen ueberhaupt etwas zu sehen ist. */
-      const einzug = Math.max(24, Math.max(rand, (breite - 1520) / 2) - 40);
+      /* Die Inhaltsbreite NICHT abtippen — sonst laeuft sie beim
+         naechsten Anpassen wieder auseinander. */
+      const maxw = parseFloat(getComputedStyle(document.documentElement)
+        .getPropertyValue('--maxw')) || 1520;
+      const einzug = Math.max(24, Math.max(rand, (breite - maxw) / 2) - 40);
       block.style.clipPath = 'inset(0 ' + (einzug * stand.t).toFixed(1) +
         'px round ' + ecke + 'px)';
     };
